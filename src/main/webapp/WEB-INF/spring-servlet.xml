@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context" 
+	xmlns:aop="http://www.springframework.org/schema/aop" 
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+        
+	<context:component-scan base-package="com.baozun.scm.shopdog.**.controller"  name-generator="com.baozun.scm.shopdog.util.spring.ControllerAnnotationBeanNameGenerator"/>
+	<bean name="objectMapperBulid" class="com.baozun.scm.shopdog.util.json.JacksonBuilder" factory-method="build"></bean>
+	<mvc:annotation-driven>
+		<mvc:argument-resolvers>
+			<bean class="com.baozun.scm.shopdog.bind.ArrayCommandMethodArgumentResolver"></bean>
+			<bean class="com.baozun.scm.shopdog.bind.QueryBeanModelMethodProcessor"></bean>
+		</mvc:argument-resolvers>
+		<mvc:message-converters register-defaults="true">
+			<bean class="org.springframework.http.converter.ByteArrayHttpMessageConverter"/>
+			<bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+				<constructor-arg ref="objectMapperBulid"></constructor-arg>
+			</bean>
+		</mvc:message-converters>
+	</mvc:annotation-driven>
+	
+	<mvc:resources mapping="/css/**" location="/css/" />
+	<mvc:resources mapping="/images/**" location="/images/" />
+	<mvc:resources mapping="/libs/**" location="/libs/" />
+	<mvc:resources mapping="/static/**" location="/static/" />
+	<mvc:resources mapping="/scripts/**" location="/scripts/" />
+	<mvc:resources mapping="/favicon.ico" location="/favicon.ico" />
+	
+    <mvc:interceptors>
+        <bean id="localeChangeInterceptor" class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+            <property name="paramName" value="siteLanguage"/>
+        </bean>
+        <bean id="springInterceptor" class="com.baozun.scm.shopdog.interceptor.SpringInterceptor"/>
+<!--         <bean id="generalFilterInterceptor" class="com.baozun.scm.shopdog.interceptor.GeneralFilterInterceptor"/> -->
+		<mvc:interceptor> 
+			<mvc:mapping path="/uac/**"/>
+			<bean id="uacInterceptor" class="com.baozun.scm.shopdog.interceptor.UacInterceptor"/>
+		</mvc:interceptor>
+    </mvc:interceptors>
+    
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize" value="100000000" />
+	</bean>
+
+	<bean id="localeResolver" class="org.springframework.web.servlet.i18n.CookieLocaleResolver" />
+	
+	<bean id="exceptionResolver" class="com.baozun.scm.shopdog.resolver.ExceptionResolver">
+		<property name="exceptionMappings">
+			<props>
+				<prop key="com.baozun.wms4.exception.BusinessException">
+					forward:/errors/error
+				</prop>
+				<prop key="java.lang.Throwable">
+					forward:/errors/error
+				</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<bean id="contentNegotiationManager" class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">
+		<property name="ignoreAcceptHeader" value="true" />
+		<property name="favorParameter" value="false" />
+		<property name="defaultContentType" value="text/html" />
+        <property name="mediaTypes">  
+            <value>  
+                html=text/html  
+                json=application/json  
+            </value>  
+        </property>  
+    </bean>  
+	
+	<bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
+		<property name="order" value="1" />
+		<property name="contentNegotiationManager" ref="contentNegotiationManager"></property>
+		<property name="viewResolvers">
+			<list>
+				<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+					<property name="order" value="2" />
+					<property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
+					<property name="contentType" value="text/html;charset=utf-8"/>
+					<property name="prefix" value="/pages/"></property>
+					<property name="suffix" value=".jsp"></property>
+					<property name="cache" value="false"></property>
+				</bean>
+			</list>
+		</property>
+		<property name="defaultViews">
+			<list>
+				<bean class="com.baozun.scm.shopdog.util.spring.MappingFastJsonView"/>
+			</list>
+		</property>
+	</bean>
+</beans>
