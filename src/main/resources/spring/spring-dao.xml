@@ -37,7 +37,7 @@
 
 	<!-- mybatis数据映射配置文件扫描器配置 -->  
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">  
-		<property name="basePackage" value="com.baozun.**.dao" />  
+		<property name="basePackage" value="com.lay.shop.**.dao" />  
     </bean>
 	
 	<bean class="lark.orm.aop.QueryAspect"/>

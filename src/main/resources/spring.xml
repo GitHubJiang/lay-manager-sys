@@ -7,28 +7,13 @@
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
 	
-	<aop:aspectj-autoproxy/>
-	
-	<bean id="configBean" class="com.baozun.zkpro.ZookeeperConfigurer">
-		<property name="locations">
-			<list>
-				<value>classpath:config/zk.properties</value>
-			</list>
-		</property>
-		<!-- 重写zookeeper中的配置 -->
-		<property name="overrideLocaltions">
-			<list>
-				<value>classpath:config/ext.properties</value>
-			</list>
-		</property>
+	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">  
+	    <property name="locations"> <!-- PropertyPlaceholderConfigurer类中有个locations属性，接收的是一个数组，即我们可以在下面配好多个properties文件 -->  
+	        <array>  
+	            <value>classpath:dbconfig.properties</value>  
+	        </array>  
+	    </property>  
 	</bean>
-	
 	<import resource="spring/spring-dao.xml" />
-	<import resource="spring/spring-dubbo.xml"/>
-	<import resource="spring/spring-manager.xml" />
-	<import resource="spring/spring-zk.xml" />
-	<import resource="spring/spring-redis.xml" />
-	<import resource="spring/spring-jms.xml" />
-	
-	<bean id="systemInitBean" class="com.baozun.shopdog.primservice.manager.SystemInitBean" />
+	<import resource="spring/spring-manager.xml" />	
 </beans>
