@@ -12,7 +12,7 @@
 		<version.spring.security>3.2.4.RELEASE</version.spring.security>
 		<version.slf4j>1.7.5</version.slf4j>
 		<native2ascii_pattern>**/*.properties</native2ascii_pattern>
-		<version.jodaTime>2.9.6</version.jodaTime>
+		<version.jodaTime>2.9.9</version.jodaTime>
 		<version.gson>2.8.0</version.gson>
 		<version.guava>21.0</version.guava>
 	</properties>
@@ -147,14 +147,13 @@
 	    	<groupId>com.google.code.gson</groupId>
 		    <artifactId>gson</artifactId>
 		    <version>${version.gson}</version>
-		</dependency>
-		
+		</dependency>		
 		<!-- 时间处理 -->
 		<dependency>
-			<groupId>joda-time</groupId>
-			<artifactId>joda-time</artifactId>
-			<version>${version.jodatime}</version>
-		</dependency>		
+		    <groupId>joda-time</groupId>
+		    <artifactId>joda-time</artifactId>
+		    <version>${version.jodaTime}</version>
+		</dependency>
 	</dependencies>
 	
 	<build>
