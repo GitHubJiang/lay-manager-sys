@@ -4,10 +4,10 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
 "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
 
 
-<mapper namespace="com.baozun.shopdog.primservice.dao.auth.GoodsInventoryDao">
+<mapper namespace="com.lay.shop.pacs.dao.GoodsInventoryDao">
 
 	<!-- useGeneratedKeys="true" keyProperty="xxx" for sqlserver and mysql -->
-	<insert id="insert" parameterType="com.baozun.shopdog.primservice.model.auth.GoodsInventory" 
+	<insert id="insert" parameterType="com.lay.shop.pacs.model.GoodsInventory" 
 		useGeneratedKeys="true" keyProperty="id" 
 	 flushCache="true">
 	    <![CDATA[
@@ -29,7 +29,7 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
 
 	</insert>
 		
-	<update id="update" parameterType="com.baozun.shopdog.primservice.model.auth.GoodsInventory">
+	<update id="update" parameterType="com.lay.shop.pacs.model.GoodsInventory">
 	    <![CDATA[
 	        UPDATE goods_inventory SET
 		        company_code = #{companyCode,javaType=String,jdbcType=VARCHAR} ,

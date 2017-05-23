@@ -25,8 +25,8 @@
     </settings>
     <!-- 分页代码 -->
     <plugins>
-		<plugin interceptor="lark.orm.aop.OffsetLimitInterceptor">
-			<property name="dialectClass" value="com.lay.shop.pacs.bind.dialect.MySQLDialect" />
+		<plugin interceptor="com.lay.shop.pacs.orm.aop.OffsetLimitInterceptor">
+			<property name="dialectClass" value="com.lay.shop.pacs.orm.dialect.MySQLDialect" />
 		</plugin>
 	</plugins>    
 </configuration>

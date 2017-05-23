@@ -10,7 +10,7 @@
 	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">  
 	    <property name="locations"> <!-- PropertyPlaceholderConfigurer类中有个locations属性，接收的是一个数组，即我们可以在下面配好多个properties文件 -->  
 	        <array>  
-	            <value>classpath:dbconfig.properties</value>  
+	            <value>classpath:config/dbconfig.properties</value>  
 	        </array>  
 	    </property>  
 	</bean>

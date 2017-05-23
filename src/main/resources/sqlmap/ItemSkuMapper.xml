@@ -4,8 +4,8 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
 "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
 
 
-<mapper namespace="com.baozun.shopdog.primservice.dao.auth.ItemSkuDao">
-	<resultMap id="ItemSkuResult" type="com.baozun.shopdog.primservice.model.auth.ItemSku">
+<mapper namespace="com.lay.shop.pacs.dao.ItemSkuDao">
+	<resultMap id="ItemSkuResult" type="com.lay.shop.pacs.model.ItemSku">
 	</resultMap>
 	
 	<!-- 用于select查询公用抽取的列 -->
@@ -28,7 +28,7 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
 		<!-- 如果有自增字段 -->
 	
 			<!-- useGeneratedKeys="true" keyProperty="xxx" for sqlserver and mysql -->
-			<insert id="insert" parameterType="com.baozun.shopdog.primservice.model.auth.ItemSku" 
+			<insert id="insert" parameterType="com.lay.shop.pacs.model.ItemSku" 
 				useGeneratedKeys="true" keyProperty="id" 
 			 flushCache="true">
 		    <![CDATA[
@@ -60,7 +60,7 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
 	
 			</insert>
 		
-		<update id="update" parameterType="com.baozun.shopdog.primservice.model.auth.ItemSku">
+		<update id="update" parameterType="com.lay.shop.pacs.model.ItemSku">
 	    <![CDATA[
 	        UPDATE item_sku SET
 		        company_code = #{companyCode,javaType=String,jdbcType=VARCHAR} ,

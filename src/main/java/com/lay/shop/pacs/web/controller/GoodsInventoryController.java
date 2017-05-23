@@ -12,7 +12,7 @@
  * DERIVATIVES.
  * 
  */
-package com.lay.shop.pacs.controller;
+package com.lay.shop.pacs.web.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

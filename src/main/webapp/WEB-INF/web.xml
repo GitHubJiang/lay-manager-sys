@@ -45,7 +45,7 @@
 
 	<!-- ********************************** listener ********************************** -->
 	<listener>
-		<listener-class>com.baozun.scm.shopdog.listener.ProfileInitListener</listener-class>
+		<listener-class>com.lay.shop.pacs.web.listener.ProfileInitListener</listener-class>
 	</listener>
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
@@ -55,11 +55,6 @@
 	</listener>
 	<listener>
 		<listener-class>org.springframework.security.web.session.HttpSessionEventPublisher</listener-class>
-	</listener>
-	<listener>
-		<listener-class>
-			com.baozun.scm.baseservice.account.oauth.OauthSingleSignOutHttpSessionListener
-		</listener-class>
 	</listener>
 	<listener>
 		<listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>
@@ -75,12 +70,6 @@
 		<servlet-name>spring</servlet-name>
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
-
-	<servlet>
-		<servlet-name>systemServlet</servlet-name>
-		<servlet-class>com.baozun.scm.shopdog.servlet.SystemInitServlet</servlet-class>
-		<load-on-startup>2</load-on-startup>
-	</servlet>
 	
 	<session-config>
 		<session-timeout>60</session-timeout>
@@ -90,31 +79,4 @@
 	<welcome-file-list>
 		<welcome-file>/</welcome-file>
 	</welcome-file-list>
-
-	<error-page>
-		<error-code>404</error-code>
-		<location>/errors/404</location>
-	</error-page>
-
-	<error-page>
-		<error-code>400</error-code>
-		<location>/errors/404</location>
-	</error-page>
-	<error-page>
-		<error-code>403</error-code>
-		<location>/errors/error</location>
-	</error-page>
-	<error-page>
-		<exception-type>java.lang.Exception</exception-type>
-		<location>/errors/error</location>
-	</error-page>
-
-	<jsp-config>
-		<jsp-property-group>
-			<url-pattern>*.jsp</url-pattern>
-			<trim-directive-whitespaces>true</trim-directive-whitespaces>
-			<el-ignored>false</el-ignored>
-			<page-encoding>UTF-8</page-encoding>
-		</jsp-property-group>
-	</jsp-config>
 </web-app>

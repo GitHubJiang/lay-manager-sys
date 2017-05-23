@@ -25,189 +25,189 @@ import com.lay.shop.pacs.orm.util.PropertiesUtil;
 import com.lay.shop.pacs.orm.util.ReflectionUtils;
 
 @Intercepts({ @Signature(type = Executor.class, method = "query", args = { MappedStatement.class, Object.class,
-		RowBounds.class, ResultHandler.class }) })
+        RowBounds.class, ResultHandler.class }) })
 public class OffsetLimitInterceptor implements Interceptor {
-	static int MAPPED_STATEMENT_INDEX = 0;
-	static int PARAMETER_INDEX = 1;
-	static int ROWBOUNDS_INDEX = 2;
-	static int RESULT_HANDLER_INDEX = 3;
-	private static final Logger logger = LoggerFactory.getLogger(OffsetLimitInterceptor.class);
+    static int MAPPED_STATEMENT_INDEX = 0;
+    static int PARAMETER_INDEX = 1;
+    static int ROWBOUNDS_INDEX = 2;
+    static int RESULT_HANDLER_INDEX = 3;
+    private static final Logger logger = LoggerFactory.getLogger(OffsetLimitInterceptor.class);
 
-	Dialect dialect;
+    Dialect dialect;
 
-	public Object intercept(Invocation invocation) throws Throwable {
-		processIntercept(invocation.getArgs());
-		return invocation.proceed();
-	}
+    public Object intercept(Invocation invocation) throws Throwable {
+        processIntercept(invocation.getArgs());
+        return invocation.proceed();
+    }
 
 
-	void processIntercept(final Object[] queryArgs) {
-		//queryArgs = query(MappedStatement ms, Object parameter, RowBounds rowBounds, ResultHandler resultHandler)
-		
-		MappedStatement ms = (MappedStatement) queryArgs[MAPPED_STATEMENT_INDEX];
-		Object parameter = queryArgs[PARAMETER_INDEX];
-		
-		
+    void processIntercept(final Object[] queryArgs) {
+        //queryArgs = query(MappedStatement ms, Object parameter, RowBounds rowBounds, ResultHandler resultHandler)
+        
+    //  MappedStatement ms = (MappedStatement) queryArgs[MAPPED_STATEMENT_INDEX];
+        Object parameter = queryArgs[PARAMETER_INDEX];
+        
+        
 
-		//特殊处理分页
-		if(parameter instanceof PageSort){
-			
-			processHasPageParameter(queryArgs);
-			
-		}
-		//常规分页
-		else{
-			
-			processNormalPage(queryArgs);
-			
-		}
-		
-		
-	}
-	
-	/**
-	 * 处理包含page对象的分页处理
-	 * @param queryArgs
-	 */
-	void processHasPageParameter(final Object[] queryArgs){
-		MappedStatement ms = (MappedStatement) queryArgs[MAPPED_STATEMENT_INDEX];
-		Object parameter = queryArgs[PARAMETER_INDEX];
-		final RowBounds rowBounds = (RowBounds) queryArgs[ROWBOUNDS_INDEX];
-		int offset = rowBounds.getOffset();
-		int limit = rowBounds.getLimit();
-		
-		PageSort pageSort=(PageSort)parameter;
-		
-		//搜索条件
-		BoundSql boundSql = ms.getBoundSql(pageSort.getSearchFilter());
-		String sql = boundSql.getSql().trim();
-		
-		//排序
-		if(pageSort.getSorts()!=null){
-			sql=sql+" order by "+Sort.toSortStr(pageSort.getSorts());
-		}
-		
-		//分页
-		if (dialect.supportsLimit() && (offset != RowBounds.NO_ROW_OFFSET || limit != RowBounds.NO_ROW_LIMIT)) {
-			if (dialect.supportsLimitOffset()) {
-				sql = dialect.getLimitString(sql, offset, limit);
-				offset = RowBounds.NO_ROW_OFFSET;
-			} else {
-				sql = dialect.getLimitString(sql, 0, limit);
-			}
-			limit = RowBounds.NO_ROW_LIMIT;
-	
-			queryArgs[ROWBOUNDS_INDEX] = new RowBounds(offset, limit);
-		}
-		
-		
-		
-		BoundSql newBoundSql = new BoundSql(ms.getConfiguration(), sql, boundSql.getParameterMappings(),
-				boundSql.getParameterObject());
-		
-		
-		//设置了一些其他值
-		ReflectionUtils.setFieldValue(newBoundSql, "metaParameters",
-				ReflectionUtils.getFieldValue(boundSql, "metaParameters"));
-		MappedStatement newMs = copyFromMappedStatement(ms, new BoundSqlSqlSource(newBoundSql));
-		queryArgs[MAPPED_STATEMENT_INDEX] = newMs;
-		queryArgs[PARAMETER_INDEX]=pageSort.getSearchFilter();
-		
-	}
-	
-	/**
-	 * 处理包含没有page对象的分页处理
-	 * @param queryArgs
-	 */
-	void processNormalPage(final Object[] queryArgs){
-		
-		
-		MappedStatement ms = (MappedStatement) queryArgs[MAPPED_STATEMENT_INDEX];
-		Object parameter = queryArgs[PARAMETER_INDEX];
-		final RowBounds rowBounds = (RowBounds) queryArgs[ROWBOUNDS_INDEX];
-		int offset = rowBounds.getOffset();
-		int limit = rowBounds.getLimit();
-		//需要分页
-		if (dialect.supportsLimit() && (offset != RowBounds.NO_ROW_OFFSET || limit != RowBounds.NO_ROW_LIMIT)) {	
-			BoundSql boundSql = ms.getBoundSql(parameter);
-			String sql = boundSql.getSql().trim();
-			if (dialect.supportsLimitOffset()) {
-				sql = dialect.getLimitString(sql, offset, limit);
-				offset = RowBounds.NO_ROW_OFFSET;
-			} else {
-				sql = dialect.getLimitString(sql, 0, limit);
-			}
-			limit = RowBounds.NO_ROW_LIMIT;
-	
-			queryArgs[ROWBOUNDS_INDEX] = new RowBounds(offset, limit);
-			BoundSql newBoundSql = new BoundSql(ms.getConfiguration(), sql, boundSql.getParameterMappings(),
-					boundSql.getParameterObject());
-			//设置了一些其他值
-			ReflectionUtils.setFieldValue(newBoundSql, "metaParameters",
-					ReflectionUtils.getFieldValue(boundSql, "metaParameters"));
-			MappedStatement newMs = copyFromMappedStatement(ms, new BoundSqlSqlSource(newBoundSql));
-			queryArgs[MAPPED_STATEMENT_INDEX] = newMs;
-		}
-		
-	}
-	
-	
+        //特殊处理分页
+        if(parameter instanceof PageSort){
+            
+            processHasPageParameter(queryArgs);
+            
+        }
+        //常规分页
+        else{
+            
+            processNormalPage(queryArgs);
+            
+        }
+        
+        
+    }
+    
+    /**
+     * 处理包含page对象的分页处理
+     * @param queryArgs
+     */
+    void processHasPageParameter(final Object[] queryArgs){
+        MappedStatement ms = (MappedStatement) queryArgs[MAPPED_STATEMENT_INDEX];
+        Object parameter = queryArgs[PARAMETER_INDEX];
+        final RowBounds rowBounds = (RowBounds) queryArgs[ROWBOUNDS_INDEX];
+        int offset = rowBounds.getOffset();
+        int limit = rowBounds.getLimit();
+        
+        PageSort pageSort=(PageSort)parameter;
+        
+        //搜索条件
+        BoundSql boundSql = ms.getBoundSql(pageSort.getSearchFilter());
+        String sql = boundSql.getSql().trim();
+        
+        //排序
+        if(pageSort.getSorts()!=null){
+            sql=sql+" order by "+Sort.toSortStr(pageSort.getSorts());
+        }
+        
+        //分页
+        if (dialect.supportsLimit() && (offset != RowBounds.NO_ROW_OFFSET || limit != RowBounds.NO_ROW_LIMIT)) {
+            if (dialect.supportsLimitOffset()) {
+                sql = dialect.getLimitString(sql, offset, limit);
+                offset = RowBounds.NO_ROW_OFFSET;
+            } else {
+                sql = dialect.getLimitString(sql, 0, limit);
+            }
+            limit = RowBounds.NO_ROW_LIMIT;
+    
+            queryArgs[ROWBOUNDS_INDEX] = new RowBounds(offset, limit);
+        }
+        
+        
+        
+        BoundSql newBoundSql = new BoundSql(ms.getConfiguration(), sql, boundSql.getParameterMappings(),
+                boundSql.getParameterObject());
+        
+        
+        //设置了一些其他值
+        ReflectionUtils.setFieldValue(newBoundSql, "metaParameters",
+                ReflectionUtils.getFieldValue(boundSql, "metaParameters"));
+        MappedStatement newMs = copyFromMappedStatement(ms, new BoundSqlSqlSource(newBoundSql));
+        queryArgs[MAPPED_STATEMENT_INDEX] = newMs;
+        queryArgs[PARAMETER_INDEX]=pageSort.getSearchFilter();
+        
+    }
+    
+    /**
+     * 处理包含没有page对象的分页处理
+     * @param queryArgs
+     */
+    void processNormalPage(final Object[] queryArgs){
+        
+        
+        MappedStatement ms = (MappedStatement) queryArgs[MAPPED_STATEMENT_INDEX];
+        Object parameter = queryArgs[PARAMETER_INDEX];
+        final RowBounds rowBounds = (RowBounds) queryArgs[ROWBOUNDS_INDEX];
+        int offset = rowBounds.getOffset();
+        int limit = rowBounds.getLimit();
+        //需要分页
+        if (dialect.supportsLimit() && (offset != RowBounds.NO_ROW_OFFSET || limit != RowBounds.NO_ROW_LIMIT)) {    
+            BoundSql boundSql = ms.getBoundSql(parameter);
+            String sql = boundSql.getSql().trim();
+            if (dialect.supportsLimitOffset()) {
+                sql = dialect.getLimitString(sql, offset, limit);
+                offset = RowBounds.NO_ROW_OFFSET;
+            } else {
+                sql = dialect.getLimitString(sql, 0, limit);
+            }
+            limit = RowBounds.NO_ROW_LIMIT;
+    
+            queryArgs[ROWBOUNDS_INDEX] = new RowBounds(offset, limit);
+            BoundSql newBoundSql = new BoundSql(ms.getConfiguration(), sql, boundSql.getParameterMappings(),
+                    boundSql.getParameterObject());
+            //设置了一些其他值
+            ReflectionUtils.setFieldValue(newBoundSql, "metaParameters",
+                    ReflectionUtils.getFieldValue(boundSql, "metaParameters"));
+            MappedStatement newMs = copyFromMappedStatement(ms, new BoundSqlSqlSource(newBoundSql));
+            queryArgs[MAPPED_STATEMENT_INDEX] = newMs;
+        }
+        
+    }
+    
+    
 
-	
-	//see: MapperBuilderAssistant
-	private MappedStatement copyFromMappedStatement(MappedStatement ms, SqlSource newSqlSource) {
-		Builder builder = new MappedStatement.Builder(ms.getConfiguration(), ms.getId(), newSqlSource,
-				ms.getSqlCommandType());
+    
+    //see: MapperBuilderAssistant
+    private MappedStatement copyFromMappedStatement(MappedStatement ms, SqlSource newSqlSource) {
+        Builder builder = new MappedStatement.Builder(ms.getConfiguration(), ms.getId(), newSqlSource,
+                ms.getSqlCommandType());
 
-		builder.resource(ms.getResource());
-		builder.fetchSize(ms.getFetchSize());
-		builder.statementType(ms.getStatementType());
-		builder.keyGenerator(ms.getKeyGenerator());
-		//builder.keyProperty(ms.getKeyProperty());		//because can't find ms.getKeyProperty() method
-	    builder.keyProperty(StringUtils.join(ms.getKeyProperties(), ","));
-	    
-		//setStatementTimeout()
-		builder.timeout(ms.getTimeout());
+        builder.resource(ms.getResource());
+        builder.fetchSize(ms.getFetchSize());
+        builder.statementType(ms.getStatementType());
+        builder.keyGenerator(ms.getKeyGenerator());
+        //builder.keyProperty(ms.getKeyProperty());     //because can't find ms.getKeyProperty() method
+        builder.keyProperty(StringUtils.join(ms.getKeyProperties(), ","));
+        
+        //setStatementTimeout()
+        builder.timeout(ms.getTimeout());
 
-		//setStatementResultMap()
-		builder.parameterMap(ms.getParameterMap());
+        //setStatementResultMap()
+        builder.parameterMap(ms.getParameterMap());
 
-		//setStatementResultMap()
-		builder.resultMaps(ms.getResultMaps());
-		builder.resultSetType(ms.getResultSetType());
+        //setStatementResultMap()
+        builder.resultMaps(ms.getResultMaps());
+        builder.resultSetType(ms.getResultSetType());
 
-		//setStatementCache()
-		builder.cache(ms.getCache());
-		builder.flushCacheRequired(ms.isFlushCacheRequired());
-		builder.useCache(ms.isUseCache());
+        //setStatementCache()
+        builder.cache(ms.getCache());
+        builder.flushCacheRequired(ms.isFlushCacheRequired());
+        builder.useCache(ms.isUseCache());
 
-		return builder.build();
-	}
+        return builder.build();
+    }
 
-	public Object plugin(Object target) {
-		return Plugin.wrap(target, this);
-	}
+    public Object plugin(Object target) {
+        return Plugin.wrap(target, this);
+    }
 
-	public void setProperties(Properties properties) {
-		String dialectClass = new PropertiesUtil(properties).getRequiredString("dialectClass");
-		try {
-			dialect = (Dialect) Class.forName(dialectClass).newInstance();
-		} catch (Exception e) {
-			throw new RuntimeException("cannot create dialect instance by dialectClass:" + dialectClass, e);
-		}
-		logger.info(OffsetLimitInterceptor.class.getSimpleName() + ".dialect=" + dialectClass);
-	}
+    public void setProperties(Properties properties) {
+        String dialectClass = new PropertiesUtil(properties).getRequiredString("dialectClass");
+        try {
+            dialect = (Dialect) Class.forName(dialectClass).newInstance();
+        } catch (Exception e) {
+            throw new RuntimeException("cannot create dialect instance by dialectClass:" + dialectClass, e);
+        }
+        logger.info(OffsetLimitInterceptor.class.getSimpleName() + ".dialect=" + dialectClass);
+    }
 
-	public static class BoundSqlSqlSource implements SqlSource {
-		BoundSql boundSql;
+    public static class BoundSqlSqlSource implements SqlSource {
+        BoundSql boundSql;
 
-		public BoundSqlSqlSource(BoundSql boundSql) {
-			this.boundSql = boundSql;
-		}
+        public BoundSqlSqlSource(BoundSql boundSql) {
+            this.boundSql = boundSql;
+        }
 
-		public BoundSql getBoundSql(Object parameterObject) {
-			return boundSql;
-		}
-	}
+        public BoundSql getBoundSql(Object parameterObject) {
+            return boundSql;
+        }
+    }
 
 }
