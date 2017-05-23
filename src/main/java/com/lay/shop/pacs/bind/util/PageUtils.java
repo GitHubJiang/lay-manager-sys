@@ -12,7 +12,7 @@
  * DERIVATIVES.
  * 
  */
-package com.lay.shop.pacs.util;
+package com.lay.shop.pacs.bind.util;
 
 public final class PageUtils {
 

@@ -1,4 +1,4 @@
-package com.lay.shop.pacs.util;
+package com.lay.shop.pacs.bind.util;
 
 import java.io.IOException;
 import java.io.InputStream;

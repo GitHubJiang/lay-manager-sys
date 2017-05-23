@@ -21,8 +21,8 @@ import org.slf4j.LoggerFactory;
 import com.lay.shop.pacs.bind.dao.PageSort;
 import com.lay.shop.pacs.bind.dao.Sort;
 import com.lay.shop.pacs.bind.dialect.Dialect;
-import com.lay.shop.pacs.util.PropertiesUtil;
-import com.lay.shop.pacs.util.ReflectionUtils;
+import com.lay.shop.pacs.bind.util.PropertiesUtil;
+import com.lay.shop.pacs.bind.util.ReflectionUtils;
 
 @Intercepts({ @Signature(type = Executor.class, method = "query", args = { MappedStatement.class, Object.class,
 		RowBounds.class, ResultHandler.class }) })
