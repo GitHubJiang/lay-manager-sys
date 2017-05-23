@@ -1,4 +1,4 @@
-package com.lay.shop.pacs.model;
+package com.lay.shop.pacs.bind.model;
 
 import java.io.Serializable;
 

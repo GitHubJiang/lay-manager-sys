@@ -12,25 +12,17 @@
  * DERIVATIVES.
  * 
  */
-package com.lay.shop.pacs.controller;
+package com.lay.shop.pacs.bind.annotation;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
-import com.lay.shop.pacs.command.GoodsInvCommand;
-import com.lay.shop.pacs.result.Result;
-
-
-@Controller
-public class GoodsInventoryController{
-
-    /**品牌列表*/
-    @RequestMapping(value = {"/list"})
-    @ResponseBody
-    public Result<GoodsInvCommand> list(Model model) {
-        
-        return null;
-    }
+@Target(ElementType.METHOD)
+@Retention(RetentionPolicy.RUNTIME)
+public @interface QueryPage {
+    String value() default "";
+    
 }
+

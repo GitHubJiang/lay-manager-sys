@@ -12,25 +12,15 @@
  * DERIVATIVES.
  * 
  */
-package com.lay.shop.pacs.controller;
+package com.lay.shop.pacs.bind.aop;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.aspectj.lang.ProceedingJoinPoint;
+import org.mybatis.spring.SqlSessionTemplate;
 
-import com.lay.shop.pacs.command.GoodsInvCommand;
-import com.lay.shop.pacs.result.Result;
+public abstract class QueryProcess {    
+    
+    protected SqlSessionTemplate sqlSessionTemplate;
+    
+    public abstract Object process(ProceedingJoinPoint pjp);
 
-
-@Controller
-public class GoodsInventoryController{
-
-    /**品牌列表*/
-    @RequestMapping(value = {"/list"})
-    @ResponseBody
-    public Result<GoodsInvCommand> list(Model model) {
-        
-        return null;
-    }
 }

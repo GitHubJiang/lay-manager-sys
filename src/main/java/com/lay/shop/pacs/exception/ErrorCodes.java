@@ -12,42 +12,28 @@
  * DERIVATIVES.
  * 
  */
-package com.lay.shop.pacs.result;
+package com.lay.shop.pacs.exception;
 
-import com.lay.shop.pacs.constants.Constants;
-import com.lay.shop.pacs.exception.ErrorCodes;
-
-public class Result<T> {
+public enum ErrorCodes {
     
-    /**错误编码*/
-    public int code = Constants.RESULT_OK;    
-    /**错误信息*/
-    public String message = ErrorCodes.RESULT_OK.getMessage();    
-    /**返回数据*/
-    public T data;
-
-    public int getCode() {
-        return code;
+    RESULT_OK("1", "成功"),
+    RESULT_NO("0", "失败");
+    
+    private String value;
+    
+    private String message;
+    
+    private ErrorCodes(String value, String message) {
+        this.value = value;
+        this.message = message;
     }
 
-    public void setCode(int code) {
-        this.code = code;
+    public String getValue() {
+        return value;
     }
 
     public String getMessage() {
         return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    public T getData() {
-        return data;
-    }
-
-    public void setData(T data) {
-        this.data = data;
     }
     
 }

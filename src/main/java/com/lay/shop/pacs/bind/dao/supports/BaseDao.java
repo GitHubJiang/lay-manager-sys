@@ -12,7 +12,7 @@
  * DERIVATIVES.
  * 
  */
-package com.lay.shop.pacs.dao;
+package com.lay.shop.pacs.bind.dao.supports;
 
 import java.util.List;
 import java.util.Map;

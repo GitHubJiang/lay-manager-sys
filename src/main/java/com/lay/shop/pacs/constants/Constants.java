@@ -20,6 +20,11 @@ package com.lay.shop.pacs.constants;
  * @date 2017年5月22日 下午4:12:04
  * @since
  */
-public class Constants {
+public final class Constants {
 
+    private Constants(){}
+    
+    public static final int RESULT_OK = 1;
+    
+    public static final int RESULT_NO = 0;
 }

@@ -40,7 +40,7 @@
 		<property name="basePackage" value="com.lay.shop.**.dao" />  
     </bean>
 	
-	<bean class="lark.orm.aop.QueryAspect"/>
+	<bean class="com.lay.shop.pacs.bind.aop.QueryAspect"/>
 	
 	<tx:annotation-driven transaction-manager="transactionManager" order="10"/>
 	
