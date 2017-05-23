@@ -22,5 +22,11 @@
 <!--         <setting name="defaultExecutorType" value="BATCH" />   -->
         <!-- 数据库超过25000秒仍未响应则超时 -->  
         <setting name="defaultStatementTimeout" value="25000" />  
-    </settings>    
+    </settings>
+    <!-- 分页代码 -->
+    <plugins>
+		<plugin interceptor="lark.orm.aop.OffsetLimitInterceptor">
+			<property name="dialectClass" value="com.lay.shop.pacs.bind.dialect.MySQLDialect" />
+		</plugin>
+	</plugins>    
 </configuration>
