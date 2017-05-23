@@ -20,7 +20,7 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
-import com.lay.shop.pacs.bind.model.BaseModel;
+import com.lay.shop.pacs.orm.model.BaseModel;
 /**
  * 
  * @author 江家雷
