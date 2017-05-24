@@ -6,14 +6,16 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+	
+	<!-- 开启 AOP -->
 	<aop:aspectj-autoproxy/>
 	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">  
 	    <property name="locations"> <!-- PropertyPlaceholderConfigurer类中有个locations属性，接收的是一个数组，即我们可以在下面配好多个properties文件 -->  
 	        <array>  
-	            <value>classpath:config/dbconfig.properties</value>  
+	            <value>classpath:testconfig/dbconfig.properties</value>  
 	        </array>  
 	    </property>  
 	</bean>
-	<import resource="spring/spring-dao.xml" />
-	<import resource="spring/spring-manager.xml" />	
+	<import resource="testspring/spring-dao.xml" />
+	<import resource="testspring/spring-manager.xml" />	
 </beans>

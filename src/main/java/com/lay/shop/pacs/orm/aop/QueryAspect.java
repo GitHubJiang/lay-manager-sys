@@ -19,20 +19,18 @@ public class QueryAspect implements Ordered, InitializingBean {
     private SqlSessionTemplate sqlSessionTemplate;
 
     public void afterPropertiesSet() throws Exception {
-
+        System.out.println();
     }
 
     public int getOrder() {
         return 20;
     }
 
-    @Around("this(com.lay.shop.pacs.bind.dao.supports.BaseDao)")
+    @Around("this(com.lay.shop.pacs.orm.dao.supports.BaseDao)")
     public Object doQuery(ProceedingJoinPoint pjp) throws Throwable {
 
         MethodSignature ms = (MethodSignature) pjp.getSignature();
-
         CommonQuery commonQuery = ms.getMethod().getAnnotation(CommonQuery.class);
-
         QueryPage queryPageCount = ms.getMethod().getAnnotation(QueryPage.class);
 
         if (commonQuery != null) {

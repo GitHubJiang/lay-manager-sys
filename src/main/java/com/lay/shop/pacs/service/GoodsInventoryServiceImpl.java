@@ -17,6 +17,7 @@ package com.lay.shop.pacs.service;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.lay.shop.pacs.command.GoodsInvCommand;
 import com.lay.shop.pacs.dao.GoodsInventoryDao;
@@ -24,13 +25,14 @@ import com.lay.shop.pacs.orm.dao.Page;
 import com.lay.shop.pacs.orm.dao.Pagination;
 import com.lay.shop.pacs.orm.dao.Sort;
 
+@Service
 public class GoodsInventoryServiceImpl implements GoodsInventoryService {
 
     @Autowired
     private GoodsInventoryDao goodsInventoryDao;
     
     @Override
-    public Pagination<GoodsInvCommand> findPageGoodsInventoryList(Page page, Sort[] sorts, Map<String, Object> params) {        
+    public Pagination<GoodsInvCommand> findPageGoodsInventoryList(Page page, Sort[] sorts, Map<String, Object> params) {
         return this.goodsInventoryDao.findPageGoodsInventoryList(page, sorts, params);
     }
 

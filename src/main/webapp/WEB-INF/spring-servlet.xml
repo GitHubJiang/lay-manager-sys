@@ -13,8 +13,8 @@
 	<context:component-scan base-package="com.lay.shop.pacs.**.controller"/>
 	<mvc:annotation-driven>
 		<mvc:argument-resolvers>
-			<bean class="com.baozun.scm.shopdog.bind.ArrayCommandMethodArgumentResolver"></bean>
-			<bean class="com.baozun.scm.shopdog.bind.QueryBeanModelMethodProcessor"></bean>
+			<!-- <bean class="com.baozun.scm.shopdog.bind.ArrayCommandMethodArgumentResolver"></bean> -->
+			<bean class="com.lay.shop.pacs.bind.QueryBeanModelMethodProcessor"></bean>
 		</mvc:argument-resolvers>
 		<mvc:message-converters register-defaults="true">
             <!-- 配置Fastjson支持 -->
