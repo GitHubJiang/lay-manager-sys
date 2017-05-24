@@ -3,6 +3,8 @@ package com.lay.shop.pacs.dao;
 
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.lay.shop.pacs.command.GoodsInvCommand;
 import com.lay.shop.pacs.model.GoodsInventory;
 import com.lay.shop.pacs.orm.annotation.QueryPage;
@@ -15,5 +17,7 @@ public interface GoodsInventoryDao extends BaseDao<GoodsInventory, Long> {
 
     @QueryPage("findPageGoodsInventoryListCount")
     public Pagination<GoodsInvCommand> findPageGoodsInventoryList(Page page, Sort[] sorts, Map<String, Object> params);
+    
+    public int updateInventoryById(@Param("id") Long id, @Param("quantity") Integer quantity);
 
 }

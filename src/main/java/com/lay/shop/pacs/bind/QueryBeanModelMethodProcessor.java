@@ -30,9 +30,11 @@ import org.springframework.web.method.support.ModelAndViewContainer;
 import com.lay.shop.pacs.bind.annotation.QueryBeanParam;
 import com.lay.shop.pacs.bind.bean.QueryBeanUtil;
 
-/**
- * @author Justin
- *
+/***
+ * 
+ * @author Lay
+ * @date 2017年5月24日 下午5:54:02
+ * @since
  */
 public class QueryBeanModelMethodProcessor implements HandlerMethodArgumentResolver {
 

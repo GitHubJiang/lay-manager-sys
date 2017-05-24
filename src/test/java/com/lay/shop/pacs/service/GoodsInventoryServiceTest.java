@@ -29,4 +29,8 @@ public class GoodsInventoryServiceTest extends SpringTest {
         this.printPretty(pagination);
     }
 
+    @Test
+    public void addInventoryTest(){
+        //this.goodsInventoryService.addInventory(command);
+    }
 }

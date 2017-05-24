@@ -12,4 +12,9 @@ public interface GoodsInventoryService {
     /** 分页查询库存信息 */
     public Pagination<GoodsInvCommand> findPageGoodsInventoryList(Page page, Sort[] sorts, Map<String, Object> params);
 
+    /** 根据库存id 更新库存*/
+    public int updateInventoryById(Long id, Integer quantity);
+    
+    /** 新增库存数据*/
+    public void addInventory(GoodsInvCommand command);
 }

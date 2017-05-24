@@ -71,4 +71,8 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
 		inner join item_sku it 
 		on inv.sku_code = it.sku_code and inv.company_code = it.company_code
     </select>
+    
+    <update id="updateInventoryById">
+    	update goods_inventory set quantity = #{quantity}  where id = #{id}  
+    </update>
 </mapper>
