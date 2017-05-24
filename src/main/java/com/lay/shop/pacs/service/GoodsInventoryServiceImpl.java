@@ -12,19 +12,26 @@
  * DERIVATIVES.
  * 
  */
-package com.lay.shop.pacs.constants;
+package com.lay.shop.pacs.service;
 
-/***
- * 常量类
- * @author 江家雷
- * @date 2017年5月22日 下午4:12:04
- * @since
- */
-public final class Constants {
+import java.util.Map;
 
-    private Constants(){}
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.lay.shop.pacs.command.GoodsInvCommand;
+import com.lay.shop.pacs.dao.GoodsInventoryDao;
+import com.lay.shop.pacs.orm.dao.Page;
+import com.lay.shop.pacs.orm.dao.Pagination;
+import com.lay.shop.pacs.orm.dao.Sort;
+
+public class GoodsInventoryServiceImpl implements GoodsInventoryService {
+
+    @Autowired
+    private GoodsInventoryDao goodsInventoryDao;
     
-    public static final String RESULT_OK = "1";
-    
-    public static final String RESULT_NO = "0";
+    @Override
+    public Pagination<GoodsInvCommand> findPageGoodsInventoryList(Page page, Sort[] sorts, Map<String, Object> params) {        
+        return this.goodsInventoryDao.findPageGoodsInventoryList(page, sorts, params);
+    }
+
 }

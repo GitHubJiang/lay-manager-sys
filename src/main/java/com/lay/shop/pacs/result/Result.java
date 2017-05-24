@@ -14,23 +14,22 @@
  */
 package com.lay.shop.pacs.result;
 
-import com.lay.shop.pacs.constants.Constants;
 import com.lay.shop.pacs.exception.ErrorCodes;
 
 public class Result<T> {
     
     /**错误编码*/
-    public int code = Constants.RESULT_OK;    
+    private String code = ErrorCodes.RESULT_OK.getValue();    
     /**错误信息*/
-    public String message = ErrorCodes.RESULT_OK.getMessage();    
+    private String message = ErrorCodes.RESULT_OK.getMessage();    
     /**返回数据*/
-    public T data;
-
-    public int getCode() {
+    private T data;
+    
+    public String getCode() {
         return code;
     }
 
-    public void setCode(int code) {
+    public void setCode(String code) {
         this.code = code;
     }
 

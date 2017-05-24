@@ -12,19 +12,11 @@
  * DERIVATIVES.
  * 
  */
-package com.lay.shop.pacs.constants;
+package com.lay.shop.pacs.web.controller;
 
-/***
- * 常量类
- * @author 江家雷
- * @date 2017年5月22日 下午4:12:04
- * @since
- */
-public final class Constants {
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-    private Constants(){}
-    
-    public static final String RESULT_OK = "1";
-    
-    public static final String RESULT_NO = "0";
+public class BaseController {
+    protected Logger logger = LoggerFactory.getLogger(getClass());
 }
