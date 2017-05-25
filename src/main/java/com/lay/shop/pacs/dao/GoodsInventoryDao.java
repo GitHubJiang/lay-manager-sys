@@ -19,5 +19,9 @@ public interface GoodsInventoryDao extends BaseDao<GoodsInventory, Long> {
     public Pagination<GoodsInvCommand> findPageGoodsInventoryList(Page page, Sort[] sorts, Map<String, Object> params);
     
     public int updateInventoryById(@Param("id") Long id, @Param("quantity") Integer quantity);
+    
+    public GoodsInvCommand findInventoryByCompanyCodeAndSkuCode(@Param("companyCode") String companyCode, @Param("skuCode") String skuCode);
+    
+    public GoodsInvCommand findInventoryById(@Param("id") Long id);
 
 }

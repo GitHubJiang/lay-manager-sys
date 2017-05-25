@@ -24,19 +24,26 @@ public final class JsonUtils {
 
     private JsonUtils() {}
     
+    /**对象转json*/
     public static String toJsonString(Object obj) {
         if (obj == null) {
             return null;
-        }
-        
+        }        
         return JSON.toJSONString(obj);
     }
     
+    /**
+     * 对象转json字符串
+     * @author 江家雷
+     * @param obj 需转换json的对象
+     * @param prettyFormat 根据这个值对结果是否进行格式化 默认为false
+     * @return
+     * @since
+     */
     public static String toJsonString(Object obj, boolean prettyFormat) {
         if (obj == null) {
             return null;
         }
-        
         return JSON.toJSONString(obj, prettyFormat);
     }
     

@@ -17,4 +17,10 @@ public interface GoodsInventoryService {
     
     /** 新增库存数据*/
     public void addInventory(GoodsInvCommand command);
+    
+    /** 根据公司编码和skuCode查询库存信息*/
+    public GoodsInvCommand findInventoryByCompanyCodeAndSkuCode(String companyCode, String skuCode);
+    
+    /** 根据库存id查询库存信息*/
+    public GoodsInvCommand findInventoryById(Long id);
 }

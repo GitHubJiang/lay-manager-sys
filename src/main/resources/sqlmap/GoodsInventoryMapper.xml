@@ -75,4 +75,22 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
     <update id="updateInventoryById">
     	update goods_inventory set quantity = #{quantity}  where id = #{id}  
     </update>
+    
+    <select id="findInventoryByCompanyCodeAndSkuCode" resultType="com.lay.shop.pacs.command.GoodsInvCommand">
+    	select inv.id as id,it.sku_code as skuCode,it.sku_name as skuName,it.bar_code as barCode,it.sku_properties as skuProperties,
+    		it.supplier_sku_code as supplierSkuCode,it.img_url as imgUrl,inv.quantity as quantity,it.remark as remark  
+		from goods_inventory inv 
+		inner join item_sku it 
+		on inv.sku_code = it.sku_code and inv.company_code = it.company_code
+		where inv.sku_code = #{skuCode} and inv.company_code = #{companyCode}
+    </select>
+    
+    <select id="findInventoryById" resultType="com.lay.shop.pacs.command.GoodsInvCommand">
+    	select inv.id as id,it.sku_code as skuCode,it.sku_name as skuName,it.bar_code as barCode,it.sku_properties as skuProperties,
+    		   it.supplier_sku_code as supplierSkuCode,it.img_url as imgUrl,inv.quantity as quantity,it.remark as remark 
+		from goods_inventory inv 
+		inner join item_sku it 
+		on inv.sku_code = it.sku_code and inv.company_code = it.company_code
+		where inv.id = #{id}
+    </select>
 </mapper>

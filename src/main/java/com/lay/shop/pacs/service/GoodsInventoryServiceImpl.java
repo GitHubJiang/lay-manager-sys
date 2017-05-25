@@ -67,6 +67,20 @@ public class GoodsInventoryServiceImpl implements GoodsInventoryService {
         BeanUtils.copyProperties(command, item);
         item.setCreateTime(new Date());
         item.setUpdateTime(new Date());
-        this.itemSkuDao.insert(item);        
+        this.itemSkuDao.insert(item); 
     }
+
+    @Override
+    @Transactional(propagation=Propagation.SUPPORTS)
+    public GoodsInvCommand findInventoryByCompanyCodeAndSkuCode(String companyCode, String skuCode) {
+        return this.goodsInventoryDao.findInventoryByCompanyCodeAndSkuCode(companyCode, skuCode);
+    }
+
+    @Override
+    @Transactional(propagation=Propagation.SUPPORTS)
+    public GoodsInvCommand findInventoryById(Long id) {      
+        return this.goodsInventoryDao.findInventoryById(id);
+    }
+    
+    
 }

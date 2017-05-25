@@ -31,6 +31,7 @@ import com.lay.shop.pacs.orm.dao.Pagination;
 import com.lay.shop.pacs.orm.dao.Sort;
 import com.lay.shop.pacs.result.Result;
 import com.lay.shop.pacs.service.GoodsInventoryService;
+import com.lay.shop.pacs.util.ObjectValidator;
 
 
 @Controller
@@ -62,19 +63,19 @@ public class GoodsInventoryController extends BaseController{
         return result;
     }
     
-    /**根据库存id 更新库存*/
+    /** 根据库存id 更新库存 */
     @SuppressWarnings("rawtypes")
     @RequestMapping(value = {"/updateInventoryById/{id}/{quantity}"})
     @ResponseBody
-    public Result updateInventoryById(@PathVariable Long id, @PathVariable Integer quantity) {        
-        Result result = new Result<Pagination>();
-        try{
+    public Result updateInventoryById(@PathVariable Long id, @PathVariable Integer quantity) {
+        Result result = new Result();
+        try {
             this.goodsInventoryService.updateInventoryById(id, quantity);
-        }catch (Exception e) {
-          logger.error("系统异常，错误信息：{}",e);
-          result.setCode(ErrorCodes.RESULT_NO.getValue());
-          result.setMessage(ErrorCodes.RESULT_NO.getMessage());
-        }        
+        } catch (Exception e) {
+            logger.error("系统异常，错误信息：{}", e);
+            result.setCode(ErrorCodes.RESULT_NO.getValue());
+            result.setMessage(ErrorCodes.RESULT_NO.getMessage());
+        }
         return result;
     }
     
@@ -91,6 +92,41 @@ public class GoodsInventoryController extends BaseController{
           result.setCode(ErrorCodes.RESULT_NO.getValue());
           result.setMessage(ErrorCodes.RESULT_NO.getMessage());
         }        
+        return result;
+    }
+    
+    /**校验库存表的sku_code是否已经存在*/
+    @RequestMapping(value = {"/checkSkuCode/{skuCode}"})
+    @ResponseBody
+    public Result<Boolean> checkSkuCode(@PathVariable String skuCode) {
+        Result<Boolean> result = new Result<Boolean>();
+        try {
+            GoodsInvCommand goodsInvCommand = this.goodsInventoryService.findInventoryByCompanyCodeAndSkuCode("YIJIN", skuCode);
+            if (ObjectValidator.isNotNullOrEmpty(goodsInvCommand)) {
+                result.setData(Boolean.FALSE);
+            } else {
+                result.setData(Boolean.TRUE);
+            }
+        } catch (Exception e) {
+            logger.error("系统异常，错误信息：{}", e);
+            result.setCode(ErrorCodes.RESULT_NO.getValue());
+            result.setMessage(ErrorCodes.RESULT_NO.getMessage());
+        }
+        return result;
+    }
+    
+    @RequestMapping(value = {"/find/{skuCode}"})
+    @ResponseBody
+    public Result<GoodsInvCommand> getGoodsInventory(@PathVariable Long id) {
+        Result<GoodsInvCommand> result = new Result<GoodsInvCommand>();
+        try {
+            GoodsInvCommand goodsInvCommand = this.goodsInventoryService.findInventoryById(id);
+            result.setData(goodsInvCommand);
+        } catch (Exception e) {
+            logger.error("系统异常，错误信息：{}", e);
+            result.setCode(ErrorCodes.RESULT_NO.getValue());
+            result.setMessage(ErrorCodes.RESULT_NO.getMessage());
+        }
         return result;
     }
 }
