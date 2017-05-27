@@ -51,7 +51,7 @@ public class GoodsInventoryController extends BaseController{
         Page page = queryBean.getPage();
         queryBean.setSorts(Sort.parse("id desc"));
         Sort[] sorts = queryBean.getSorts();
-        Map<String, Object> params = queryBean.getParaMap();        
+        Map<String, Object> params = queryBean.getParaMap();     
         try{
             Pagination<GoodsInvCommand> pagination = this.goodsInventoryService.findPageGoodsInventoryList(page, sorts, params);
             result.setData(pagination);
@@ -81,7 +81,7 @@ public class GoodsInventoryController extends BaseController{
     
     /**新增库信息*/
     @SuppressWarnings("rawtypes")
-    @RequestMapping(value = {"/updateInventoryById/{id}/{quantity}"})
+    @RequestMapping(value = {"/addInventory"})
     @ResponseBody
     public Result addInventory(GoodsInvCommand command) {        
         Result result = new Result<Pagination>();

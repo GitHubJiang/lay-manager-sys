@@ -39,7 +39,7 @@
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">  
 		<property name="basePackage" value="com.lay.shop.**.dao" />  
     </bean>
-	
+	<!-- 分页查询数据 -->
 	<bean class="com.lay.shop.pacs.orm.aop.QueryAspect"/>
 	
 	<tx:annotation-driven transaction-manager="transactionManager" order="10"/>
