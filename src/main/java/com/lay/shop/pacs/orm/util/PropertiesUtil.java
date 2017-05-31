@@ -51,7 +51,6 @@ public class PropertiesUtil {
 	 * This allows system properties to override any other property source.
 	 */
 	public static final int SYSTEM_PROPERTIES_MODE_OVERRIDE = 2;
-	private static final String OVERRIDE_PROPERTIES_NAME = "override";
 
 	Properties p;
 	private int systemPropertiesMode = SYSTEM_PROPERTIES_MODE_NEVER;

@@ -27,7 +27,6 @@ public class PageBeanUtilsBean extends BeanUtilsBean {
             }
         } else {
             PropertyDescriptor[] descriptors = getPropertyUtils().getPropertyDescriptors(bean);
-            Class clazz = bean.getClass();
             for (int i = 0; i < descriptors.length; i++) {
                 String name = descriptors[i].getName();
                 
