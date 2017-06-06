@@ -57,7 +57,7 @@
             </value>  
         </property>  
     </bean>  
-	
+	<mvc:resources mapping="/modules/**" location="/modules/" /> 
 	<bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
 		<property name="order" value="1" />
 		<property name="contentNegotiationManager" ref="contentNegotiationManager"></property>
