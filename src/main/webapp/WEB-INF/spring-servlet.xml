@@ -58,6 +58,7 @@
         </property>  
     </bean>  
 	<mvc:resources mapping="/modules/**" location="/modules/" /> 
+	<mvc:resources mapping="/common/**" location="/common/" /> 
 	<bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
 		<property name="order" value="1" />
 		<property name="contentNegotiationManager" ref="contentNegotiationManager"></property>
@@ -67,7 +68,7 @@
 					<property name="order" value="2" />
 					<property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
 					<property name="contentType" value="text/html;charset=utf-8"/>
-					<property name="prefix" value="/pages/"></property>
+					<property name="prefix" value="/modules/pages/"></property>
 					<property name="suffix" value=".jsp"></property>
 					<property name="cache" value="false"></property>
 				</bean>
