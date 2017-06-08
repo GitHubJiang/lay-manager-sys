@@ -11,7 +11,7 @@
  */
 /**
  * @author 江家雷
- * @date 2017年6月8日 上午11:33:23
+ * @date 2017年6月8日 下午3:34:07
  * @since
  */
-package com.lay.shop.modules;
+package com.lay.shop.modules.inv;

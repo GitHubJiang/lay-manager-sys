@@ -16,6 +16,7 @@
 		<version.gson>2.8.0</version.gson>
 		<version.guava>21.0</version.guava>
 		<jackson.version>2.2.3</jackson.version>
+		<validator.version>5.2.4.Final</validator.version>
 	</properties>
 	
 	<!-- 解决spring依赖多版本问题-->
@@ -75,7 +76,13 @@
 			<scope>test</scope>
 		</dependency>
 		<!-- spring end -->
-		
+		<!-- bean validate -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<version>${validator.version}</version>
+		</dependency>
+		<!-- bean validate end -->
 		<!-- spring-security start -->
 		<dependency>
 			<groupId>org.springframework.security</groupId>

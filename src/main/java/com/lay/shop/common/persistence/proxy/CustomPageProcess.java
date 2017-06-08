@@ -1,4 +1,4 @@
-package com.lay.shop.pacs.orm.aop;
+package com.lay.shop.common.persistence.proxy;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;

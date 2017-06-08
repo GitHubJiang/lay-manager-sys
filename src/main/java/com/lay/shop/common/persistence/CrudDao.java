@@ -5,11 +5,13 @@ package com.lay.shop.common.persistence;
 
 import java.util.List;
 
+import com.lay.shop.common.persistence.dao.BaseDao;
+
 /**
- * DAO支持类实现
- * @author ThinkGem
- * @version 2014-05-16
- * @param <T>
+ * 
+ * @author Lay
+ * @date 2017年6月8日 下午4:36:36
+ * @since
  */
 public interface CrudDao<T> extends BaseDao {
 
@@ -18,7 +20,7 @@ public interface CrudDao<T> extends BaseDao {
 	 * @param id
 	 * @return
 	 */
-	public T get(String id);
+	public T get(Long id);
 	
 	/**
 	 * 获取单条数据
@@ -42,14 +44,6 @@ public interface CrudDao<T> extends BaseDao {
 	public List<T> findAllList(T entity);
 	
 	/**
-	 * 查询所有数据列表
-	 * @see public List<T> findAllList(T entity)
-	 * @return
-	 */
-	@Deprecated
-	public List<T> findAllList();
-	
-	/**
 	 * 插入数据
 	 * @param entity
 	 * @return
@@ -69,8 +63,7 @@ public interface CrudDao<T> extends BaseDao {
 	 * @see public int delete(T entity)
 	 * @return
 	 */
-	@Deprecated
-	public int delete(String id);
+	public int delete(Long id);
 	
 	/**
 	 * 删除数据（一般为逻辑删除，更新del_flag字段为1）
