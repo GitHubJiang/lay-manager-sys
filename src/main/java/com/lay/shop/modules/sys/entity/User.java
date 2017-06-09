@@ -1,323 +1,315 @@
-/**
- * Copyright &copy; 2012-2016 <a href="https://github.com/thinkgem/jeesite">JeeSite</a> All rights reserved.
- */
 package com.lay.shop.modules.sys.entity;
 
-import java.util.Date;
-import java.util.List;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
-import javax.validation.constraints.NotNull;
-
-import org.hibernate.validator.constraints.Email;
-import org.hibernate.validator.constraints.Length;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.google.common.collect.Lists;
-import com.lay.shop.common.config.Global;
-import com.lay.shop.common.persistence.DataEntity;
-
-import com.thinkgem.jeesite.common.supcan.annotation.treelist.cols.SupCol;
-import com.thinkgem.jeesite.common.utils.Collections3;
-import com.thinkgem.jeesite.common.utils.excel.annotation.ExcelField;
-import com.thinkgem.jeesite.common.utils.excel.fieldtype.RoleListType;
-
+import com.lay.shop.common.persistence.BaseModel;
 /**
- * 用户Entity
+ * 
  * @author Lay
- * @date 2017年6月8日 下午5:14:10
+ * @date 2017年6月9日 上午9:56:38
  * @since
  */
-public class User extends DataEntity<User> {
+public class User extends BaseModel {
+    
+    /** */
+    private static final long serialVersionUID = 4585232726865864583L;
+    /** 归属公司 */
+    private Long companyId;
+    /** 归属部门 */
+    private Long officeId;
+    /** 登录名 */
+    private String loginName;
+    /** 密码 */
+    private String password;
+    /** 工号 */
+    private String jobNo;
+    /** 姓名 */
+    private String name;
+    /** 邮箱 */
+    private String email;
+    /** 电话 */
+    private String phone;
+    /** 手机 */
+    private String mobile;
+    /** 用户类型: 1.管理员 2.普通用户 */
+    private Boolean userType;
+    /** 用户头像 */
+    private String photo;
+    /** 最后登陆IP */
+    private String loginIp;
+    /** 最后登陆时间 */
+    private java.util.Date loginTime;
+    /** 是否可登录 */
+    private String loginFlag;
+    /** 创建者 */
+    private Long createBy;
+    /** 创建时间 */
+    private java.util.Date createTime;
+    /** 更新者 */
+    private Long updateBy;
+    /** 更新时间 */
+    private java.util.Date updateTime;
+    /** 备注信息 */
+    private String remarks;
+    /** 1.正常；2.已删除  */
+    private Boolean lifecycle;
+    
 
-	private static final long serialVersionUID = 1L;
-	private Office company;	// 归属公司
-	private Office office;	// 归属部门
-	private String loginName;// 登录名
-	private String password;// 密码
-	private String jobNo;		// 工号
-	private String name;	// 姓名
-	private String email;	// 邮箱
-	private String phone;	// 电话
-	private String mobile;	// 手机
-	private String userType;// 用户类型
-	private String photo;  // 头像
-	private String loginIp;	// 最后登陆IP
-	private Date   loginTime;	// 最后登陆时间
-	private String loginFlag;	// 是否允许登陆
-	
+    public User(){
+    }
 
-	private String oldLoginName;// 原登录名
-	private String newPassword;	// 新密码
-	
-	private String oldLoginIp;	// 上次登陆IP
-	private Date oldLoginDate;	// 上次登陆日期
-	
+    public User(
+        java.lang.Long id
+    ){
+        this.id = id;
+    }
 
-	public User() {
-		super();
-		this.loginFlag = Global.YES;
-	}
-	
-	public User(Long id){
-		super(id);
-	}
+    public void setCompanyId(Long value) {
+        this.companyId = value;
+    }
+    
+    public Long getCompanyId() {
+        return this.companyId;
+    }
+    public void setOfficeId(Long value) {
+        this.officeId = value;
+    }
+    
+    public Long getOfficeId() {
+        return this.officeId;
+    }
+    public void setLoginName(String value) {
+        this.loginName = value;
+    }
+    
+    public String getLoginName() {
+        return this.loginName;
+    }
+    public void setPassword(String value) {
+        this.password = value;
+    }
+    
+    public String getPassword() {
+        return this.password;
+    }
+    public void setJobNo(String value) {
+        this.jobNo = value;
+    }
+    
+    public String getJobNo() {
+        return this.jobNo;
+    }
+    public void setName(String value) {
+        this.name = value;
+    }
+    
+    public String getName() {
+        return this.name;
+    }
+    public void setEmail(String value) {
+        this.email = value;
+    }
+    
+    public String getEmail() {
+        return this.email;
+    }
+    public void setPhone(String value) {
+        this.phone = value;
+    }
+    
+    public String getPhone() {
+        return this.phone;
+    }
+    public void setMobile(String value) {
+        this.mobile = value;
+    }
+    
+    public String getMobile() {
+        return this.mobile;
+    }
+    public void setUserType(Boolean value) {
+        this.userType = value;
+    }
+    
+    public Boolean getUserType() {
+        return this.userType;
+    }
+    public void setPhoto(String value) {
+        this.photo = value;
+    }
+    
+    public String getPhoto() {
+        return this.photo;
+    }
+    public void setLoginIp(String value) {
+        this.loginIp = value;
+    }
+    
+    public String getLoginIp() {
+        return this.loginIp;
+    }
+    
+    public void setLoginTime(java.util.Date value) {
+        this.loginTime = value;
+    }
+    
+    public java.util.Date getLoginTime() {
+        return this.loginTime;
+    }
+    public void setLoginFlag(String value) {
+        this.loginFlag = value;
+    }
+    
+    public String getLoginFlag() {
+        return this.loginFlag;
+    }
+    public void setCreateBy(Long value) {
+        this.createBy = value;
+    }
+    
+    public Long getCreateBy() {
+        return this.createBy;
+    }
+    
+    public void setCreateTime(java.util.Date value) {
+        this.createTime = value;
+    }
+    
+    public java.util.Date getCreateTime() {
+        return this.createTime;
+    }
+    public void setUpdateBy(Long value) {
+        this.updateBy = value;
+    }
+    
+    public Long getUpdateBy() {
+        return this.updateBy;
+    }
+    
+    public void setUpdateTime(java.util.Date value) {
+        this.updateTime = value;
+    }
+    
+    public java.util.Date getUpdateTime() {
+        return this.updateTime;
+    }
+    public void setRemarks(String value) {
+        this.remarks = value;
+    }
+    
+    public String getRemarks() {
+        return this.remarks;
+    }
+    public void setLifecycle(Boolean value) {
+        this.lifecycle = value;
+    }
+    
+    public Boolean getLifecycle() {
+        return this.lifecycle;
+    }
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+        .append("Id",getId())       
+        .append("CompanyId",getCompanyId())     
+        .append("OfficeId",getOfficeId())       
+        .append("LoginName",getLoginName())     
+        .append("Password",getPassword())       
+        .append("JobNo",getJobNo())     
+        .append("Name",getName())       
+        .append("Email",getEmail())     
+        .append("Phone",getPhone())     
+        .append("Mobile",getMobile())       
+        .append("UserType",getUserType())       
+        .append("Photo",getPhoto())     
+        .append("LoginIp",getLoginIp())     
+        .append("LoginTime",getLoginTime())     
+        .append("LoginFlag",getLoginFlag())     
+        .append("CreateBy",getCreateBy())       
+        .append("CreateTime",getCreateTime())       
+        .append("UpdateBy",getUpdateBy())       
+        .append("UpdateTime",getUpdateTime())       
+        .append("Remarks",getRemarks())     
+        .append("Lifecycle",getLifecycle())     
+            .toString();
+    }
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder()
+        .append(getId())
+        .append(getCompanyId())
+        .append(getOfficeId())
+        .append(getLoginName())
+        .append(getPassword())
+        .append(getJobNo())
+        .append(getName())
+        .append(getEmail())
+        .append(getPhone())
+        .append(getMobile())
+        .append(getUserType())
+        .append(getPhoto())
+        .append(getLoginIp())
+        .append(getLoginTime())
+        .append(getLoginFlag())
+        .append(getCreateBy())
+        .append(getCreateTime())
+        .append(getUpdateBy())
+        .append(getUpdateTime())
+        .append(getRemarks())
+        .append(getLifecycle())
+            .toHashCode();
+    }
+    @Override
+    public boolean equals(Object obj) {
+        if(obj instanceof User == false) return false;
+        if(this == obj) return true;
+        User other = (User)obj;
+        return new EqualsBuilder()
+        .append(getId(),other.getId())
 
-	public User(Long id, String loginName){
-		super(id);
-		this.loginName = loginName;
-	}
+        .append(getCompanyId(),other.getCompanyId())
 
-//	public User(Role role){
-//		super();
-//		this.role = role;
-//	}
-	
-	public String getPhoto() {
-		return photo;
-	}
+        .append(getOfficeId(),other.getOfficeId())
 
-	public void setPhoto(String photo) {
-		this.photo = photo;
-	}
+        .append(getLoginName(),other.getLoginName())
 
-	public String getLoginFlag() {
-		return loginFlag;
-	}
+        .append(getPassword(),other.getPassword())
 
-	public void setLoginFlag(String loginFlag) {
-		this.loginFlag = loginFlag;
-	}
+        .append(getJobNo(),other.getJobNo())
 
-	@ExcelField(title="ID", type=1, align=2, sort=1)
-	public String getId() {
-		return id;
-	}
+        .append(getName(),other.getName())
 
-	@JsonIgnore
-	@NotNull(message="归属公司不能为空")
-	@ExcelField(title="归属公司", align=2, sort=20)
-	public Office getCompany() {
-		return company;
-	}
+        .append(getEmail(),other.getEmail())
 
-	public void setCompany(Office company) {
-		this.company = company;
-	}
-	
-	@JsonIgnore
-	@NotNull(message="归属部门不能为空")
-	@ExcelField(title="归属部门", align=2, sort=25)
-	public Office getOffice() {
-		return office;
-	}
+        .append(getPhone(),other.getPhone())
 
-	public void setOffice(Office office) {
-		this.office = office;
-	}
+        .append(getMobile(),other.getMobile())
 
-	@Length(min=1, max=100, message="登录名长度必须介于 1 和 100 之间")
-	@ExcelField(title="登录名", align=2, sort=30)
-	public String getLoginName() {
-		return loginName;
-	}
+        .append(getUserType(),other.getUserType())
 
-	public void setLoginName(String loginName) {
-		this.loginName = loginName;
-	}
+        .append(getPhoto(),other.getPhoto())
 
-	@JsonIgnore
-	@Length(min=1, max=100, message="密码长度必须介于 1 和 100 之间")
-	public String getPassword() {
-		return password;
-	}
+        .append(getLoginIp(),other.getLoginIp())
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+        .append(getLoginTime(),other.getLoginTime())
 
-	@Length(min=1, max=100, message="姓名长度必须介于 1 和 100 之间")
-	@ExcelField(title="姓名", align=2, sort=40)
-	public String getName() {
-		return name;
-	}
-	
-	@Length(min=1, max=100, message="工号长度必须介于 1 和 100 之间")
-	@ExcelField(title="工号", align=2, sort=45)
-	public String getNo() {
-		return no;
-	}
+        .append(getLoginFlag(),other.getLoginFlag())
 
-	public void setNo(String no) {
-		this.no = no;
-	}
+        .append(getCreateBy(),other.getCreateBy())
 
-	public void setName(String name) {
-		this.name = name;
-	}
+        .append(getCreateTime(),other.getCreateTime())
 
-	@Email(message="邮箱格式不正确")
-	@Length(min=0, max=200, message="邮箱长度必须介于 1 和 200 之间")
-	@ExcelField(title="邮箱", align=1, sort=50)
-	public String getEmail() {
-		return email;
-	}
+        .append(getUpdateBy(),other.getUpdateBy())
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
-	
-	@Length(min=0, max=200, message="电话长度必须介于 1 和 200 之间")
-	@ExcelField(title="电话", align=2, sort=60)
-	public String getPhone() {
-		return phone;
-	}
+        .append(getUpdateTime(),other.getUpdateTime())
 
-	public void setPhone(String phone) {
-		this.phone = phone;
-	}
+        .append(getRemarks(),other.getRemarks())
 
-	@Length(min=0, max=200, message="手机长度必须介于 1 和 200 之间")
-	@ExcelField(title="手机", align=2, sort=70)
-	public String getMobile() {
-		return mobile;
-	}
+        .append(getLifecycle(),other.getLifecycle())
 
-	public void setMobile(String mobile) {
-		this.mobile = mobile;
-	}
-
-	@ExcelField(title="备注", align=1, sort=900)
-	public String getRemarks() {
-		return remarks;
-	}
-	
-	@Length(min=0, max=100, message="用户类型长度必须介于 1 和 100 之间")
-	@ExcelField(title="用户类型", align=2, sort=80, dictType="sys_user_type")
-	public String getUserType() {
-		return userType;
-	}
-
-	public void setUserType(String userType) {
-		this.userType = userType;
-	}
-
-	@ExcelField(title="创建时间", type=0, align=1, sort=90)
-	public Date getCreateDate() {
-		return createDate;
-	}
-
-	@ExcelField(title="最后登录IP", type=1, align=1, sort=100)
-	public String getLoginIp() {
-		return loginIp;
-	}
-
-	public void setLoginIp(String loginIp) {
-		this.loginIp = loginIp;
-	}
-
-	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-	@ExcelField(title="最后登录日期", type=1, align=1, sort=110)
-	public Date getLoginDate() {
-		return loginDate;
-	}
-
-	public void setLoginDate(Date loginDate) {
-		this.loginDate = loginDate;
-	}
-
-	public String getOldLoginName() {
-		return oldLoginName;
-	}
-
-	public void setOldLoginName(String oldLoginName) {
-		this.oldLoginName = oldLoginName;
-	}
-
-	public String getNewPassword() {
-		return newPassword;
-	}
-
-	public void setNewPassword(String newPassword) {
-		this.newPassword = newPassword;
-	}
-
-	public String getOldLoginIp() {
-		if (oldLoginIp == null){
-			return loginIp;
-		}
-		return oldLoginIp;
-	}
-
-	public void setOldLoginIp(String oldLoginIp) {
-		this.oldLoginIp = oldLoginIp;
-	}
-
-	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-	public Date getOldLoginDate() {
-		if (oldLoginDate == null){
-			return loginDate;
-		}
-		return oldLoginDate;
-	}
-
-	public void setOldLoginDate(Date oldLoginDate) {
-		this.oldLoginDate = oldLoginDate;
-	}
-
-	public Role getRole() {
-		return role;
-	}
-
-	public void setRole(Role role) {
-		this.role = role;
-	}
-
-	@JsonIgnore
-	@ExcelField(title="拥有角色", align=1, sort=800, fieldType=RoleListType.class)
-	public List<Role> getRoleList() {
-		return roleList;
-	}
-	
-	public void setRoleList(List<Role> roleList) {
-		this.roleList = roleList;
-	}
-
-	@JsonIgnore
-	public List<String> getRoleIdList() {
-		List<String> roleIdList = Lists.newArrayList();
-		for (Role role : roleList) {
-			roleIdList.add(role.getId());
-		}
-		return roleIdList;
-	}
-
-	public void setRoleIdList(List<String> roleIdList) {
-		roleList = Lists.newArrayList();
-		for (String roleId : roleIdList) {
-			Role role = new Role();
-			role.setId(roleId);
-			roleList.add(role);
-		}
-	}
-	
-	/**
-	 * 用户拥有的角色名称字符串, 多个角色名称用','分隔.
-	 */
-	public String getRoleNames() {
-		return Collections3.extractToString(roleList, "name", ",");
-	}
-	
-	public boolean isAdmin(){
-		return isAdmin(this.id);
-	}
-	
-	public static boolean isAdmin(String id){
-		return id != null && "1".equals(id);
-	}
-	
-	@Override
-	public String toString() {
-		return id;
-	}
+            .isEquals();
+    }
 }
+

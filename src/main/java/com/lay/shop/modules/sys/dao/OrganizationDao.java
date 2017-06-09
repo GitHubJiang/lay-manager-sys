@@ -7,13 +7,14 @@ import com.lay.shop.common.persistence.db.dao.BaseDao;
 import com.lay.shop.common.persistence.db.dao.Page;
 import com.lay.shop.common.persistence.db.dao.Pagination;
 import com.lay.shop.common.persistence.db.dao.Sort;
-import com.lay.shop.modules.sys.entity.Area;
+import com.lay.shop.modules.sys.entity.Organization;
 
 
 
-public interface AreaDao extends BaseDao<Area,Long>{
+public interface OrganizationDao extends BaseDao<Organization,Long>{
 
 
 	@QueryPage("findListCountByQueryMap")
-	Pagination<Area> findListByQueryMapWithPage(Page page,Sort[] sorts,Map<String, Object> params);
+	Pagination<Organization> findListByQueryMapWithPage(Page page,Sort[] sorts,Map<String, Object> params);
+	
 }

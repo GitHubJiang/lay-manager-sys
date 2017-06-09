@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+
+<mapper namespace="com.baozun.shopdog.primservice.dao.auth.OrganizationDao">
+	<resultMap id="OrganizationResult" type="com.baozun.shopdog.primservice.model.auth.Organization">
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="organizationColumns">
+	    <![CDATA[
+	        	id as id,
+	        	parent_id as parentId,
+	        	parent_ids as parentIds,
+	        	organization_code as organizationCode,
+	        	name as name,
+	        	sort as sort,
+	        	type as type,
+	        	address as address,
+	        	zip_code as zipCode,
+	        	phone as phone,
+	        	email as email,
+	        	create_by as createBy,
+	        	create_time as createTime,
+	        	update_by as updateBy,
+	        	update_time as updateTime,
+	        	remarks as remarks,
+	        	lifecycle as lifecycle
+	    ]]>
+	</sql>
+	
+		<!-- 如果有自增字段 -->
+	
+			<!-- useGeneratedKeys="true" keyProperty="xxx" for sqlserver and mysql -->
+			<insert id="insert" parameterType="com.baozun.shopdog.primservice.model.auth.Organization" 
+				useGeneratedKeys="true" keyProperty="id" 
+			 flushCache="true">
+		    <![CDATA[
+		        INSERT INTO
+		        sys_organization (
+		        	parent_id ,
+		        	parent_ids ,
+		        	organization_code ,
+		        	name ,
+		        	sort ,
+		        	type ,
+		        	address ,
+		        	zip_code ,
+		        	phone ,
+		        	email ,
+		        	create_by ,
+		        	create_time ,
+		        	update_by ,
+		        	update_time ,
+		        	remarks ,
+		        	lifecycle 
+		        ) VALUES (
+		        	#{parentId,javaType=Long,jdbcType=BIGINT} ,
+		        	#{parentIds,javaType=String,jdbcType=VARCHAR} ,
+		        	#{organizationCode,javaType=String,jdbcType=VARCHAR} ,
+		        	#{name,javaType=String,jdbcType=VARCHAR} ,
+		        	#{sort,javaType=Integer,jdbcType=INTEGER} ,
+		        	#{type,javaType=Boolean,jdbcType=BIT} ,
+		        	#{address,javaType=String,jdbcType=VARCHAR} ,
+		        	#{zipCode,javaType=String,jdbcType=VARCHAR} ,
+		        	#{phone,javaType=String,jdbcType=VARCHAR} ,
+		        	#{email,javaType=String,jdbcType=VARCHAR} ,
+		        	#{createBy,javaType=Long,jdbcType=BIGINT} ,
+		        	#{createTime,javaType=java.util.Date,jdbcType=TIMESTAMP} ,
+		        	#{updateBy,javaType=Long,jdbcType=BIGINT} ,
+		        	#{updateTime,javaType=java.util.Date,jdbcType=TIMESTAMP} ,
+		        	#{remarks,javaType=String,jdbcType=VARCHAR} ,
+		        	#{lifecycle,javaType=Boolean,jdbcType=BIT} 
+		        )
+		    ]]>
+	
+			</insert>
+		
+		<update id="update" parameterType="com.baozun.shopdog.primservice.model.auth.Organization">
+	    <![CDATA[
+	        UPDATE sys_organization SET
+		        parent_id = #{parentId,javaType=Long,jdbcType=BIGINT} ,
+		        parent_ids = #{parentIds,javaType=String,jdbcType=VARCHAR} ,
+		        organization_code = #{organizationCode,javaType=String,jdbcType=VARCHAR} ,
+		        name = #{name,javaType=String,jdbcType=VARCHAR} ,
+		        sort = #{sort,javaType=Integer,jdbcType=INTEGER} ,
+		        type = #{type,javaType=Boolean,jdbcType=BIT} ,
+		        address = #{address,javaType=String,jdbcType=VARCHAR} ,
+		        zip_code = #{zipCode,javaType=String,jdbcType=VARCHAR} ,
+		        phone = #{phone,javaType=String,jdbcType=VARCHAR} ,
+		        email = #{email,javaType=String,jdbcType=VARCHAR} ,
+		        create_by = #{createBy,javaType=Long,jdbcType=BIGINT} ,
+		        create_time = #{createTime,javaType=java.util.Date,jdbcType=TIMESTAMP} ,
+		        update_by = #{updateBy,javaType=Long,jdbcType=BIGINT} ,
+		        update_time = #{updateTime,javaType=java.util.Date,jdbcType=TIMESTAMP} ,
+		        remarks = #{remarks,javaType=String,jdbcType=VARCHAR} ,
+		        lifecycle = #{lifecycle,javaType=Boolean,jdbcType=BIT} 
+	        WHERE 
+		        id = #{id} 
+	    ]]>
+		</update>
+	   <delete id="delete" parameterType="java.lang.Long">
+	    <![CDATA[
+	        delete from sys_organization where
+		        id = #{id} 
+	    ]]>
+	    </delete> 
+	    
+	     <delete id="deleteByIds" parameterType="list">
+	    
+	        delete from sys_organization 
+	        where id in
+				<foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+#{item}				</foreach>	
+	  
+	    </delete>  
+	         
+	    <select id="findById" parameterType="java.lang.Long" resultMap="OrganizationResult" flushCache="false">
+			select <include refid="organizationColumns" />
+		    <![CDATA[
+			    from sys_organization 
+		        where 
+		        id = #{id} 
+		    ]]>
+		</select>	
+		<select id="getByIds" parameterType="list"  resultMap="OrganizationResult" flushCache="false">
+			select <include refid="organizationColumns" />
+			    from sys_organization 
+		        where id in
+				<foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+#{item}				</foreach>					
+		</select>	
+	<sql id="organizationDynamicWhere">
+		<!-- ognl访问静态方法的表达式 为@class@method(args),以下为调用rapid中的Ognl.isNotEmpty()方法,还有其它方法如isNotBlank()可以使用，具体请查看Ognl类 -->
+		<where>
+	       
+				<if test="id!=null">
+					and id = #{id}
+				</if>
+	       
+				<if test="parentId!=null">
+					and parent_id = #{parentId}
+				</if>
+	       
+				<if test="parentIds!=null">
+					and parent_ids = #{parentIds}
+				</if>
+	       
+				<if test="organizationCode!=null">
+					and organization_code = #{organizationCode}
+				</if>
+	       
+				<if test="name!=null">
+					and name = #{name}
+				</if>
+	       
+				<if test="sort!=null">
+					and sort = #{sort}
+				</if>
+	       
+				<if test="type!=null">
+					and type = #{type}
+				</if>
+	       
+				<if test="address!=null">
+					and address = #{address}
+				</if>
+	       
+				<if test="zipCode!=null">
+					and zip_code = #{zipCode}
+				</if>
+	       
+				<if test="phone!=null">
+					and phone = #{phone}
+				</if>
+	       
+				<if test="email!=null">
+					and email = #{email}
+				</if>
+	       
+				<if test="createBy!=null">
+					and create_by = #{createBy}
+				</if>
+	       
+				<if test="createTime!=null">
+					and create_time = #{createTime}
+				</if>
+	       
+				<if test="updateBy!=null">
+					and update_by = #{updateBy}
+				</if>
+	       
+				<if test="updateTime!=null">
+					and update_time = #{updateTime}
+				</if>
+	       
+				<if test="remarks!=null">
+					and remarks = #{remarks}
+				</if>
+	       
+				<if test="lifecycle!=null">
+					and lifecycle = #{lifecycle}
+				</if>
+		</where>
+	</sql>
+	
+
+	<select id="getCount" resultType="long">
+        select count(*) from sys_organization 
+    </select>
+    <select id="findListCountByQueryMap" resultType="long">
+        select count(*) from sys_organization 
+		<include refid="organizationDynamicWhere"/>    
+    </select>
+    
+    <select id="findListCountByParam" resultType="long">
+        select count(*) from sys_organization 
+		<include refid="organizationDynamicWhere"/>    
+    </select>
+    
+    <!--
+    	分页查询已经使用Dialect进行分页,也可以不使用Dialect直接编写分页
+    	因为分页查询将传 offset,pageSize,lastRows 三个参数,不同的数据库可以根于此三个参数属性应用不同的分页实现
+    -->
+    <select id="findListByQueryMapWithPage" resultMap="OrganizationResult">
+    	select <include refid="organizationColumns" />
+	    from sys_organization 
+		<include refid="organizationDynamicWhere"/>
+		
+    </select>
+    
+    <select id="findListByQueryMap" resultMap="OrganizationResult">
+    	select <include refid="organizationColumns" />
+	    from sys_organization 
+		<include refid="organizationDynamicWhere"/>
+		
+    </select>
+    
+    <select id="findListByParam" resultMap="OrganizationResult">
+    	select <include refid="organizationColumns" />
+	    from sys_organization 
+		<include refid="organizationDynamicWhere"/>
+		
+    </select>
+
+	
+</mapper>

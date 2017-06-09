@@ -37,23 +37,6 @@ public abstract class BaseController {
 	 */
 	protected Logger logger = LoggerFactory.getLogger(getClass());
 
-	/**
-	 * 管理基础路径
-	 */
-	@Value("${adminPath}")
-	protected String adminPath;
-	
-	/**
-	 * 前端基础路径
-	 */
-	@Value("${frontPath}")
-	protected String frontPath;
-	
-	/**
-	 * 前端URL后缀
-	 */
-	@Value("${urlSuffix}")
-	protected String urlSuffix;
 	
 	/**
 	 * 验证Bean实例对象
@@ -82,24 +65,6 @@ public abstract class BaseController {
 	/**
 	 * 服务端参数有效性验证
 	 * @param object 验证的实体对象
-	 * @param groups 验证组
-	 * @return 验证成功：返回true；严重失败：将错误信息添加到 flash message 中
-	 */
-	protected boolean beanValidator(RedirectAttributes redirectAttributes, Object object, Class<?>... groups) {
-		try{
-			BeanValidators.validateWithException(validator, object, groups);
-		}catch(ConstraintViolationException ex){
-			List<String> list = BeanValidators.extractPropertyAndMessageAsList(ex, ": ");
-			list.add(0, "数据验证失败：");
-			addMessage(redirectAttributes, list.toArray(new String[]{}));
-			return false;
-		}
-		return true;
-	}
-	
-	/**
-	 * 服务端参数有效性验证
-	 * @param object 验证的实体对象
 	 * @param groups 验证组，不传入此参数时，同@Valid注解验证
 	 * @return 验证成功：继续执行；验证失败：抛出异常跳转400页面。
 	 */
@@ -117,18 +82,6 @@ public abstract class BaseController {
 			sb.append(message).append(messages.length>1?"<br/>":"");
 		}
 		model.addAttribute("message", sb.toString());
-	}
-	
-	/**
-	 * 添加Flash消息
-	 * @param message
-	 */
-	protected void addMessage(RedirectAttributes redirectAttributes, String... messages) {
-		StringBuilder sb = new StringBuilder();
-		for (String message : messages){
-			sb.append(message).append(messages.length>1?"<br/>":"");
-		}
-		redirectAttributes.addFlashAttribute("message", sb.toString());
 	}
 	
 	/**
@@ -174,11 +127,6 @@ public abstract class BaseController {
 			public void setAsText(String text) {
 				setValue(DateUtils.parseDate(text));
 			}
-//			@Override
-//			public String getAsText() {
-//				Object value = getValue();
-//				return value != null ? DateUtils.formatDateTime((Date)value) : "";
-//			}
 		});
 	}
 	

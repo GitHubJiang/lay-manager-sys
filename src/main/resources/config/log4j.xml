@@ -6,10 +6,6 @@
 			<param name="ConversionPattern" value="[%d{yyyy-MM-dd HH:mm:ss:SSS}] %2p %c{1}: %m%n" />
 		</layout>
 	</appender>
-	<category name="com.lay.shop.pacs.dao">
-		<priority value="DEBUG" />
-	</category>
-
 	<root>
 		<level value="INFO" />
 		<appender-ref ref="CONSOLE" />
