@@ -57,10 +57,10 @@
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">  
 		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
         <property name="basePackage" value="com.lay.shop"/>
-        <property name="annotationClass" value="com.lay.shop.common.persistence.annotation.MyBatisDao"/> 
+        <property name="annotationClass" value="com.lay.shop.common.persistence.db.annotation.MyBatisDao"/> 
     </bean>
 	<!-- 分页查询数据 -->
-	<bean class="com.lay.shop.common.persistence.proxy.QueryAspect"/>
+	<bean class="com.lay.shop.common.persistence.db.proxy.QueryAspect"/>
 	<!-- 配置 Annotation 驱动，扫描@Transactional注解的类定义事务  -->
 	<tx:annotation-driven transaction-manager="transactionManager" order="10"/>
 	<!-- 定义事务 -->

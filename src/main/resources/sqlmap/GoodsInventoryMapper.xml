@@ -4,10 +4,10 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
 "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
 
 
-<mapper namespace="com.lay.shop.pacs.dao.GoodsInventoryDao">
+<mapper namespace="com.lay.shop.modules.inv.dao.GoodsInventoryDao">
 
 	<!-- useGeneratedKeys="true" keyProperty="xxx" for sqlserver and mysql -->
-	<insert id="insert" parameterType="com.lay.shop.pacs.model.GoodsInventory" 
+	<insert id="insert" parameterType="com.lay.shop.modules.inv.entity.GoodsInventory" 
 		useGeneratedKeys="true" keyProperty="id" 
 	 flushCache="true">
 	    <![CDATA[
@@ -29,7 +29,7 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
 
 	</insert>
 		
-	<update id="update" parameterType="com.lay.shop.pacs.model.GoodsInventory">
+	<update id="update" parameterType="com.lay.shop.modules.inv.entity.GoodsInventory">
 	    <![CDATA[
 	        UPDATE goods_inventory SET
 		        company_code = #{companyCode,javaType=String,jdbcType=VARCHAR} ,
@@ -65,7 +65,7 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
 		on inv.sku_code = it.sku_code and inv.company_code = it.company_code
     </select>
     
-    <select id="findPageGoodsInventoryList" resultType="com.lay.shop.pacs.command.GoodsInvCommand">
+    <select id="findPageGoodsInventoryList" resultType="com.lay.shop.modules.inv.command.GoodsInvCommand">
     	select inv.id as id,it.sku_code as skuCode,inv.quantity as quantity,it.sku_name as skuName,it.remark as remark 
 		from goods_inventory inv 
 		inner join item_sku it 
@@ -76,7 +76,7 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
     	update goods_inventory set quantity = #{quantity}  where id = #{id}  
     </update>
     
-    <select id="findInventoryByCompanyCodeAndSkuCode" resultType="com.lay.shop.pacs.command.GoodsInvCommand">
+    <select id="findInventoryByCompanyCodeAndSkuCode" resultType="com.lay.shop.modules.inv.command.GoodsInvCommand">
     	select inv.id as id,it.sku_code as skuCode,it.sku_name as skuName,it.bar_code as barCode,it.sku_properties as skuProperties,
     		it.supplier_sku_code as supplierSkuCode,it.img_url as imgUrl,inv.quantity as quantity,it.remark as remark  
 		from goods_inventory inv 
@@ -85,7 +85,7 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
 		where inv.sku_code = #{skuCode} and inv.company_code = #{companyCode}
     </select>
     
-    <select id="findInventoryById" resultType="com.lay.shop.pacs.command.GoodsInvCommand">
+    <select id="findInventoryById" resultType="com.lay.shop.modules.inv.command.GoodsInvCommand">
     	select inv.id as id,it.sku_code as skuCode,it.sku_name as skuName,it.bar_code as barCode,it.sku_properties as skuProperties,
     		   it.supplier_sku_code as supplierSkuCode,it.img_url as imgUrl,inv.quantity as quantity,it.remark as remark 
 		from goods_inventory inv 

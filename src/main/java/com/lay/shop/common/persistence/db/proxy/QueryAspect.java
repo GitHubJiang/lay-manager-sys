@@ -25,7 +25,7 @@ public class QueryAspect implements Ordered, InitializingBean {
         return 20;
     }
 
-    @Around("this(com.lay.shop.common.persistence.dao.BaseDao)")
+    @Around("this(com.lay.shop.common.persistence.db.dao.BaseDao)")
     public Object doQuery(ProceedingJoinPoint pjp) throws Throwable {
 
         MethodSignature ms = (MethodSignature) pjp.getSignature();

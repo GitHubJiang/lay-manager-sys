@@ -41,8 +41,8 @@
 	</settings>
     <!-- 分页代码 -->
     <plugins>
-		<plugin interceptor="com.lay.shop.common.persistence.interceptor.OffsetLimitInterceptor">
-			<property name="dialectClass" value="com.lay.shop.common.persistence.dialect.db.MySQLDialect" />
+		<plugin interceptor="com.lay.shop.common.persistence.db.interceptor.OffsetLimitInterceptor">
+			<property name="dialectClass" value="com.lay.shop.common.persistence.db.dialect.MySQLDialect" />
 		</plugin>
 	</plugins>    
 </configuration>

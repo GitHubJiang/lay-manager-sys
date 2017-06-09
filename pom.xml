@@ -15,7 +15,7 @@
 		<version.jodaTime>2.9.9</version.jodaTime>
 		<version.gson>2.8.0</version.gson>
 		<version.guava>21.0</version.guava>
-		<jackson.version>2.2.3</jackson.version>
+		<jackson.version>2.7.4</jackson.version>
 		<validator.version>5.2.4.Final</validator.version>
 		<druid.version>1.0.18</druid.version>
 	</properties>
@@ -251,6 +251,19 @@
 			<groupId>javax.servlet</groupId>
 			<artifactId>jstl</artifactId>
 			<version>1.2</version>
+			<type>jar</type>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<version>2.5</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet.jsp</groupId>
+			<artifactId>jsp-api</artifactId>
+			<version>2.1</version>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>taglibs</groupId>
@@ -361,42 +374,6 @@
 		</plugins>
 	</build>
 	
-	<profiles>
-		<profile>
-			<id>dev</id>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
-			<properties>
-				<env>dev</env>
-				<config.path>src/main/resources/config/dev</config.path>
-			</properties>
-		</profile>
-
-		<profile>
-			<id>test</id>
-			<properties>
-				<env>test</env>
-				<config.path>src/main/resources/config/test</config.path>
-			</properties>
-		</profile>
-
-		<profile>
-			<id>sta</id>
-			<properties>
-				<env>sta</env>
-				<config.path>src/main/resources/config/sta</config.path>
-			</properties>
-		</profile>
-
-		<profile>
-			<id>pro</id>
-			<properties>
-				<env>pro</env>
-				<config.path>src/main/resources/config/pro</config.path>
-			</properties>
-		</profile>
-	</profiles>
 	<distributionManagement>
 		<repository>
 			<id>releases</id>
