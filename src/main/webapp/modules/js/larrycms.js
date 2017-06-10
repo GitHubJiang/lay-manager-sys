@@ -31,7 +31,7 @@ layui.use(['elements','jquery','layer','larry','navtab','form','common'],functio
 		AdminInit();
 		//绑定导航数据
 		$.ajaxSettings.async = false;
-		$.getJSON('/user/menu.json?t='+new Date(), {
+		$.getJSON('/sys/organization/menu?t='+new Date(), {
 			Param: 'index_menu'
 		}, function(result) {
 			larry.set({
@@ -49,7 +49,7 @@ layui.use(['elements','jquery','layer','larry','navtab','form','common'],functio
 			$that.on('click', function() {
 				var id = $that.data('pid');
 				$.ajaxSettings.async = false;
-				$.getJSON('/user/menu.json?t='+new Date(), {
+				$.getJSON('/sys/organization/menu?t='+new Date(), {
 					pid: id,
 					Param: 'index_menu'
 				}, function(result) {

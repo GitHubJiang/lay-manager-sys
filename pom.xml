@@ -14,7 +14,7 @@
 		<native2ascii_pattern>**/*.properties</native2ascii_pattern>
 		<version.jodaTime>2.9.9</version.jodaTime>
 		<version.gson>2.8.0</version.gson>
-		<version.guava>21.0</version.guava>
+		<version.guava>17.0</version.guava>
 		<jackson.version>2.7.4</jackson.version>
 		<validator.version>5.2.4.Final</validator.version>
 		<druid.version>1.0.18</druid.version>
@@ -374,7 +374,7 @@
 		</plugins>
 	</build>
 	
-	<distributionManagement>
+	<!-- <distributionManagement>
 		<repository>
 			<id>releases</id>
 			<name>nexus-releases</name>
@@ -386,5 +386,5 @@
 			<name>nexus-snapshots</name>
 			<url>http://itcentral.baozun.cn/nexus/content/repositories/snapshots/</url>
 		</snapshotRepository>
-	</distributionManagement>
+	</distributionManagement> -->
 </project>
