@@ -3,8 +3,6 @@
  */
 package com.lay.shop.common.persistence.db.dialect;
 
-import com.lay.shop.common.persistence.db.dialect.Dialect;
-
 /**
  * MSSQLServer 数据库实现分页方言
  *

@@ -17,5 +17,4 @@
 	    </property>  
 	</bean>
 	<import resource="testspring/spring-dao.xml" />
-	<import resource="testspring/spring-manager.xml" />	
 </beans>

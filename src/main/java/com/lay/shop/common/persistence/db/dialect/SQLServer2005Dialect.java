@@ -5,8 +5,6 @@ package com.lay.shop.common.persistence.db.dialect;
 
 import org.apache.commons.lang3.StringUtils;
 
-import com.lay.shop.common.persistence.db.dialect.Dialect;
-
 /**
  * Sql 2005的方言实现
  * @author poplar.yfyang

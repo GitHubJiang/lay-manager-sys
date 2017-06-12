@@ -12,7 +12,7 @@
  * DERIVATIVES.
  * 
  */
-package com.lay.shop.pacs;
+package com.lay.shop;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;

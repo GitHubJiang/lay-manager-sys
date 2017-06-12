@@ -3,8 +3,6 @@
  */
 package com.lay.shop.common.persistence.db.dialect;
 
-import com.lay.shop.common.persistence.db.dialect.Dialect;
-
 /**
  * @author poplar.yfyang
  * @version 1.0 2010-10-10 下午12:31

@@ -14,16 +14,14 @@ import com.lay.shop.modules.sys.entity.User;
  * @since
  */
 @Controller
-@RequestMapping(value = "/sys/user")
 public class UserController extends BaseController {
 
     @RequestMapping(value = "/login")
     public String login() {
-
-        return null;        
+        return "login";        
     }
     
-    @RequestMapping(value = {"index"})
+    @RequestMapping(value = "/sys/user/index")
     public String index(User user, Model model) {
         return "modules/sys/userIndex";
     }

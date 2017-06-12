@@ -277,5 +277,9 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
 		
     </select>
 
-	
+	<select id="findUserInfoByLoginName" resultMap="UserResult">
+		select <include refid="userColumns" />
+	    from sys_user 
+	    where login_name = #{loginName}
+	</select>
 </mapper>

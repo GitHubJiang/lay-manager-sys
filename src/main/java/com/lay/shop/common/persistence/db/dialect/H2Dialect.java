@@ -3,8 +3,6 @@
  */
 package com.lay.shop.common.persistence.db.dialect;
 
-import com.lay.shop.common.persistence.db.dialect.Dialect;
-
 /**
  * A dialect compatible with the H2 database.
  *

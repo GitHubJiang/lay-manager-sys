@@ -1,18 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans" 
-xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:context="http://www.springframework.org/schema/context" 
-	xmlns:mvc="http://www.springframework.org/schema/mvc"
-	xmlns:security="http://www.springframework.org/schema/security"  
-	xsi:schemaLocation="http://www.springframework.org/schema/beans 
-		http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
-		http://www.springframework.org/schema/context 
-		http://www.springframework.org/schema/context/spring-context-4.3.xsd
-		http://www.springframework.org/schema/mvc 
-		http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
-		http://www.springframework.org/schema/security
-		http://www.springframework.org/schema/security/spring-security-3.2.4.xsd">
-	
-	
-	
-</beans>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+	xmlns:beans="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
+           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<http pattern="/common/**" security="none" />
+	<http pattern="/modules/**" security="none" />
+	<http pattern="/login" security="none" />
+	<http>
+		<intercept-url pattern="/**" access="IS_AUTHENTICATED_FULLY" />
+		<!-- 登录设置 -->
+		<form-login login-page="/login" default-target-url="/sys/organization/index"
+			always-use-default-target="true" username-parameter="loginName"/>
+		<!-- 登出设置 -->
+		<logout logout-url="/lout" delete-cookies="JSESSIONID" />
+		<!-- session失效后，跳转到的URL -->
+		<session-management invalid-session-url="/login"
+			session-fixation-protection="migrateSession">
+			<concurrency-control max-sessions="1"
+				error-if-maximum-exceeded="true" />
+		</session-management>
+	</http>
+	<!-- 认证管理 -->
+	<authentication-manager>
+		<authentication-provider user-service-ref="userService">
+			<!-- 密码加密器 -->
+			<password-encoder ref="bcryptEncoder" />
+		</authentication-provider>
+	</authentication-manager>
+
+	<beans:bean id="userService" class="com.lay.shop.modules.sys.service.impl.UserServiceImpl" />
+	<beans:bean id="bcryptEncoder"
+		class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
+</beans:beans>

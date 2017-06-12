@@ -18,4 +18,5 @@
 	</context:component-scan>
 	
 	<import resource="spring/spring-dao.xml" />
+	<import resource="spring/spring-security.xml"/>
 </beans>
