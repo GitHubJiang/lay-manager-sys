@@ -6,6 +6,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import com.lay.shop.modules.sys.command.LoginUserDetail;
 import com.lay.shop.modules.sys.command.UserCommand;
 import com.lay.shop.modules.sys.dao.UserDao;
 import com.lay.shop.modules.sys.entity.User;
@@ -21,8 +22,8 @@ public class UserServiceImpl implements UserService,UserDetailsService{
     
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = this.userDao.findUserInfoByLoginName(username);
-        UserDetails userDetail = new UserCommand(user);
+        UserCommand user = this.userDao.findUserInfoByLoginName(username);
+        UserDetails userDetail = new LoginUserDetail(user);
         return userDetail;
     }
 

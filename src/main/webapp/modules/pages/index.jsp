@@ -16,7 +16,7 @@
 	             <%@include file="/modules/pages/commons/common-right.jsp" %>
 	             <div class="layui-tab-content">
 	                  <div class="layui-tab-item layui-show">
-	                      <iframe class="larry-iframe" data-id='0' name="ifr_0" id='ifr0' src="/modules/html/main.html"></iframe>
+	                      <iframe class="larry-iframe" data-id='0' name="ifr_0" id='ifr0' src="/modules/html/personInfo.html"></iframe>
 	                  </div>
 	             </div>
 	        </div>

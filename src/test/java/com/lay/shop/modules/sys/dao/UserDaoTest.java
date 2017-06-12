@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.alibaba.fastjson.JSON;
 import com.lay.shop.SpringTest;
-import com.lay.shop.modules.sys.entity.User;
+import com.lay.shop.modules.sys.command.UserCommand;
 
 public class UserDaoTest extends SpringTest{
     
@@ -13,7 +13,7 @@ public class UserDaoTest extends SpringTest{
     private UserDao userDao;
     @Test
     public void findUserInfoByLoginNameTest(){
-        User user = this.userDao.findUserInfoByLoginName("LayJiang");
+        UserCommand user = this.userDao.findUserInfoByLoginName("LayJiang");
         this.printPrettyJson(JSON.toJSONString(user));
         ;
     }

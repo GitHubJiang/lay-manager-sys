@@ -1,80 +1,121 @@
-/**
- * Copyright (c) 2015 Jumbomart All Rights Reserved.
- * 
- * This software is the confidential and proprietary information of Jumbomart. You shall not
- * disclose such Confidential Information and shall use it only in accordance with the terms of the
- * license agreement you entered into with Jumbo.
- * 
- * JUMBOMART MAKES NO REPRESENTATIONS OR WARRANTIES ABOUT THE SUITABILITY OF THE SOFTWARE, EITHER
- * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE IMPLIED WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE, OR NON-INFRINGEMENT. JUMBOMART SHALL NOT BE LIABLE FOR ANY
- * DAMAGES SUFFERED BY LICENSEE AS A RESULT OF USING, MODIFYING OR DISTRIBUTING THIS SOFTWARE OR ITS
- * DERIVATIVES.
- * 
- */
 package com.lay.shop.modules.sys.command;
 
-import java.util.Collection;
+import java.io.Serializable;
 
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-
-import com.lay.shop.modules.sys.entity.User;
-
-public class UserCommand implements UserDetails{
+public class UserCommand implements Serializable{
 
     /** */
-    private static final long serialVersionUID = -9153862480568039220L;
-    
-    private User user;
-    
-    public UserCommand() { }
+    private static final long serialVersionUID = 6009775100711138778L;
+    /** 登录名 */
+    private String loginName;
+    /** 用户密码 */
+    private String password;
+    /** 用户工号 */
+    private String jobNo;
+    /** 用户名 */
+    private String name;
+    /** 邮箱 */
+    private String email;
+    /** 固定电话 */
+    private String phone;
+    /** 手机号 */
+    private String mobile;
+    /** 用户备注 */
+    private String remarks;
+    /** 公司名称 */
+    private String companyName;
+    /** 公司编码 */
+    private String companyCode;
+    /** 部门名称 */
+    private String officeName;
 
-    public UserCommand(User user) {
-        this.user = user;
-    }
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+    public String getLoginName() {
+        return loginName;
     }
 
-    @Override
+    public void setLoginName(String loginName) {
+        this.loginName = loginName;
+    }
+
     public String getPassword() {
-        return this.getUser().getPassword();
+        return password;
     }
 
-    @Override
-    public String getUsername() {
-        return this.getUser().getName();
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
+    public String getJobNo() {
+        return jobNo;
     }
 
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
+    public void setJobNo(String jobNo) {
+        this.jobNo = jobNo;
     }
 
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
+    public String getName() {
+        return name;
     }
 
-    @Override
-    public boolean isEnabled() {
-        return true;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public User getUser() {
-        return user;
+    public String getEmail() {
+        return email;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
+    }
+
+    public String getRemarks() {
+        return remarks;
+    }
+
+    public void setRemarks(String remarks) {
+        this.remarks = remarks;
+    }
+
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
+    }
+
+    public String getCompanyCode() {
+        return companyCode;
+    }
+
+    public void setCompanyCode(String companyCode) {
+        this.companyCode = companyCode;
+    }
+
+    public String getOfficeName() {
+        return officeName;
+    }
+
+    public void setOfficeName(String officeName) {
+        this.officeName = officeName;
+    }
+
+
 }

@@ -277,9 +277,12 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
 		
     </select>
 
-	<select id="findUserInfoByLoginName" resultMap="UserResult">
-		select <include refid="userColumns" />
-	    from sys_user 
-	    where login_name = #{loginName}
+	<select id="findUserInfoByLoginName" resultType="com.lay.shop.modules.sys.command.UserCommand">
+		select u.login_name as loginName, u.password as password, u.job_no AS jobNo, u.name as name,u.email as email ,u.phone as phone ,
+		u.mobile as mobile,u.remarks as remarks,o.name as companyName,o.organization_code as companyCode,os.name as officeName
+		from sys_user u 
+		left join sys_organization o on u.company_id = o.id and o.type = 1
+		left join sys_organization os on os.id = u.office_id
+		where u.login_name = #{loginName} and u.lifecycle ='1'
 	</select>
 </mapper>
