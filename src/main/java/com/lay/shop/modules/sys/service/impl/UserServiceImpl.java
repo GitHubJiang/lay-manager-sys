@@ -16,6 +16,9 @@ public class UserServiceImpl implements UserService,UserDetailsService{
     @Autowired
     private UserDao userDao;
     
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
+    
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = this.userDao.findUserInfoByLoginName(username);
@@ -25,12 +28,6 @@ public class UserServiceImpl implements UserService,UserDetailsService{
 
     @Override
     public void save(User user) {
-        // TODO Auto-generated method stub
         
-    }
-
-    public static void main(String[] args){
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        System.out.println(encoder.encode("123456"));
     }
 }

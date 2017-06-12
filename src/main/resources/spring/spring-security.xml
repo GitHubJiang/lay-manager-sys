@@ -13,14 +13,14 @@
 		<intercept-url pattern="/**" access="IS_AUTHENTICATED_FULLY" />
 		<!-- 登录设置 -->
 		<form-login login-page="/login" default-target-url="/sys/organization/index"
-			always-use-default-target="true" username-parameter="loginName"/>
+			always-use-default-target="true" username-parameter="loginName" password-parameter="password"/>
 		<!-- 登出设置 -->
 		<logout logout-url="/lout" delete-cookies="JSESSIONID" />
 		<!-- session失效后，跳转到的URL -->
 		<session-management invalid-session-url="/login"
 			session-fixation-protection="migrateSession">
-			<concurrency-control max-sessions="1"
-				error-if-maximum-exceeded="true" />
+			<concurrency-control max-sessions="1" 
+				error-if-maximum-exceeded="false" />
 		</session-management>
 	</http>
 	<!-- 认证管理 -->
