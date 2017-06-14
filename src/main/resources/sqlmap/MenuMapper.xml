@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+
+<mapper namespace="com.lay.shop.modules.sys.dao.MenuDao">
+	<resultMap id="MenuResult" type="com.lay.shop.modules.sys.entity.Menu">
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="menuColumns">
+	    <![CDATA[
+	        	id as id,
+	        	parent_id as parentId,
+	        	parent_ids as parentIds,
+	        	name as name,
+	        	href as href,
+	        	icon as icon,
+	        	type as type,
+	        	remarks as remarks,
+	        	lifecycle as lifecycle
+	    ]]>
+	</sql>
+	
+		<!-- 如果有自增字段 -->
+	
+			<!-- useGeneratedKeys="true" keyProperty="xxx" for sqlserver and mysql -->
+			<insert id="insert" parameterType="com.lay.shop.modules.sys.entity.Menu" 
+				useGeneratedKeys="true" keyProperty="id" 
+			 flushCache="true">
+		    <![CDATA[
+		        INSERT INTO
+		        sys_menu (
+		        	parent_id ,
+		        	parent_ids ,
+		        	name ,
+		        	href ,
+		        	icon ,
+		        	type ,
+		        	remarks ,
+		        	lifecycle 
+		        ) VALUES (
+		        	#{parentId,javaType=Long,jdbcType=BIGINT} ,
+		        	#{parentIds,javaType=String,jdbcType=VARCHAR} ,
+		        	#{name,javaType=String,jdbcType=VARCHAR} ,
+		        	#{href,javaType=String,jdbcType=VARCHAR} ,
+		        	#{icon,javaType=String,jdbcType=VARCHAR} ,
+		        	#{type,javaType=Integer,jdbcType=INTEGER} ,
+		        	#{remarks,javaType=String,jdbcType=VARCHAR} ,
+		        	#{lifecycle,javaType=Integer,jdbcType=INTEGER} 
+		        )
+		    ]]>
+	
+			</insert>
+		
+		<update id="update" parameterType="com.lay.shop.modules.sys.entity.Menu">
+	    <![CDATA[
+	        UPDATE sys_menu SET
+		        parent_id = #{parentId,javaType=Long,jdbcType=BIGINT} ,
+		        parent_ids = #{parentIds,javaType=String,jdbcType=VARCHAR} ,
+		        name = #{name,javaType=String,jdbcType=VARCHAR} ,
+		        href = #{href,javaType=String,jdbcType=VARCHAR} ,
+		        icon = #{icon,javaType=String,jdbcType=VARCHAR} ,
+		        type = #{type,javaType=Integer,jdbcType=INTEGER} ,
+		        remarks = #{remarks,javaType=String,jdbcType=VARCHAR} ,
+		        lifecycle = #{lifecycle,javaType=Integer,jdbcType=INTEGER} 
+	        WHERE 
+		        id = #{id} 
+	    ]]>
+		</update>
+	   <delete id="delete" parameterType="java.lang.Long">
+	    <![CDATA[
+	        delete from sys_menu where
+		        id = #{id} 
+	    ]]>
+	    </delete> 
+	    
+	     <delete id="deleteByIds" parameterType="list">
+	    
+	        delete from sys_menu 
+	        where id in
+				<foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+#{item}				</foreach>	
+	  
+	    </delete>  
+	         
+	    <select id="findById" parameterType="java.lang.Long" resultMap="MenuResult" flushCache="false">
+			select <include refid="menuColumns" />
+		    <![CDATA[
+			    from sys_menu 
+		        where 
+		        id = #{id} 
+		    ]]>
+		</select>	
+		<select id="getByIds" parameterType="list"  resultMap="MenuResult" flushCache="false">
+			select <include refid="menuColumns" />
+			    from sys_menu 
+		        where id in
+				<foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+#{item}				</foreach>					
+		</select>	
+	<sql id="menuDynamicWhere">
+		<!-- ognl访问静态方法的表达式 为@class@method(args),以下为调用rapid中的Ognl.isNotEmpty()方法,还有其它方法如isNotBlank()可以使用，具体请查看Ognl类 -->
+		<where>
+	       
+				<if test="id!=null">
+					and id = #{id}
+				</if>
+	       
+				<if test="parentId!=null">
+					and parent_id = #{parentId}
+				</if>
+	       
+				<if test="parentIds!=null">
+					and parent_ids = #{parentIds}
+				</if>
+	       
+				<if test="name!=null">
+					and name = #{name}
+				</if>
+	       
+				<if test="href!=null">
+					and href = #{href}
+				</if>
+	       
+				<if test="icon!=null">
+					and icon = #{icon}
+				</if>
+	       
+				<if test="type!=null">
+					and type = #{type}
+				</if>
+	       
+				<if test="remarks!=null">
+					and remarks = #{remarks}
+				</if>
+	       
+				<if test="lifecycle!=null">
+					and lifecycle = #{lifecycle}
+				</if>
+		</where>
+	</sql>
+	
+
+	<select id="getCount" resultType="long">
+        select count(*) from sys_menu 
+    </select>
+    <select id="findListCountByQueryMap" resultType="long">
+        select count(*) from sys_menu 
+		<include refid="menuDynamicWhere"/>    
+    </select>
+    
+    <select id="findListCountByParam" resultType="long">
+        select count(*) from sys_menu 
+		<include refid="menuDynamicWhere"/>    
+    </select>
+    
+    <!--
+    	分页查询已经使用Dialect进行分页,也可以不使用Dialect直接编写分页
+    	因为分页查询将传 offset,pageSize,lastRows 三个参数,不同的数据库可以根于此三个参数属性应用不同的分页实现
+    -->
+    <select id="findListByQueryMapWithPage" resultMap="MenuResult">
+    	select <include refid="menuColumns" />
+	    from sys_menu 
+		<include refid="menuDynamicWhere"/>
+		
+    </select>
+    
+    <select id="findListByQueryMap" resultMap="MenuResult">
+    	select <include refid="menuColumns" />
+	    from sys_menu 
+		<include refid="menuDynamicWhere"/>		
+    </select>
+    
+    <select id="findListByParam" resultMap="MenuResult">
+    	select <include refid="menuColumns" />
+	    from sys_menu 
+		<include refid="menuDynamicWhere"/>		
+    </select>
+
+	
+</mapper>
