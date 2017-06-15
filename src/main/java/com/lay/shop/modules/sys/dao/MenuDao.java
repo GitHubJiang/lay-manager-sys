@@ -10,6 +10,7 @@ import com.lay.shop.common.persistence.db.dao.BaseDao;
 import com.lay.shop.common.persistence.db.dao.Page;
 import com.lay.shop.common.persistence.db.dao.Pagination;
 import com.lay.shop.common.persistence.db.dao.Sort;
+import com.lay.shop.modules.sys.command.MenuCommand;
 import com.lay.shop.modules.sys.entity.Menu;
 
 
@@ -20,5 +21,5 @@ public interface MenuDao extends BaseDao<Menu,Long>{
     @QueryPage("findListCountByQueryMap")
     Pagination<Menu> findListByQueryMapWithPage(Page page,Sort[] sorts,Map<String, Object> params);
     
-    List<Menu> findIndexMenu(@Param("type")Integer type,@Param("id")Long id);
+    List<MenuCommand> findIndexMenu(@Param("type") Integer type, @Param("parentId") Long parentId, @Param("loginName") String loginName);
 }

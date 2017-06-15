@@ -1,0 +1,77 @@
+/**
+ * Copyright (c) 2015 Jumbomart All Rights Reserved.
+ * 
+ * This software is the confidential and proprietary information of Jumbomart. You shall not
+ * disclose such Confidential Information and shall use it only in accordance with the terms of the
+ * license agreement you entered into with Jumbo.
+ * 
+ * JUMBOMART MAKES NO REPRESENTATIONS OR WARRANTIES ABOUT THE SUITABILITY OF THE SOFTWARE, EITHER
+ * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE IMPLIED WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE, OR NON-INFRINGEMENT. JUMBOMART SHALL NOT BE LIABLE FOR ANY
+ * DAMAGES SUFFERED BY LICENSEE AS A RESULT OF USING, MODIFYING OR DISTRIBUTING THIS SOFTWARE OR ITS
+ * DERIVATIVES.
+ * 
+ */
+package com.lay.shop.common.persistence;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public abstract class TreeCommand {
+   
+    /** 实体编号（唯一标识） */
+    protected Long id;
+    /** 父级编号 */
+    private Long parentId;
+    /** 名称 */
+    private String name;
+    
+    private Children children = new Children();
+    
+    public Long getId() {
+        return id;
+    }
+    public void setId(Long id) {
+        this.id = id;
+    }
+    
+    public Long getParentId() {
+        return parentId;
+    }
+    public void setParentId(Long parentId) {
+        this.parentId = parentId;
+    }
+    
+    public String getName() {
+        return name;
+    }
+    
+    public void setName(String name) {
+        this.name = name;
+    }
+    public Children getChildren() {
+        return children;
+    }
+    public void setChildren(Children children) {
+        this.children = children;
+    }
+    
+    // 添加孩子节点
+    public void addChild(TreeCommand node) {
+        this.children.addChild(node);
+    }
+}
+
+class Children<T extends TreeCommand> {
+    
+    private List list = new ArrayList();
+
+    public int getSize() {
+        return list.size();
+    }
+
+    public void addChild(T node) {
+        list.add(node);
+    }
+    
+}
