@@ -27,7 +27,7 @@ public class MenuServiceTest extends SpringTest {
     private MenuService menuService;
     @Test
     public void findUserInfoByLoginNameTest(){
-        List<MenuCommand> menu = this.menuService.findIndexMenu(1, null, "LayJiang");
+        List<MenuCommand> menu = this.menuService.findIndexMenu(2, null, "LayJiang");
         this.printPrettyJson(menu);
         ;
     }
