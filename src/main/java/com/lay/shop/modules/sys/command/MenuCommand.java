@@ -1,17 +1,3 @@
-/**
- * Copyright (c) 2015 Jumbomart All Rights Reserved.
- * 
- * This software is the confidential and proprietary information of Jumbomart. You shall not
- * disclose such Confidential Information and shall use it only in accordance with the terms of the
- * license agreement you entered into with Jumbo.
- * 
- * JUMBOMART MAKES NO REPRESENTATIONS OR WARRANTIES ABOUT THE SUITABILITY OF THE SOFTWARE, EITHER
- * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE IMPLIED WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE, OR NON-INFRINGEMENT. JUMBOMART SHALL NOT BE LIABLE FOR ANY
- * DAMAGES SUFFERED BY LICENSEE AS A RESULT OF USING, MODIFYING OR DISTRIBUTING THIS SOFTWARE OR ITS
- * DERIVATIVES.
- * 
- */
 package com.lay.shop.modules.sys.command;
 
 import com.lay.shop.common.persistence.TreeCommand;
@@ -30,5 +16,51 @@ public class MenuCommand extends TreeCommand{
     private String remarks;
     /** 1.正常；2.已删除  */
     private Integer lifecycle;
+    
+    private Boolean spread  =true;
+    
+    public String getParentIds() {
+        return parentIds;
+    }
+    public void setParentIds(String parentIds) {
+        this.parentIds = parentIds;
+    }
+    public String getHref() {
+        return href;
+    }
+    public void setHref(String href) {
+        this.href = href;
+    }
+    public String getIcon() {
+        return icon;
+    }
+    public void setIcon(String icon) {
+        this.icon = icon;
+    }
+    public Integer getType() {
+        return type;
+    }
+    public void setType(Integer type) {
+        this.type = type;
+    }
+    public String getRemarks() {
+        return remarks;
+    }
+    public void setRemarks(String remarks) {
+        this.remarks = remarks;
+    }
+    public Integer getLifecycle() {
+        return lifecycle;
+    }
+    public void setLifecycle(Integer lifecycle) {
+        this.lifecycle = lifecycle;
+    }
+    public Boolean getSpread() {
+        return spread;
+    }
+    public void setSpread(Boolean spread) {
+        this.spread = spread;
+    }    
 
+    
 }

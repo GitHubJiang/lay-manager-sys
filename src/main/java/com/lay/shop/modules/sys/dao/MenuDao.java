@@ -21,5 +21,5 @@ public interface MenuDao extends BaseDao<Menu,Long>{
     @QueryPage("findListCountByQueryMap")
     Pagination<Menu> findListByQueryMapWithPage(Page page,Sort[] sorts,Map<String, Object> params);
     
-    List<MenuCommand> findIndexMenu(@Param("type") Integer type, @Param("parentId") Long parentId, @Param("loginName") String loginName);
+    List<MenuCommand> findIndexMenu(@Param("loginName") String loginName);
 }

@@ -17,6 +17,8 @@ package com.lay.shop.common.persistence;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 public abstract class TreeCommand {
    
     /** 实体编号（唯一标识） */
@@ -41,7 +43,7 @@ public abstract class TreeCommand {
     public void setParentId(Long parentId) {
         this.parentId = parentId;
     }
-    
+    @JSONField(name="title")
     public String getName() {
         return name;
     }
@@ -60,18 +62,6 @@ public abstract class TreeCommand {
     public void addChild(TreeCommand node) {
         this.children.addChild(node);
     }
-}
-
-class Children<T extends TreeCommand> {
     
-    private List list = new ArrayList();
-
-    public int getSize() {
-        return list.size();
-    }
-
-    public void addChild(T node) {
-        list.add(node);
-    }
     
 }
