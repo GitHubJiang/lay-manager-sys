@@ -36,7 +36,7 @@ public abstract class TreeCommand {
     public void setId(Long id) {
         this.id = id;
     }
-    
+    @JSONField(name="pid")
     public Long getParentId() {
         return parentId;
     }

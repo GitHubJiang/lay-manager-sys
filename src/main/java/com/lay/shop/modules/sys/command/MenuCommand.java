@@ -1,5 +1,6 @@
 package com.lay.shop.modules.sys.command;
 
+import com.alibaba.fastjson.annotation.JSONField;
 import com.lay.shop.common.persistence.TreeCommand;
 
 public class MenuCommand extends TreeCommand{
@@ -19,6 +20,7 @@ public class MenuCommand extends TreeCommand{
     
     private Boolean spread  =true;
     
+    @JSONField(name="pid")
     public String getParentIds() {
         return parentIds;
     }

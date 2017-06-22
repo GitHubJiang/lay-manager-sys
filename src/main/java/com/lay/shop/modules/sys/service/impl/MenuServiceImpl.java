@@ -25,20 +25,21 @@ public class MenuServiceImpl implements MenuService{
     @Autowired
     private MenuDao menuDao;
    
+    @SuppressWarnings("unchecked")
     @Override    
     public List<MenuCommand> findIndexMenu(Integer type,Long id,String loginName){
         
         List<MenuCommand> list = this.menuDao.findIndexMenu(loginName);
         
         List<MenuCommand> menuList = new ArrayList<>();
-        if("1".equals(type)){            
+        if(type.equals(1)){            
             for(MenuCommand menu : list){
-                if("1".equals(menu.getType())){
+                if(menu.getType().equals(1)){
                     menuList.add(menu);
                 }
             }
-        }else if("2".equals(type)){
-            MenuCommand menuCommand = (MenuCommand)TreeUtils.getInstance().toTreeNode(menuList, 0l);
+        }else if(type.equals(2)){
+            MenuCommand menuCommand = (MenuCommand)TreeUtils.getInstance().toTreeNode(list, 0l);
             menuList = menuCommand.getChildren().getList();
             for(MenuCommand menu : (List<MenuCommand>)menuCommand.getChildren().getList()){
                 if(menu.getParentId().equals(id)){
