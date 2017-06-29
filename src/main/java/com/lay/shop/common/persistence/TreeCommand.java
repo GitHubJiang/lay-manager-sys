@@ -28,7 +28,7 @@ public abstract class TreeCommand {
     /** 名称 */
     private String name;
     
-    private Children children = new Children();
+    private List<TreeCommand> children = new ArrayList<>();
     
     public Long getId() {
         return id;
@@ -51,17 +51,10 @@ public abstract class TreeCommand {
     public void setName(String name) {
         this.name = name;
     }
-    public Children getChildren() {
+    public List<TreeCommand> getChildren() {
         return children;
     }
-    public void setChildren(Children children) {
+    public void setChildren(List<TreeCommand> children) {
         this.children = children;
-    }
-    
-    // 添加孩子节点
-    public void addChild(TreeCommand node) {
-        this.children.addChild(node);
-    }
-    
-    
+    }    
 }

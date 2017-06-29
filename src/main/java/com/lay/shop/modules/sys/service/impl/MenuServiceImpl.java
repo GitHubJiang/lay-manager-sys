@@ -40,7 +40,6 @@ public class MenuServiceImpl implements MenuService{
             }
         }else if(type.equals(2)){
             MenuCommand menuCommand = (MenuCommand)TreeUtils.getInstance().toTreeNode(list, 0l);
-            menuList = menuCommand.getChildren().getList();
             for(MenuCommand menu : (List<MenuCommand>)menuCommand.getChildren().getList()){
                 if(menu.getParentId().equals(id)){
                     menuList.add(menu);
