@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+
+<mapper namespace="com.lay.shop.modules.sys.dao.SysPriUrlDao">
+	<resultMap id="SysPriUrlResult" type="com.lay.shop.modules.sys.model.SysPriUrl">
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="sysPriUrlColumns">
+	    <![CDATA[
+	        	id as id,
+	        	acl as acl,
+	        	url_id as urlId
+	    ]]>
+	</sql>
+	
+		<!-- 如果有自增字段 -->
+	
+			<!-- useGeneratedKeys="true" keyProperty="xxx" for sqlserver and mysql -->
+			<insert id="insert" parameterType="com.lay.shop.modules.sys.model.SysPriUrl" 
+				useGeneratedKeys="true" keyProperty="id" 
+			 flushCache="true">
+		    <![CDATA[
+		        INSERT INTO
+		        sys_pri_url (
+		        	acl ,
+		        	url_id 
+		        ) VALUES (
+		        	#{acl,javaType=String,jdbcType=VARCHAR} ,
+		        	#{urlId,javaType=Long,jdbcType=BIGINT} 
+		        )
+		    ]]>
+	
+			</insert>
+		
+		<update id="update" parameterType="com.lay.shop.modules.sys.model.SysPriUrl">
+	    <![CDATA[
+	        UPDATE sys_pri_url SET
+		        acl = #{acl,javaType=String,jdbcType=VARCHAR} ,
+		        url_id = #{urlId,javaType=Long,jdbcType=BIGINT} 
+	        WHERE 
+		        id = #{id} 
+	    ]]>
+		</update>
+	   <delete id="delete" parameterType="java.lang.Long">
+	    <![CDATA[
+	        delete from sys_pri_url where
+		        id = #{id} 
+	    ]]>
+	    </delete> 
+	    
+	     <delete id="deleteByIds" parameterType="list">
+	    
+	        delete from sys_pri_url 
+	        where id in
+				<foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+#{item}				</foreach>	
+	  
+	    </delete>  
+	         
+	    <select id="findById" parameterType="java.lang.Long" resultMap="SysPriUrlResult" flushCache="false">
+			select <include refid="sysPriUrlColumns" />
+		    <![CDATA[
+			    from sys_pri_url 
+		        where 
+		        id = #{id} 
+		    ]]>
+		</select>	
+		<select id="getByIds" parameterType="list"  resultMap="SysPriUrlResult" flushCache="false">
+			select <include refid="sysPriUrlColumns" />
+			    from sys_pri_url 
+		        where id in
+				<foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+#{item}				</foreach>					
+		</select>	
+	<sql id="sysPriUrlDynamicWhere">
+		<!-- ognl访问静态方法的表达式 为@class@method(args),以下为调用rapid中的Ognl.isNotEmpty()方法,还有其它方法如isNotBlank()可以使用，具体请查看Ognl类 -->
+		<where>
+	       
+				<if test="id!=null">
+					and id = #{id}
+				</if>
+	       
+				<if test="acl!=null">
+					and acl = #{acl}
+				</if>
+	       
+				<if test="urlId!=null">
+					and url_id = #{urlId}
+				</if>
+		</where>
+	</sql>
+	
+
+	<select id="getCount" resultType="long">
+        select count(*) from sys_pri_url 
+    </select>
+    <select id="findListCountByQueryMap" resultType="long">
+        select count(*) from sys_pri_url 
+		<include refid="sysPriUrlDynamicWhere"/>    
+    </select>
+    
+    <select id="findListCountByParam" resultType="long">
+        select count(*) from sys_pri_url 
+		<include refid="sysPriUrlDynamicWhere"/>    
+    </select>
+    
+    <!--
+    	分页查询已经使用Dialect进行分页,也可以不使用Dialect直接编写分页
+    	因为分页查询将传 offset,pageSize,lastRows 三个参数,不同的数据库可以根于此三个参数属性应用不同的分页实现
+    -->
+    <select id="findListByQueryMapWithPage" resultMap="SysPriUrlResult">
+    	select <include refid="sysPriUrlColumns" />
+	    from sys_pri_url 
+		<include refid="sysPriUrlDynamicWhere"/>
+		
+    </select>
+    
+    <select id="findListByQueryMap" resultMap="SysPriUrlResult">
+    	select <include refid="sysPriUrlColumns" />
+	    from sys_pri_url 
+		<include refid="sysPriUrlDynamicWhere"/>
+		
+    </select>
+    
+    <select id="findListByParam" resultMap="SysPriUrlResult">
+    	select <include refid="sysPriUrlColumns" />
+	    from sys_pri_url 
+		<include refid="sysPriUrlDynamicWhere"/>
+		
+    </select>
+
+	
+</mapper>

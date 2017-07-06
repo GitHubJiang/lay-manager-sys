@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.lay.shop.common.web.BaseController;
 import com.lay.shop.modules.sys.command.LoginUserDetail;
-import com.lay.shop.modules.sys.entity.User;
+import com.lay.shop.modules.sys.model.SysUser;
 
 /**
  * 
@@ -20,7 +20,7 @@ import com.lay.shop.modules.sys.entity.User;
 public class UserController extends BaseController {
     
     @RequestMapping(value = "userInfo")
-    public String index(User user, Model model) {
+    public String index(SysUser user, Model model) {
         LoginUserDetail userDetails = (LoginUserDetail) SecurityContextHolder.getContext()
                 .getAuthentication()
                 .getPrincipal();
@@ -29,17 +29,17 @@ public class UserController extends BaseController {
     }
     
     @RequestMapping(value = "updateUserInfoSelf")
-    public String updateUserInfoSelf(User user, Model model) {
+    public String updateUserInfoSelf(SysUser user, Model model) {
         return "sys/userInfo";
     }
     
     @RequestMapping(value = "updateUserInfoByAdmin")
-    public String updateUserInfoByAdmin(User user, Model model) {
+    public String updateUserInfoByAdmin(SysUser user, Model model) {
         return "sys/userInfo";
     }
     
     @RequestMapping(value = "updateUserPassword")
-    public String updateUserPassword(User user, Model model) {
+    public String updateUserPassword(SysUser user, Model model) {
         return "sys/userInfo";
     }
 }

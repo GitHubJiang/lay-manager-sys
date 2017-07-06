@@ -269,44 +269,7 @@
 			<groupId>taglibs</groupId>
 			<artifactId>standard</artifactId>
 			<version>1.1.2</version>
-		</dependency>
-		<!-- CKFinder begin -->
-		<dependency>
-			<groupId>net.coobird</groupId>
-			<artifactId>thumbnailator</artifactId>
-			<version>0.4.2</version>
-			<scope>system</scope>
-			<systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/thumbnailator-0.4.2.jar</systemPath>
-		</dependency>
-		<dependency>
-			<groupId>com.ckfinder</groupId>
-			<artifactId>apache-ant-zip</artifactId>
-			<version>2.3</version>
-			<scope>system</scope>
-			<systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/apache-ant-zip-2.3.jar</systemPath>
-		</dependency>
-		<dependency>
-			<groupId>com.ckfinder</groupId>
-			<artifactId>ckfinder</artifactId>
-			<version>2.3</version>
-			<scope>system</scope>
-			<systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/ckfinder-2.3.jar</systemPath>
-		</dependency>
-		<dependency>
-			<groupId>com.ckfinder</groupId>
-			<artifactId>ckfinderplugin-fileeditor</artifactId>
-			<version>2.3</version>
-			<scope>system</scope>
-			<systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/ckfinderplugin-fileeditor-2.3.jar</systemPath>
-		</dependency>
-		<dependency>
-			<groupId>com.ckfinder</groupId>
-			<artifactId>ckfinderplugin-imageresize</artifactId>
-			<version>2.3</version>
-			<scope>system</scope>
-			<systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/ckfinderplugin-imageresize-2.3.jar</systemPath>
-		</dependency>
-		<!-- CKFinder end -->
+		</dependency>		
 	</dependencies>
 	
 	<build>

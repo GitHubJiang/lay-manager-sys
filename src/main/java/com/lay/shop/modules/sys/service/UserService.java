@@ -1,6 +1,6 @@
 package com.lay.shop.modules.sys.service;
 
-import com.lay.shop.modules.sys.entity.User;
+import com.lay.shop.modules.sys.model.SysUser;
 
 /**
  * 
@@ -10,7 +10,7 @@ import com.lay.shop.modules.sys.entity.User;
  */
 public interface UserService{
 	
-    void save(User user);
+    void save(SysUser user);
     
     
 }
