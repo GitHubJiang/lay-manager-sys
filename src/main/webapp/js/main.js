@@ -2,6 +2,8 @@ layui.use(['element', 'layer'], function () {
             var element = layui.element()
             , layer = layui.layer;
         });
+
+
 /**显示或隐藏左边菜单栏*/
 function showHiddenLeft() {
 
