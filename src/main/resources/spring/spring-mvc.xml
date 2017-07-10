@@ -48,8 +48,8 @@
 					<property name="order" value="2" />
 					<property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
 					<property name="contentType" value="text/html;charset=utf-8"/>
-					<property name="prefix" value="${web.view.prefix}"></property>
-					<property name="suffix" value="${web.view.suffix}"></property>
+					<property name="prefix" value="/pages/"></property>
+					<property name="suffix" value=".jsp"></property>
 					<property name="cache" value="false"></property>
 				</bean>
 			</list>

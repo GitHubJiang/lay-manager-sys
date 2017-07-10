@@ -21,8 +21,8 @@ import com.lay.shop.common.web.BaseController;
 @Controller
 public class LoginController extends BaseController {
     
-    @RequestMapping(value = "/login")
+    @RequestMapping(value = "/index")
     public String login() {
-        return "login";
+        return "index";
     }
 }
