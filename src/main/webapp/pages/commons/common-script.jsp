@@ -9,4 +9,5 @@
 <script src="${staticbase }/js/jquery-1.12.4.js?${version}"></script>
 <script src="${staticbase }/layui/layui.js?${version}"></script>
 <script src="${staticbase }/js/main.js?${version}"></script>
+<script src="${staticbase }/js/lay.js?${version}"></script>
 

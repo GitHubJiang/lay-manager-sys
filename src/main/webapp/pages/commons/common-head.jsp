@@ -7,13 +7,7 @@
 		<span>后台管理系统</span>
 	</a>
 	<button class="layui-btn layui-btn-mini MyYinCang" title="隐藏/显示" onclick="javascript:showHiddenLeft()">〓</button>
-	<ul class="layui-nav" style="float: right;">
-        <!-- <li class="layui-nav-item layui-this">
-        	<a href="javascript:switchMy(1);">系统配置</a>
-        </li>
-        <li class="layui-nav-item ">
-        	<a href="javascript:switchMy(2);">库存管理</a>
-        </li> -->
+	<ul class="layui-nav" style="float: right;" id="menu">
        	<li class="layui-nav-item ">
        		<a href="javascript:;" class="admin-header-user">
            	<img src="images/Head.jpg" width="40" height="40" class="layui-circle" />
