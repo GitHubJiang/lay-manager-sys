@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+
+<mapper namespace="com.lay.shop.modules.sys.dao.RoleDao">
+	<resultMap id="roleResultExt" type="com.lay.shop.modules.sys.model.Role">
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="roleColumnsExt">
+	    <![CDATA[
+	        	id as id,
+	        	name as name,
+	        	org_type_id as orgTypeId,
+	        	lifecycle as lifecycle,
+	        	type as type
+	    ]]>
+	</sql>
+	
+	<sql id="roleDynamicWhereExt">
+		<!-- ognl访问静态方法的表达式 为@class@method(args),以下为调用rapid中的Ognl.isNotEmpty()方法,还有其它方法如isNotBlank()可以使用，具体请查看Ognl类 -->
+		<where>
+	       
+				<if test="id!=null">
+					and id = #{id}
+				</if>
+	       
+				<if test="name!=null">
+					and name = #{name}
+				</if>
+	       
+				<if test="orgTypeId!=null">
+					and org_type_id = #{orgTypeId}
+				</if>
+	       
+				<if test="lifecycle!=null">
+					and lifecycle = #{lifecycle}
+				</if>
+	       
+				<if test="type!=null">
+					and type = #{type}
+				</if>
+		</where>
+	</sql>
+	
+</mapper>

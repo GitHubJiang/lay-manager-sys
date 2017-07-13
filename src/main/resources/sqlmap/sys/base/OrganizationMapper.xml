@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+
+<mapper namespace="com.lay.shop.modules.sys.dao.OrganizationDao">
+	<resultMap id="organizationResult" type="com.lay.shop.modules.sys.model.Organization">
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="organizationColumns">
+	    <![CDATA[
+	        	id as id,
+	        	code as code,
+	        	name as name,
+	        	full_name as fullName,
+	        	org_type_id as orgTypeId,
+	        	parent_id as parentId,
+	        	remark as remark,
+	        	lifecycle as lifecycle,
+	        	last_modify_time as lastModifyTime
+	    ]]>
+	</sql>
+	
+		<!-- 如果有自增字段 -->
+	
+			<!-- useGeneratedKeys="true" keyProperty="xxx" for sqlserver and mysql -->
+			<insert id="insert" parameterType="com.lay.shop.modules.sys.model.Organization" 
+				useGeneratedKeys="true" keyProperty="id" 
+			 flushCache="true">
+		    <![CDATA[
+		        INSERT INTO
+		        sys_organization (
+		        	code ,
+		        	name ,
+		        	full_name ,
+		        	org_type_id ,
+		        	parent_id ,
+		        	remark ,
+		        	lifecycle ,
+		        	last_modify_time 
+		        ) VALUES (
+		        	#{code,javaType=String,jdbcType=VARCHAR} ,
+		        	#{name,javaType=String,jdbcType=VARCHAR} ,
+		        	#{fullName,javaType=String,jdbcType=VARCHAR} ,
+		        	#{orgTypeId,javaType=Long,jdbcType=BIGINT} ,
+		        	#{parentId,javaType=Long,jdbcType=BIGINT} ,
+		        	#{remark,javaType=String,jdbcType=VARCHAR} ,
+		        	#{lifecycle,javaType=Integer,jdbcType=INTEGER} ,
+		        	#{lastModifyTime,javaType=java.util.Date,jdbcType=TIMESTAMP} 
+		        )
+		    ]]>
+	
+			</insert>
+		
+		<update id="update" parameterType="com.lay.shop.modules.sys.model.Organization">
+	    <![CDATA[
+	        UPDATE sys_organization SET
+		        code = #{code,javaType=String,jdbcType=VARCHAR} ,
+		        name = #{name,javaType=String,jdbcType=VARCHAR} ,
+		        full_name = #{fullName,javaType=String,jdbcType=VARCHAR} ,
+		        org_type_id = #{orgTypeId,javaType=Long,jdbcType=BIGINT} ,
+		        parent_id = #{parentId,javaType=Long,jdbcType=BIGINT} ,
+		        remark = #{remark,javaType=String,jdbcType=VARCHAR} ,
+		        lifecycle = #{lifecycle,javaType=Integer,jdbcType=INTEGER} ,
+		        last_modify_time = #{lastModifyTime,javaType=java.util.Date,jdbcType=TIMESTAMP} 
+	        WHERE 
+		        id = #{id} 
+	    ]]>
+		</update>
+	   <delete id="delete" parameterType="java.lang.Long">
+	    <![CDATA[
+	        delete from sys_organization where
+		        id = #{id} 
+	    ]]>
+	    </delete> 
+	    
+	     <delete id="deleteByIds" parameterType="list">
+	    
+	        delete from sys_organization 
+	        where id in
+				<foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+#{item}				</foreach>	
+	  
+	    </delete>  
+	         
+	    <select id="findById" parameterType="java.lang.Long" resultMap="organizationResult" flushCache="false">
+			select <include refid="organizationColumns" />
+		    <![CDATA[
+			    from sys_organization 
+		        where 
+		        id = #{id} 
+		    ]]>
+		</select>	
+		<select id="getByIds" parameterType="list"  resultMap="organizationResult" flushCache="false">
+			select <include refid="organizationColumns" />
+			    from sys_organization 
+		        where id in
+				<foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+#{item}				</foreach>					
+		</select>	
+	<sql id="organizationDynamicWhere">
+		<!-- ognl访问静态方法的表达式 为@class@method(args),以下为调用rapid中的Ognl.isNotEmpty()方法,还有其它方法如isNotBlank()可以使用，具体请查看Ognl类 -->
+		<where>
+	       
+				<if test="id!=null">
+					and id = #{id}
+				</if>
+	       
+				<if test="code!=null">
+					and code = #{code}
+				</if>
+	       
+				<if test="name!=null">
+					and name = #{name}
+				</if>
+	       
+				<if test="fullName!=null">
+					and full_name = #{fullName}
+				</if>
+	       
+				<if test="orgTypeId!=null">
+					and org_type_id = #{orgTypeId}
+				</if>
+	       
+				<if test="parentId!=null">
+					and parent_id = #{parentId}
+				</if>
+	       
+				<if test="remark!=null">
+					and remark = #{remark}
+				</if>
+	       
+				<if test="lifecycle!=null">
+					and lifecycle = #{lifecycle}
+				</if>
+	       
+				<if test="lastModifyTime!=null">
+					and last_modify_time = #{lastModifyTime}
+				</if>
+		</where>
+	</sql>
+	
+
+	<select id="getCount" resultType="long">
+        select count(*) from sys_organization 
+    </select>
+    <select id="findListCountByQueryMap" resultType="long">
+        select count(*) from sys_organization 
+		<include refid="organizationDynamicWhere"/>    
+    </select>
+    
+    <select id="findListCountByParam" resultType="long">
+        select count(*) from sys_organization 
+		<include refid="organizationDynamicWhere"/>    
+    </select>
+    
+    <!--
+    	分页查询已经使用Dialect进行分页,也可以不使用Dialect直接编写分页
+    	因为分页查询将传 offset,pageSize,lastRows 三个参数,不同的数据库可以根于此三个参数属性应用不同的分页实现
+    -->
+    <select id="findListByQueryMapWithPage" resultMap="organizationResult">
+    	select <include refid="organizationColumns" />
+	    from sys_organization 
+		<include refid="organizationDynamicWhere"/>
+		
+    </select>
+    
+    <select id="findListByQueryMap" resultMap="organizationResult">
+    	select <include refid="organizationColumns" />
+	    from sys_organization 
+		<include refid="organizationDynamicWhere"/>
+		
+    </select>
+    
+    <select id="findListByParam" resultMap="organizationResult">
+    	select <include refid="organizationColumns" />
+	    from sys_organization 
+		<include refid="organizationDynamicWhere"/>
+		
+    </select>
+
+	
+</mapper>

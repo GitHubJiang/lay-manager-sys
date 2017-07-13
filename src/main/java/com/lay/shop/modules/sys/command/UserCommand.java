@@ -2,32 +2,44 @@ package com.lay.shop.modules.sys.command;
 
 import java.io.Serializable;
 
-public class UserCommand implements Serializable{
+public class UserCommand implements Serializable {
 
     /** */
-    private static final long serialVersionUID = 6009775100711138778L;
+    private static final long serialVersionUID = -1216895911541045764L;
+    /** 所属组织ID */
+    private Long orgId;
     /** 登录名 */
     private String loginName;
-    /** 用户密码 */
-    private String password;
-    /** 用户工号 */
+    /** 工号 */
     private String jobNo;
-    /** 用户名 */
-    private String name;
+    /** 用户姓名 */
+    private String userName;
+    /** 密码 */
+    private String loginPassword;
     /** 邮箱 */
     private String email;
-    /** 固定电话 */
-    private String phone;
     /** 手机号 */
-    private String mobile;
-    /** 用户备注 */
-    private String remarks;
-    /** 公司名称 */
-    private String companyName;
-    /** 公司编码 */
-    private String companyCode;
-    /** 部门名称 */
-    private String officeName;
+    private String phone;
+    /** 状态 */
+    private Integer lifecycle;
+    /** 机构编码 */
+    private String orgCode;
+    /** 机构简称 */
+    private String orgName;
+    /** 机构全称 */
+    private String orgFullName;
+    /** 机构类型编码 */
+    private String orgTypeCode;
+    /** 机构类型名称 */
+    private String orgTypeName;
+
+    public Long getOrgId() {
+        return orgId;
+    }
+
+    public void setOrgId(Long orgId) {
+        this.orgId = orgId;
+    }
 
     public String getLoginName() {
         return loginName;
@@ -35,14 +47,6 @@ public class UserCommand implements Serializable{
 
     public void setLoginName(String loginName) {
         this.loginName = loginName;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public String getJobNo() {
@@ -53,12 +57,20 @@ public class UserCommand implements Serializable{
         this.jobNo = jobNo;
     }
 
-    public String getName() {
-        return name;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getLoginPassword() {
+        return loginPassword;
+    }
+
+    public void setLoginPassword(String loginPassword) {
+        this.loginPassword = loginPassword;
     }
 
     public String getEmail() {
@@ -77,45 +89,52 @@ public class UserCommand implements Serializable{
         this.phone = phone;
     }
 
-    public String getMobile() {
-        return mobile;
+    public Integer getLifecycle() {
+        return lifecycle;
     }
 
-    public void setMobile(String mobile) {
-        this.mobile = mobile;
+    public void setLifecycle(Integer lifecycle) {
+        this.lifecycle = lifecycle;
     }
 
-    public String getRemarks() {
-        return remarks;
+    public String getOrgCode() {
+        return orgCode;
     }
 
-    public void setRemarks(String remarks) {
-        this.remarks = remarks;
+    public void setOrgCode(String orgCode) {
+        this.orgCode = orgCode;
     }
 
-    public String getCompanyName() {
-        return companyName;
+    public String getOrgName() {
+        return orgName;
     }
 
-    public void setCompanyName(String companyName) {
-        this.companyName = companyName;
+    public void setOrgName(String orgName) {
+        this.orgName = orgName;
     }
 
-    public String getCompanyCode() {
-        return companyCode;
+    public String getOrgFullName() {
+        return orgFullName;
     }
 
-    public void setCompanyCode(String companyCode) {
-        this.companyCode = companyCode;
+    public void setOrgFullName(String orgFullName) {
+        this.orgFullName = orgFullName;
     }
 
-    public String getOfficeName() {
-        return officeName;
+    public String getOrgTypeCode() {
+        return orgTypeCode;
     }
 
-    public void setOfficeName(String officeName) {
-        this.officeName = officeName;
+    public void setOrgTypeCode(String orgTypeCode) {
+        this.orgTypeCode = orgTypeCode;
     }
 
+    public String getOrgTypeName() {
+        return orgTypeName;
+    }
+
+    public void setOrgTypeName(String orgTypeName) {
+        this.orgTypeName = orgTypeName;
+    }
 
 }

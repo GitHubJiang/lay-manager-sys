@@ -1,6 +1,7 @@
 package com.lay.shop.modules.sys.service;
 
-import com.lay.shop.modules.sys.model.SysUser;
+import com.lay.shop.modules.sys.command.UserCommand;
+import com.lay.shop.modules.sys.model.User;
 
 /**
  * 
@@ -10,7 +11,8 @@ import com.lay.shop.modules.sys.model.SysUser;
  */
 public interface UserService{
 	
-    void save(SysUser user);
+    void save(User user);
     
+    UserCommand findUserByLoginNameAndEncryptedPassword(String loginName,String password);
     
 }

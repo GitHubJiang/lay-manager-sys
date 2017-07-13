@@ -12,30 +12,42 @@
  * DERIVATIVES.
  * 
  */
-package com.lay.shop.common.exception;
+package com.lay.shop.common.web;
 
-public enum ErrorCodes {
-    
-    RESULT_OK("1", "成功"),
-    RESULT_NO("0", "失败"),
-    USER_NO("2","用户不存在"),
-    USER_DISABLE("3","用户被禁用");
-    
-    private String value;
-    
-    private String msg;
-    
-    private ErrorCodes(String value, String msg) {
-        this.value = value;
-        this.msg = msg;
-    }
+import com.lay.shop.common.exception.ErrorCodes;
 
-    public String getValue() {
-        return value;
-    }
+public class Result<T> {
 
+    /**返回状态信息*/
+    private String msg = ErrorCodes.RESULT_OK.getValue();
+    /**返回状态code*/
+    private String code = ErrorCodes.RESULT_OK.getMsg();
+    /**主体内容*/
+    private T data;
+    
     public String getMsg() {
         return msg;
     }
+
+    public void setMsg(String msg) {
+        this.msg = msg;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public T getData() {
+        return data;
+    }
+
+    public void setData(T data) {
+        this.data = data;
+    }
+    
     
 }

@@ -12,30 +12,33 @@
  * DERIVATIVES.
  * 
  */
-package com.lay.shop.common.exception;
+package com.lay.shop.common.persistence;
 
-public enum ErrorCodes {
+import java.util.List;
+
+import com.google.common.collect.Lists;
+
+/**生成树形菜单节点基础类*/
+public class Node<T> {
     
-    RESULT_OK("1", "成功"),
-    RESULT_NO("0", "失败"),
-    USER_NO("2","用户不存在"),
-    USER_DISABLE("3","用户被禁用");
+    private Long parentId;
     
-    private String value;
-    
-    private String msg;
-    
-    private ErrorCodes(String value, String msg) {
-        this.value = value;
-        this.msg = msg;
+    private List<T> children = Lists.newArrayList();  
+
+    public Long getParentId() {
+        return parentId;
     }
 
-    public String getValue() {
-        return value;
+    public void setParentId(Long parentId) {
+        this.parentId = parentId;
     }
 
-    public String getMsg() {
-        return msg;
+    public List<T> getChildren() {
+        return children;
+    }
+
+    public void setChildren(List<T> children) {
+        this.children = children;
     }
     
 }

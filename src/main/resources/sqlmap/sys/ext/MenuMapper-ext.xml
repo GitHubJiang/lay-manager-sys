@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+
+<mapper namespace="com.lay.shop.modules.sys.dao.MenuDao">
+	<resultMap id="menuResultExt" type="com.lay.shop.modules.sys.model.Menu">
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="menuColumnsExt">
+	    <![CDATA[
+	        	id as id,
+	        	name as name,
+	        	acl as acl,
+	        	url as url,
+	        	sort_no as sortNo,
+	        	parent_id as parentId
+	    ]]>
+	</sql>
+	
+	<sql id="menuDynamicWhereExt">
+		<!-- ognl访问静态方法的表达式 为@class@method(args),以下为调用rapid中的Ognl.isNotEmpty()方法,还有其它方法如isNotBlank()可以使用，具体请查看Ognl类 -->
+		<where>
+	       
+				<if test="id!=null">
+					and id = #{id}
+				</if>
+	       
+				<if test="name!=null">
+					and name = #{name}
+				</if>
+	       
+				<if test="acl!=null">
+					and acl = #{acl}
+				</if>
+	       
+				<if test="url!=null">
+					and url = #{url}
+				</if>
+	       
+				<if test="sortNo!=null">
+					and sort_no = #{sortNo}
+				</if>
+	       
+				<if test="parentId!=null">
+					and parent_id = #{parentId}
+				</if>
+		</where>
+	</sql>
+	<select id="findAllMenuList" resultType="com.lay.shop.modules.sys.command.MenuCommand">
+		select sm.id as id,sm.acl as acl,sm.icon as icon,sm.parent_id as parentId,sm.name as name,sm.url as url
+		from sys_user u 
+		join sys_user_role sur on u.id = sur.user_id
+		join sys_role sr on sur.role_id = sr.id
+		join sys_role_privilege srp on srp.role_id = sr.id
+		join sys_privilege sp on srp.acl = sp.acl
+		join sys_menu sm on sm.acl = sp.acl
+		join sys_menu smp on sm.parent_id = smp.id
+		join sys_organization_type sot on sot.id=sp.ou_type_id
+		where u.id = #{userId} and sot.code =  #{orgCode}
+	</select>
+	
+	<select id="findUpMenuList"  resultType="com.lay.shop.modules.sys.command.MenuCommand">		
+		select sm.id as id,sm.acl as acl,sm.icon as icon,sm.parent_id as parentId,sm.name as name,sm.url as url
+		from sys_menu sm 
+		where id in 
+		<foreach collection="list" item="pid" index="index" open="(" close=")" separator=",">
+            #{pid}
+        </foreach>
+	</select>
+</mapper>

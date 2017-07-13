@@ -12,30 +12,21 @@
  * DERIVATIVES.
  * 
  */
-package com.lay.shop.common.exception;
+package com.lay.shop.common.constants;
 
-public enum ErrorCodes {
+public final class SystemConstants {
     
-    RESULT_OK("1", "成功"),
-    RESULT_NO("0", "失败"),
-    USER_NO("2","用户不存在"),
-    USER_DISABLE("3","用户被禁用");
-    
-    private String value;
-    
-    private String msg;
-    
-    private ErrorCodes(String value, String msg) {
-        this.value = value;
-        this.msg = msg;
-    }
+    private SystemConstants(){};
 
-    public String getValue() {
-        return value;
-    }
-
-    public String getMsg() {
-        return msg;
-    }
+    /**菜单根节点ID*/
+    public static Long menuRoot = 1L;    
     
+    /**树形结构根节点ID*/
+    public static Long treeRoot = 0L;
+    
+    /**启用*/
+    public static Integer LIFECYCLE_ENABLE=1;
+    
+    /**禁用*/
+    public static Integer LIFECYCLE_DISABLE=2;
 }
