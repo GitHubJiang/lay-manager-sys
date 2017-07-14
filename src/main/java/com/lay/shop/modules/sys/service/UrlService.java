@@ -1,5 +1,6 @@
 package com.lay.shop.modules.sys.service;
 
+import java.util.List;
 import java.util.Map;
 
 import com.lay.shop.common.persistence.db.dao.Page;
@@ -16,9 +17,11 @@ import com.lay.shop.modules.sys.model.Url;
 public interface UrlService{	
     
     /**新增或修改URL*/
-    void saveOrUpdateUrl(Url url);
+    void saveOrUpdate(Url url);
     /**分页查询URL*/
     Pagination<Url> findListByQueryMapWithPage(Page page,Sort[] sorts,Map<String, Object> params);
     /**删除Url*/
     void delete(Long id);
+    /**查询所有的Url*/
+    List<Url> findAllList();
 }

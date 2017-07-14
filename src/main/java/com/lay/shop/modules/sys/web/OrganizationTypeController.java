@@ -15,8 +15,8 @@ import com.lay.shop.common.web.BaseController;
 import com.lay.shop.common.web.Result;
 import com.lay.shop.common.web.bind.QueryBean;
 import com.lay.shop.common.web.bind.QueryBeanParam;
-import com.lay.shop.modules.sys.model.Url;
-import com.lay.shop.modules.sys.service.UrlService;
+import com.lay.shop.modules.sys.model.OrganizationType;
+import com.lay.shop.modules.sys.service.OrganizationTypeService;
 
 /**
  * 
@@ -25,25 +25,25 @@ import com.lay.shop.modules.sys.service.UrlService;
  * @since
  */
 @Controller
-@RequestMapping("/sys/url/")
-public class UrlController extends BaseController {
+@RequestMapping("/sys/orgtype/")
+public class OrganizationTypeController extends BaseController {
     
     @Autowired
-    private UrlService urlService;
+    private OrganizationTypeService organizationTypeService;
     
     @RequestMapping(value={"list"})
     @ResponseBody
-    public Result<Pagination<Url>> list(@QueryBeanParam QueryBean queryBean) {
-        Result<Pagination<Url>> result = new Result<>();
+    public Result<Pagination<OrganizationType>> list(@QueryBeanParam QueryBean queryBean) {
+        Result<Pagination<OrganizationType>> result = new Result<>();
         try {
-            Pagination<Url> list = this.urlService.findListByQueryMapWithPage(queryBean.getPage(), queryBean.getSorts(), queryBean.getParaMap());
+            Pagination<OrganizationType> list = this.organizationTypeService.findListByQueryMapWithPage(queryBean.getPage(), queryBean.getSorts(), queryBean.getParaMap());
             result.setData(list);
         } catch (BusinessException e) {
-            logger.error("UrlController.businessException:{}",e.getMessage());
+            logger.error("OrganizationTypeController.businessException:{}",e.getMessage());
             result.setCode(e.getValue());
             result.setMsg(e.getMessage());
         } catch (Exception e) {
-            logger.error("UrlController:{}", e.getMessage());
+            logger.error("OrganizationTypeController:{}", e.getMessage());
             result.setCode(ErrorCodes.RESULT_NO.getValue());
             result.setMsg(ErrorCodes.RESULT_NO.getMsg());
         }
@@ -52,15 +52,15 @@ public class UrlController extends BaseController {
     
     @RequestMapping(value={"add"})
     @ResponseBody
-    public Result<Url> add(Url url) {
-        Result<Url> result = new Result<>();
+    public Result<OrganizationType> add(OrganizationType OrganizationType) {
+        Result<OrganizationType> result = new Result<>();
         try {
-            this.urlService.saveOrUpdate(url);
+            this.organizationTypeService.saveOrUpdate(OrganizationType);
         } catch (BusinessException e) {
             result.setCode(e.getValue());
             result.setMsg(e.getMessage());
         } catch (Exception e) {
-            logger.error("UrlController:{}", e.getMessage());
+            logger.error("OrganizationTypeController:{}", e.getMessage());
             result.setCode(ErrorCodes.RESULT_NO.getValue());
             result.setMsg(ErrorCodes.RESULT_NO.getMsg());
         }
@@ -69,15 +69,15 @@ public class UrlController extends BaseController {
     
     @RequestMapping(value={"update"})
     @ResponseBody
-    public Result<Url> update(Url url) {
-        Result<Url> result = new Result<>();
+    public Result<OrganizationType> update(OrganizationType OrganizationType) {
+        Result<OrganizationType> result = new Result<>();
         try {
-            this.urlService.saveOrUpdate(url);
+            this.organizationTypeService.saveOrUpdate(OrganizationType);
         } catch (BusinessException e) {
             result.setCode(e.getValue());
             result.setMsg(e.getMessage());
         } catch (Exception e) {
-            logger.error("UrlController:{}", e.getMessage());
+            logger.error("OrganizationTypeController:{}", e.getMessage());
             result.setCode(ErrorCodes.RESULT_NO.getValue());
             result.setMsg(ErrorCodes.RESULT_NO.getMsg());
         }
@@ -86,15 +86,15 @@ public class UrlController extends BaseController {
     
     @RequestMapping(value={"delete/{id}"})
     @ResponseBody
-    public Result<Url> update(@PathVariable("id") Long id) {
-        Result<Url> result = new Result<>();
+    public Result<OrganizationType> update(@PathVariable("id") Long id) {
+        Result<OrganizationType> result = new Result<>();
         try {
-            this.urlService.delete(id);
+            this.organizationTypeService.delete(id);
         } catch (BusinessException e) {
             result.setCode(e.getValue());
             result.setMsg(e.getMessage());
         } catch (Exception e) {
-            logger.error("UrlController:{}", e.getMessage());
+            logger.error("OrganizationTypeController:{}", e.getMessage());
             result.setCode(ErrorCodes.RESULT_NO.getValue());
             result.setMsg(ErrorCodes.RESULT_NO.getMsg());
         }
@@ -103,21 +103,20 @@ public class UrlController extends BaseController {
     
     @RequestMapping(value={"alllist"})
     @ResponseBody
-    public Result<List<Url>> allList(@QueryBeanParam QueryBean queryBean) {
-        Result<List<Url>> result = new Result<>();
+    public Result<List<OrganizationType>> allList(@QueryBeanParam QueryBean queryBean) {
+        Result<List<OrganizationType>> result = new Result<>();
         try {
-            List<Url> list = this.urlService.findAllList();
+            List<OrganizationType> list = this.organizationTypeService.findAllList();
             result.setData(list);
         } catch (BusinessException e) {
-            logger.error("UrlController.businessException:{}",e.getMessage());
+            logger.error("OrganizationTypeController.businessException:{}",e.getMessage());
             result.setCode(e.getValue());
             result.setMsg(e.getMessage());
         } catch (Exception e) {
-            logger.error("UrlController:{}", e.getMessage());
+            logger.error("OrganizationTypeController:{}", e.getMessage());
             result.setCode(ErrorCodes.RESULT_NO.getValue());
             result.setMsg(ErrorCodes.RESULT_NO.getMsg());
         }
         return result;
     }
-    
 }

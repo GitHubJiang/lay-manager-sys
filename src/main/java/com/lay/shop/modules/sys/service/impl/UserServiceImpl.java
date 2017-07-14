@@ -8,7 +8,6 @@ import com.lay.shop.common.exception.ErrorCodes;
 import com.lay.shop.common.utils.Validator;
 import com.lay.shop.modules.sys.command.UserCommand;
 import com.lay.shop.modules.sys.dao.UserDao;
-import com.lay.shop.modules.sys.model.User;
 import com.lay.shop.modules.sys.service.UserService;
 
 @Service
@@ -29,9 +28,4 @@ public class UserServiceImpl implements UserService{
         return userCommand;
     }
 
-    @Override
-    public void save(User user) {
-        // TODO Auto-generated method stub        
-    }
-    
 }

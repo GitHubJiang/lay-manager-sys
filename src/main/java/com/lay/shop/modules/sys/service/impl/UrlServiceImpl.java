@@ -1,5 +1,6 @@
 package com.lay.shop.modules.sys.service.impl;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +26,7 @@ public class UrlServiceImpl implements UrlService{
     @Autowired
     private UrlDao urlDao;
     @Override
-    public void saveOrUpdateUrl(Url url) {
+    public void saveOrUpdate(Url url) {
         if(Validator.isNullOrEmpty(url.getId())){
             this.urlDao.insert(url);
         }else{
@@ -42,6 +43,11 @@ public class UrlServiceImpl implements UrlService{
     @Override
     public void delete(Long id) {
         this.urlDao.delete(id);
+    }
+
+    @Override
+    public List<Url> findAllList() {
+        return this.urlDao.findAllList();
     }
 	   
 }

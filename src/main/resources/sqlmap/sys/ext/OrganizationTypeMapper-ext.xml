@@ -44,5 +44,7 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
 				</if>
 		</where>
 	</sql>
-	
+	<select id="findAllList" resultMap="organizationTypeResultExt">
+		select <include refid="organizationTypeColumnsExt"/> from sys_organization_type
+	</select>
 </mapper>

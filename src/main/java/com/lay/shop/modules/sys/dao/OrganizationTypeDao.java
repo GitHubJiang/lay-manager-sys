@@ -1,5 +1,6 @@
 package com.lay.shop.modules.sys.dao;
 
+import java.util.List;
 import java.util.Map;
 
 import com.lay.shop.common.persistence.db.annotation.MyBatisDao;
@@ -18,4 +19,5 @@ public interface OrganizationTypeDao extends BaseDao<OrganizationType,Long>{
 	@QueryPage("findListCountByQueryMap")
 	Pagination<OrganizationType> findListByQueryMapWithPage(Page page,Sort[] sorts,Map<String, Object> params);
 
+	List<OrganizationType> findAllList();
 }

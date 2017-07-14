@@ -1,7 +1,6 @@
 package com.lay.shop.modules.sys.service;
 
 import com.lay.shop.modules.sys.command.UserCommand;
-import com.lay.shop.modules.sys.model.User;
 
 /**
  * 
@@ -11,8 +10,7 @@ import com.lay.shop.modules.sys.model.User;
  */
 public interface UserService{
 	
-    void save(User user);
-    
+    /**登录接口*/
     UserCommand findUserByLoginNameAndEncryptedPassword(String loginName,String password);
     
 }
