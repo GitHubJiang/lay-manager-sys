@@ -12,6 +12,9 @@ import java.security.NoSuchAlgorithmException;
  */
 public class StringEncrypt {
 	public static String Encrypt(String strSrc, String encName) {
+	    if(Validator.isNullOrEmpty(strSrc)){
+	        return null;
+	    }
 		MessageDigest md = null;
 		String strDes = null;
 
@@ -43,7 +46,7 @@ public class StringEncrypt {
 	}
 
 	public static void main(String args[]) {
-		String s = StringEncrypt.Encrypt("111111aA", "");
+		String s = StringEncrypt.Encrypt("12345678", "");
 		System.out.println(s);
 	}
 }

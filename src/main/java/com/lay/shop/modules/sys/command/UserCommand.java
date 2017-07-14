@@ -7,6 +7,8 @@ public class UserCommand implements Serializable {
     /** */
     private static final long serialVersionUID = -1216895911541045764L;
     /** 所属组织ID */
+    private Long id;
+    /** 所属组织ID */
     private Long orgId;
     /** 登录名 */
     private String loginName;
@@ -31,7 +33,15 @@ public class UserCommand implements Serializable {
     /** 机构类型编码 */
     private String orgTypeCode;
     /** 机构类型名称 */
-    private String orgTypeName;
+    private String orgTypeName;    
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public Long getOrgId() {
         return orgId;

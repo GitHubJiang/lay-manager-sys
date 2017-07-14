@@ -16,6 +16,8 @@ package com.lay.shop.modules.sys.web;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,6 +29,7 @@ import com.lay.shop.common.utils.Validator;
 import com.lay.shop.common.web.BaseController;
 import com.lay.shop.common.web.Result;
 import com.lay.shop.modules.sys.command.MenuCommand;
+import com.lay.shop.modules.sys.command.UserCommand;
 import com.lay.shop.modules.sys.service.MenuService;
 
 @Controller
@@ -38,21 +41,22 @@ public class MenuController extends BaseController {
     
     @RequestMapping(value = "menu")
     @ResponseBody
-    public Result<List<MenuCommand>> menu(@RequestParam(required = false) Long pid) {
+    public Result<List<MenuCommand>> menu(@RequestParam(required = false) Long pid,HttpServletRequest request) {
+        
+        UserCommand user = (UserCommand)request.getSession().getAttribute("user");        
         Result<List<MenuCommand>> result = new Result<>();
         List<MenuCommand> menu = null;
         try {
             if (Validator.isNullOrEmpty(pid)) {
-                menu = menuService.findMainMenu(1L, "SYSTEM");
+                menu = menuService.findMainMenu(user.getId(), user.getOrgTypeCode());
             } else {
-                menu = menuService.findLeftMenu(1L, "SYSTEM", pid);
+                menu = menuService.findLeftMenu(user.getId(), user.getOrgTypeCode(), pid);
             }
             result.setData(menu);
         } catch (Exception e) {
             result.setCode(ErrorCodes.RESULT_NO.getValue());
             result.setMsg(ErrorCodes.RESULT_NO.getMsg());
         }
-
         return result;
     }
     

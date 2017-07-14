@@ -21,5 +21,5 @@ public interface UserDao extends BaseDao<User,Long>{
 	@QueryPage("findListCountByQueryMap")
 	Pagination<User> findListByQueryMapWithPage(Page page,Sort[] sorts,Map<String, Object> params);
 	/**登录*/
-	UserCommand findUserByLoginNameAndEncryptedPassword(@Param("loginName")String loginName,@Param("loginName")String password);
+	UserCommand findUserByLoginNameAndEncryptedPassword(@Param("loginName")String loginName,@Param("password")String password);
 }

@@ -1,11 +1,14 @@
 package com.lay.shop.modules.sys.web;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.lay.shop.common.constants.SystemConstants;
+import com.lay.shop.common.exception.BusinessException;
 import com.lay.shop.common.exception.ErrorCodes;
 import com.lay.shop.common.utils.StringEncrypt;
 import com.lay.shop.common.utils.Validator;
@@ -29,7 +32,7 @@ public class UserController extends BaseController {
     
     @RequestMapping(value={"login"})
     @ResponseBody
-    public Result<UserCommand> login(UserCommand userCommand) {
+    public Result<UserCommand> login(UserCommand userCommand,HttpServletRequest request) {
         Result<UserCommand> result = new Result<>();
         userCommand.setLoginPassword(StringEncrypt
             .Encrypt(userCommand.getLoginPassword(), ""));
@@ -37,15 +40,18 @@ public class UserController extends BaseController {
         try {
             checkUser = userService.findUserByLoginNameAndEncryptedPassword(userCommand.getLoginName(), userCommand.getLoginPassword());
             if (Validator.isNullOrEmpty(checkUser)) {
-                result.setCode(ErrorCodes.USER_NO.getValue());
-                result.setMsg(ErrorCodes.USER_NO.getMsg());
+                throw new BusinessException(ErrorCodes.USER_NO);
             } else if (SystemConstants.LIFECYCLE_DISABLE.equals(checkUser.getLifecycle())) {
-                result.setCode(ErrorCodes.USER_DISABLE.getValue());
-                result.setMsg(ErrorCodes.USER_DISABLE.getMsg());
+                throw new BusinessException(ErrorCodes.USER_DISABLE);
             } else {
+                request.getSession().setAttribute("user", checkUser);
                 result.setData(checkUser);
             }
-        } catch (Exception e) {
+        }catch(BusinessException e){
+            result.setCode(e.getValue());
+            result.setMsg(e.getMessage());
+        }catch (Exception e) {
+            logger.error("UserController:{}",e.getMessage());
             result.setCode(ErrorCodes.RESULT_NO.getValue());
             result.setMsg(ErrorCodes.RESULT_NO.getMsg());
         }        

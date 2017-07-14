@@ -5,14 +5,15 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
 
 
 <mapper namespace="com.lay.shop.modules.sys.dao.UrlDao">
-	<resultMap id="urlResult" type="com.lay.shop.modules.sys.model.Url">
+	<resultMap id="UrlResult" type="com.lay.shop.modules.sys.model.Url">
 	</resultMap>
 	
 	<!-- 用于select查询公用抽取的列 -->
 	<sql id="urlColumns">
 	    <![CDATA[
 	        	id as id,
-	        	url as url
+	        	url as url,
+	        	remark as remark
 	    ]]>
 	</sql>
 	
@@ -25,9 +26,11 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
 		    <![CDATA[
 		        INSERT INTO
 		        sys_url (
-		        	url 
+		        	url ,
+		        	remark 
 		        ) VALUES (
-		        	#{url,javaType=String,jdbcType=VARCHAR} 
+		        	#{url,javaType=String,jdbcType=VARCHAR} ,
+		        	#{remark,javaType=String,jdbcType=VARCHAR} 
 		        )
 		    ]]>
 	
@@ -36,7 +39,8 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
 		<update id="update" parameterType="com.lay.shop.modules.sys.model.Url">
 	    <![CDATA[
 	        UPDATE sys_url SET
-		        url = #{url,javaType=String,jdbcType=VARCHAR} 
+		        url = #{url,javaType=String,jdbcType=VARCHAR} ,
+		        remark = #{remark,javaType=String,jdbcType=VARCHAR} 
 	        WHERE 
 		        id = #{id} 
 	    ]]>
@@ -57,7 +61,7 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
 	  
 	    </delete>  
 	         
-	    <select id="findById" parameterType="java.lang.Long" resultMap="urlResult" flushCache="false">
+	    <select id="findById" parameterType="java.lang.Long" resultMap="UrlResult" flushCache="false">
 			select <include refid="urlColumns" />
 		    <![CDATA[
 			    from sys_url 
@@ -65,7 +69,7 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
 		        id = #{id} 
 		    ]]>
 		</select>	
-		<select id="getByIds" parameterType="list"  resultMap="urlResult" flushCache="false">
+		<select id="getByIds" parameterType="list"  resultMap="UrlResult" flushCache="false">
 			select <include refid="urlColumns" />
 			    from sys_url 
 		        where id in
@@ -82,6 +86,10 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
 	       
 				<if test="url!=null">
 					and url = #{url}
+				</if>
+	       
+				<if test="remark!=null">
+					and remark = #{remark}
 				</if>
 		</where>
 	</sql>
@@ -104,21 +112,21 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
     	分页查询已经使用Dialect进行分页,也可以不使用Dialect直接编写分页
     	因为分页查询将传 offset,pageSize,lastRows 三个参数,不同的数据库可以根于此三个参数属性应用不同的分页实现
     -->
-    <select id="findListByQueryMapWithPage" resultMap="urlResult">
+    <select id="findListByQueryMapWithPage" resultMap="UrlResult">
     	select <include refid="urlColumns" />
 	    from sys_url 
 		<include refid="urlDynamicWhere"/>
 		
     </select>
     
-    <select id="findListByQueryMap" resultMap="urlResult">
+    <select id="findListByQueryMap" resultMap="UrlResult">
     	select <include refid="urlColumns" />
 	    from sys_url 
 		<include refid="urlDynamicWhere"/>
 		
     </select>
     
-    <select id="findListByParam" resultMap="urlResult">
+    <select id="findListByParam" resultMap="UrlResult">
     	select <include refid="urlColumns" />
 	    from sys_url 
 		<include refid="urlDynamicWhere"/>
