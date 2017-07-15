@@ -41,16 +41,16 @@ public class MenuController extends BaseController {
     
     @RequestMapping(value = "menu")
     @ResponseBody
-    public Result<List<MenuCommand>> menu(@RequestParam(required = false) Long pid,HttpServletRequest request) {
+    public Result<List<MenuCommand>> menu(@RequestParam(required = false) Long pid,@RequestParam String orgCode,HttpServletRequest request) {
         
         UserCommand user = (UserCommand)request.getSession().getAttribute("user");        
         Result<List<MenuCommand>> result = new Result<>();
         List<MenuCommand> menu = null;
         try {
             if (Validator.isNullOrEmpty(pid)) {
-                menu = menuService.findMainMenu(user.getId(), user.getOrgTypeCode());
+                menu = menuService.findMainMenu(user.getId(), orgCode);
             } else {
-                menu = menuService.findLeftMenu(user.getId(), user.getOrgTypeCode(), pid);
+                menu = menuService.findLeftMenu(user.getId(), orgCode, pid);
             }
             result.setData(menu);
         } catch (Exception e) {

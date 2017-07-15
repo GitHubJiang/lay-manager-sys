@@ -1,17 +1,3 @@
-/**
- * Copyright (c) 2015 Jumbomart All Rights Reserved.
- * 
- * This software is the confidential and proprietary information of Jumbomart. You shall not
- * disclose such Confidential Information and shall use it only in accordance with the terms of the
- * license agreement you entered into with Jumbo.
- * 
- * JUMBOMART MAKES NO REPRESENTATIONS OR WARRANTIES ABOUT THE SUITABILITY OF THE SOFTWARE, EITHER
- * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE IMPLIED WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE, OR NON-INFRINGEMENT. JUMBOMART SHALL NOT BE LIABLE FOR ANY
- * DAMAGES SUFFERED BY LICENSEE AS A RESULT OF USING, MODIFYING OR DISTRIBUTING THIS SOFTWARE OR ITS
- * DERIVATIVES.
- * 
- */
 package com.lay.shop.modules.sys.service.impl;
 
 
@@ -23,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.google.common.collect.Lists;
 import com.lay.shop.common.constants.SystemConstants;
 import com.lay.shop.common.utils.TreeUtils;
+import com.lay.shop.common.utils.Validator;
 import com.lay.shop.modules.sys.command.MenuCommand;
 import com.lay.shop.modules.sys.dao.MenuDao;
 import com.lay.shop.modules.sys.service.MenuService;
@@ -66,19 +53,19 @@ public class MenuServiceImpl implements MenuService {
     }
 
     
-    private List<MenuCommand> generateMenu(List<MenuCommand> list, List<MenuCommand> allList){
+    private List<MenuCommand> generateMenu(List<MenuCommand> list, List<MenuCommand> allList) {
         List<Long> ids = Lists.newArrayList();
-        for(MenuCommand command : list){  
-            if(command.getParentId()!=null){
-                ids.add(command.getParentId());   
+        for (MenuCommand command : list) {
+            if (!Validator.isNullOrEmpty(command.getParentId())&& !ids.contains(command.getParentId())) {
+                ids.add(command.getParentId());
             }
         }
-        if(ids.isEmpty()){
+        if (ids.isEmpty()) {
             return allList;
         }
         List<MenuCommand> parents = menuDao.findUpMenuList(ids);
         allList.addAll(parents);
-        generateMenu(parents,allList);
+        generateMenu(parents, allList);
         return allList;
     }
 }

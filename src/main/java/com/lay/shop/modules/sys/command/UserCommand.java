@@ -1,15 +1,14 @@
 package com.lay.shop.modules.sys.command;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class UserCommand implements Serializable {
 
     /** */
     private static final long serialVersionUID = -1216895911541045764L;
-    /** 所属组织ID */
-    private Long id;
-    /** 所属组织ID */
-    private Long orgId;
+    /** 用户ID */
+    private Long id;    
     /** 登录名 */
     private String loginName;
     /** 工号 */
@@ -24,16 +23,8 @@ public class UserCommand implements Serializable {
     private String phone;
     /** 状态 */
     private Integer lifecycle;
-    /** 机构编码 */
-    private String orgCode;
-    /** 机构简称 */
-    private String orgName;
-    /** 机构全称 */
-    private String orgFullName;
-    /** 机构类型编码 */
-    private String orgTypeCode;
-    /** 机构类型名称 */
-    private String orgTypeName;    
+    
+    List<OrganizationCommand> organizationList;
 
     public Long getId() {
         return id;
@@ -41,14 +32,6 @@ public class UserCommand implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Long getOrgId() {
-        return orgId;
-    }
-
-    public void setOrgId(Long orgId) {
-        this.orgId = orgId;
     }
 
     public String getLoginName() {
@@ -107,44 +90,14 @@ public class UserCommand implements Serializable {
         this.lifecycle = lifecycle;
     }
 
-    public String getOrgCode() {
-        return orgCode;
+    public List<OrganizationCommand> getOrganizationList() {
+        return organizationList;
     }
 
-    public void setOrgCode(String orgCode) {
-        this.orgCode = orgCode;
+    public void setOrganizationList(List<OrganizationCommand> organizationList) {
+        this.organizationList = organizationList;
     }
 
-    public String getOrgName() {
-        return orgName;
-    }
-
-    public void setOrgName(String orgName) {
-        this.orgName = orgName;
-    }
-
-    public String getOrgFullName() {
-        return orgFullName;
-    }
-
-    public void setOrgFullName(String orgFullName) {
-        this.orgFullName = orgFullName;
-    }
-
-    public String getOrgTypeCode() {
-        return orgTypeCode;
-    }
-
-    public void setOrgTypeCode(String orgTypeCode) {
-        this.orgTypeCode = orgTypeCode;
-    }
-
-    public String getOrgTypeName() {
-        return orgTypeName;
-    }
-
-    public void setOrgTypeName(String orgTypeName) {
-        this.orgTypeName = orgTypeName;
-    }
+    
 
 }

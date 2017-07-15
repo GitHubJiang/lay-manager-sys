@@ -65,4 +65,31 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
 		</where>
 	</sql>
 	
+	<select id="findPageCountByQueryMapWithPage" resultType="long">
+		select count(org.id) 
+		from sys_organization org 
+		join sys_organization_type orgt on org.org_type_id = orgt.id
+	</select>
+	
+	<select id="findPageListByQueryMapWithPage" resultType="com.lay.shop.modules.sys.command.OrganizationCommand">
+		select org.id as id,org.code as code,org.name as name,org.full_name as fullName,org.lifecycle as lifecycle,orgt.name as orgTypeName 
+		from sys_organization org 
+		join sys_organization_type orgt on org.org_type_id = orgt.id
+	</select>
+	
+	<select id="findOrganizationById" resultType="com.lay.shop.modules.sys.command.OrganizationCommand">
+		select org.id as id,org.code as code,org.name as name,org.full_name as fullName,org.lifecycle as lifecycle,orgt.id as orgTypeId,orgt.name as orgTypeName 
+		from sys_organization org 
+		join sys_organization_type orgt on org.org_type_id = orgt.id
+		where org.id = #{id}
+	</select>
+	
+	<select id="findOrganizationByUserId" resultType="com.lay.shop.modules.sys.command.OrganizationCommand">
+		select so.id as id,so.code as code,so.name as name,sot.id as orgTypeId,sot.name as orgTypeName
+		from sys_user u 
+		join sys_user_org sur on u.id = sur.user_id 
+		join sys_organization so on sur.org_id = so.id and so.lifecycle = 1
+		join sys_organization_type sot on sot.id = so.org_type_id
+		where u.id = #{userId}
+	</select>
 </mapper>

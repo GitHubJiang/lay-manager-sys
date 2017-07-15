@@ -58,7 +58,7 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
 		join sys_privilege sp on srp.acl = sp.acl
 		join sys_menu sm on sm.acl = sp.acl
 		join sys_menu smp on sm.parent_id = smp.id
-		join sys_organization_type sot on sot.id=sp.ou_type_id
+		join sys_organization so on sr.org_id = so.id
 		where u.id = #{userId} and sot.code =  #{orgCode}
 	</select>
 	

@@ -14,8 +14,8 @@ public class Role extends BaseModel {
     private static final long serialVersionUID = 7294159567960943066L;
     /** 名称 */
 	private String name;
-	/** 组织类型的ID */
-	private Long orgTypeId;
+	/** 组织ID */
+	private Long orgId;
 	/** 1.正常；2.已删除 */
 	private Integer lifecycle;
 	/** 权限的类型，1.操作权限;2.功能权限;3.工作流权限 */
@@ -32,14 +32,16 @@ public class Role extends BaseModel {
 	public String getName() {
 		return this.name;
 	}
-	public void setOrgTypeId(Long value) {
-		this.orgTypeId = value;
-	}
 	
-	public Long getOrgTypeId() {
-		return this.orgTypeId;
-	}
-	public void setLifecycle(Integer value) {
+	public Long getOrgId() {
+        return orgId;
+    }
+
+    public void setOrgId(Long orgId) {
+        this.orgId = orgId;
+    }
+
+    public void setLifecycle(Integer value) {
 		this.lifecycle = value;
 	}
 	

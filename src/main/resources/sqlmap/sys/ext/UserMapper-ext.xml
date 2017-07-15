@@ -71,11 +71,9 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
 	</sql>
 	
 	<select id="findUserByLoginNameAndEncryptedPassword" resultType="com.lay.shop.modules.sys.command.UserCommand">
-		select u.id AS id,u.login_name as loginName,u.job_no as jobNo,u.user_name as userName,u.email as email,u.phone as phone,u.lifecycle as lifecycle,
-		o.code as orgCode,o.name as orgName,o.full_name as orgFullName,t.code as orgTypeCode,t.name as orgTypeName
+		select u.id as id,u.login_name as loginName,u.job_no as jobNo,u.user_name as userName,u.email as email,
+		u.phone as phone,u.lifecycle as lifecycle
 		from sys_user u
-		join sys_organization o on u.org_id = o.id AND o.lifecycle=1
-		join sys_organization_type t on t.id = o.org_type_id
 		where u.login_name = #{loginName} and u.login_password = #{password}
 	</select>
 	
