@@ -25,4 +25,6 @@ public interface MenuDao extends BaseDao<Menu,Long>{
     List<MenuCommand> findAllMenuList(@Param("userId") Long userId, @Param("orgCode") String orgCode);
 	/**查询上级菜单*/
     List<MenuCommand> findUpMenuList(List<Long> parentIds);
+    
+    
 }

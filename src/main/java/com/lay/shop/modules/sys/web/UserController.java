@@ -4,9 +4,11 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.alibaba.fastjson.JSON;
 import com.lay.shop.common.constants.SystemConstants;
 import com.lay.shop.common.exception.BusinessException;
 import com.lay.shop.common.exception.ErrorCodes;
@@ -45,6 +47,7 @@ public class UserController extends BaseController {
                 throw new BusinessException(ErrorCodes.USER_DISABLE);
             } else {
                 request.getSession().setAttribute("user", checkUser);
+                logger.info(JSON.toJSONString(request.getSession().getAttribute("user")));
                 result.setData(checkUser);
             }
         }catch(BusinessException e){

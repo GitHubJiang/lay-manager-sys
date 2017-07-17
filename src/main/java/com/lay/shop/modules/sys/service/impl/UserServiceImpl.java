@@ -34,8 +34,10 @@ public class UserServiceImpl implements UserService{
             throw new BusinessException(ErrorCodes.LOGIN_PASSWORD_NO);
         }
         UserCommand userCommand = userDao.findUserByLoginNameAndEncryptedPassword(loginName, password);
-        List<OrganizationCommand> organizationList = organizationDao.findOrganizationByUserId(userCommand.getId());
-        userCommand.setOrganizationList(organizationList);
+        if(!Validator.isNullOrEmpty(userCommand)){
+            List<OrganizationCommand> organizationList = organizationDao.findOrganizationByUserId(userCommand.getId());
+            userCommand.setOrganizationList(organizationList);
+        }        
         return userCommand;
     }
 

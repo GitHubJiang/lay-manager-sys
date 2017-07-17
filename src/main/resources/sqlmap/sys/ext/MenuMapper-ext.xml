@@ -59,7 +59,7 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
 		join sys_menu sm on sm.acl = sp.acl
 		join sys_menu smp on sm.parent_id = smp.id
 		join sys_organization so on sr.org_id = so.id
-		where u.id = #{userId} and sot.code =  #{orgCode}
+		where u.id = #{userId} and so.code =  #{orgCode}
 	</select>
 	
 	<select id="findUpMenuList"  resultType="com.lay.shop.modules.sys.command.MenuCommand">		

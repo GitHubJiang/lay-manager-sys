@@ -12,6 +12,7 @@ import com.lay.shop.common.utils.TreeUtils;
 import com.lay.shop.common.utils.Validator;
 import com.lay.shop.modules.sys.command.MenuCommand;
 import com.lay.shop.modules.sys.dao.MenuDao;
+import com.lay.shop.modules.sys.model.Menu;
 import com.lay.shop.modules.sys.service.MenuService;
 
 @Service
@@ -67,6 +68,21 @@ public class MenuServiceImpl implements MenuService {
         allList.addAll(parents);
         generateMenu(parents, allList);
         return allList;
+    }
+
+    @Override
+    public void save(Menu menu) {
+        this.menuDao.insert(menu);
+    }
+
+    @Override
+    public void update(Menu menu) {
+        this.menuDao.update(menu);
+    }
+
+    @Override
+    public void delete(Long id) {
+        this.menuDao.delete(id);
     }
 }
 

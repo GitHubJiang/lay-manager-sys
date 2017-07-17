@@ -14,7 +14,6 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
 	        	id as id,
 	        	acl as acl,
 	        	name as name,
-	        	ou_type_id as ouTypeId,
 	        	type as type,
 	        	sort_no as sortNo
 	    ]]>
@@ -31,13 +30,11 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
 		        sys_privilege (
 		        	acl ,
 		        	name ,
-		        	ou_type_id ,
 		        	type ,
 		        	sort_no 
 		        ) VALUES (
 		        	#{acl,javaType=String,jdbcType=VARCHAR} ,
 		        	#{name,javaType=String,jdbcType=VARCHAR} ,
-		        	#{ouTypeId,javaType=Long,jdbcType=BIGINT} ,
 		        	#{type,javaType=Integer,jdbcType=INTEGER} ,
 		        	#{sortNo,javaType=Integer,jdbcType=INTEGER} 
 		        )
@@ -50,7 +47,6 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
 	        UPDATE sys_privilege SET
 		        acl = #{acl,javaType=String,jdbcType=VARCHAR} ,
 		        name = #{name,javaType=String,jdbcType=VARCHAR} ,
-		        ou_type_id = #{ouTypeId,javaType=Long,jdbcType=BIGINT} ,
 		        type = #{type,javaType=Integer,jdbcType=INTEGER} ,
 		        sort_no = #{sortNo,javaType=Integer,jdbcType=INTEGER} 
 	        WHERE 

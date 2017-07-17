@@ -15,8 +15,6 @@ public class Privilege extends BaseModel {
 	private String acl;
 	/** 权限名称 */
 	private String name;
-	/** 组织类型ID 1.系统 2.公司 */
-	private Long ouTypeId;
 	/** 权限的类型，1.操作权限;2.功能权限;3.工作流权限 */
 	private Integer type;
 	/** 排序号 */
@@ -45,13 +43,6 @@ public class Privilege extends BaseModel {
 	
 	public String getName() {
 		return this.name;
-	}
-	public void setOuTypeId(Long value) {
-		this.ouTypeId = value;
-	}
-	
-	public Long getOuTypeId() {
-		return this.ouTypeId;
 	}
 	public void setType(Integer value) {
 		this.type = value;

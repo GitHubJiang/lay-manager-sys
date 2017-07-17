@@ -12,33 +12,29 @@
  * DERIVATIVES.
  * 
  */
-package com.lay.shop.common.exception;
+package com.lay.shop.modules.sys.service.impl;
 
-public enum ErrorCodes {
-    
-    RESULT_OK("1", "成功"),
-    RESULT_NO("0", "失败"),
-    USER_NO("2","用户名或密码错误"),
-    USER_DISABLE("3","用户被禁用"),
-    LOGIN_NAME_NO("4","登录名不能为空"),
-    LOGIN_PASSWORD_NO("5","登录密码不能为空"),
-    ORG_CODE_NO("6","组织编码不能为空");
-    
-    private String value;
-    
-    private String msg;
-    
-    private ErrorCodes(String value, String msg) {
-        this.value = value;
-        this.msg = msg;
+import com.lay.shop.modules.sys.model.Privilege;
+import com.lay.shop.modules.sys.service.PrivilegeService;
+
+public class PrivilegeServiceImpl implements PrivilegeService{
+
+    @Override
+    public void save(Privilege privilege) {
+        // TODO Auto-generated method stub
+        
     }
 
-    public String getValue() {
-        return value;
+    @Override
+    public void update(Privilege privilege) {
+        // TODO Auto-generated method stub
+        
     }
 
-    public String getMsg() {
-        return msg;
+    @Override
+    public void delete(Long id) {
+        // TODO Auto-generated method stub
+        
     }
-    
+
 }

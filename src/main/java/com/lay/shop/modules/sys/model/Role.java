@@ -20,8 +20,7 @@ public class Role extends BaseModel {
 	private Integer lifecycle;
 	/** 权限的类型，1.操作权限;2.功能权限;3.工作流权限 */
 	private Integer type;
-	//columns END
-
+	
 	public Role(){
 	}
 

@@ -32,13 +32,13 @@ public class MenuServiceTest extends SpringTest{
     
     @Test
     public void findMainMenuTest(){
-        List<MenuCommand> list = menuService.findMainMenu(1L, "SYSTEM");
+        List<MenuCommand> list = menuService.findMainMenu(1L, "ORG_SYSTEM");
         this.printPrettyJson(list);
     }
     
     @Test
     public void findLeftMenuTest(){
-        List<MenuCommand> list = menuService.findLeftMenu(1L, "SYSTEM",2L);
+        List<MenuCommand> list = menuService.findLeftMenu(1L, "ORG_SYSTEM",2L);
        
         this.printPrettyJson(list);
     }
