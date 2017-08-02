@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+
+<mapper namespace="com.lay.shop.greeston.dao.auth.UserDao">
+	<resultMap id="UserResultExt" type="com.lay.shop.greeston.model.auth.User">
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="userColumnsExt">
+	    <![CDATA[
+	        	u.id as id,
+	        	u.ou_id as ouId,
+	        	u.login_name as loginName,
+	        	u.user_name as userName,
+	        	u.job_number as jobNumber,
+	        	u.password as password,
+	        	u.email as email,
+	        	u.mobile as mobile,
+	        	u.lifecycle as lifecycle,
+	        	u.create_time as createTime,
+	        	u.latest_update_time as latestUpdateTime,
+	        	u.latest_access_time as latestAccessTime,
+	        	u.memo as memo
+	    ]]>
+	</sql>
+	
+	<sql id="userDynamicWhereExt">
+		<!-- ognl访问静态方法的表达式 为@class@method(args),以下为调用rapid中的Ognl.isNotEmpty()方法,还有其它方法如isNotBlank()可以使用，具体请查看Ognl类 -->
+		<where>
+	       
+				<if test="id!=null">
+					and u.id = #{id}
+				</if>
+	       
+				<if test="ouId!=null">
+					and u.ou_id = #{ouId}
+				</if>
+	       
+				<if test="loginName!=null">
+					and u.login_name = #{loginName}
+				</if>
+	       
+				<if test="userName!=null">
+					and u.user_name = #{userName}
+				</if>
+	       
+				<if test="jobNumber!=null">
+					and u.job_number = #{jobNumber}
+				</if>
+	       
+				<if test="password!=null">
+					and u.password = #{password}
+				</if>
+	       
+				<if test="email!=null">
+					and u.email = #{email}
+				</if>
+	       
+				<if test="mobile!=null">
+					and u.mobile = #{mobile}
+				</if>
+	       
+				<if test="lifecycle!=null">
+					and u.lifecycle = #{lifecycle}
+				</if>
+	       
+				<if test="createTime!=null">
+					and u.create_time = #{createTime}
+				</if>
+	       
+				<if test="latestUpdateTime!=null">
+					and u.latest_update_time = #{latestUpdateTime}
+				</if>
+	       
+				<if test="latestAccessTime!=null">
+					and u.latest_access_time = #{latestAccessTime}
+				</if>
+		</where>
+	</sql>
+	
+	<select id="findUserByIdOrLoginName" resultType="com.lay.shop.greeston.model.auth.User">
+		select <include refid="userColumnsExt"/> 
+		from au_user u
+		<where>
+			<if test="id!=null">
+				and u.id = #{id}
+			</if>       
+			<if test="loginName!=null">
+				and u.login_name = #{loginName}
+			</if>
+		</where>
+	</select>
+	
+	
+	<resultMap id="userResult" type="com.lay.shop.greeston.model.auth.User">
+		<id property="id" column="id"/>
+	</resultMap>
+	<resultMap type="com.lay.shop.greeston.command.auth.UserPrivilegeCommand" id="userPrivilegeCommand">
+		<association property="user" resultMap="userResult"></association>
+		<association property="ou" column="ouId" javaType="com.lay.shop.greeston.command.auth.OperationUnitCommand">
+			<id property="id" column="ouId" />
+			<result property="code" column="ouCode"/>
+			<result property="name" column="ouName"/>
+			<result property="ouTypeName" column="utName"/>
+		</association>
+	</resultMap>
+	<select id="findUserPrivilegeByLoginName" resultMap="userPrivilegeCommand">
+		select <include refid="userColumnsExt"/> ,ou.code ouCode,ou.name ouName,ut.name utName 
+		from au_user u join au_operation_unit ou on u.ou_id = ou.id join au_operation_unit_type ut on ou.ou_type_id = ut.id 
+		where u.login_name = #{loginName}
+	</select>
+
+</mapper>

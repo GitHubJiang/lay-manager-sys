@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+
+<mapper namespace="com.lay.shop.greeston.dao.auth.PrivilegeDao">
+	<resultMap id="PrivilegeResult" type="com.lay.shop.greeston.model.auth.Privilege">
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="privilegeColumns">
+	    <![CDATA[
+	        	id as id,
+	        	acl as acl,
+	        	name as name,
+	        	ou_type_id as ouTypeId,
+	        	remark as remark,
+	        	version as version
+	    ]]>
+	</sql>
+	
+		<!-- 如果有自增字段 -->
+	
+			<!-- useGeneratedKeys="true" keyProperty="xxx" for sqlserver and mysql -->
+			<insert id="insert" parameterType="com.lay.shop.greeston.model.auth.Privilege" 
+				useGeneratedKeys="true" keyProperty="id" 
+			 flushCache="true">
+		    <![CDATA[
+		        INSERT INTO
+		        au_privilege (
+		        	acl ,
+		        	name ,
+		        	ou_type_id ,
+		        	remark ,
+		        	version 
+		        ) VALUES (
+		        	#{acl,javaType=String,jdbcType=VARCHAR} ,
+		        	#{name,javaType=String,jdbcType=VARCHAR} ,
+		        	#{ouTypeId,javaType=Long,jdbcType=BIGINT} ,
+		        	#{remark,javaType=String,jdbcType=VARCHAR} ,
+		        	#{version,javaType=java.util.Date,jdbcType=TIMESTAMP} 
+		        )
+		    ]]>
+	
+			</insert>
+		
+		<update id="update" parameterType="com.lay.shop.greeston.model.auth.Privilege">
+	    <![CDATA[
+	        UPDATE au_privilege SET
+		        acl = #{acl,javaType=String,jdbcType=VARCHAR} ,
+		        name = #{name,javaType=String,jdbcType=VARCHAR} ,
+		        ou_type_id = #{ouTypeId,javaType=Long,jdbcType=BIGINT} ,
+		        remark = #{remark,javaType=String,jdbcType=VARCHAR} ,
+		        version = #{version,javaType=java.util.Date,jdbcType=TIMESTAMP} 
+	        WHERE 
+		        id = #{id} 
+	    ]]>
+		</update>
+	   <delete id="delete" parameterType="java.lang.Long">
+	    <![CDATA[
+	        delete from au_privilege where
+		        id = #{id} 
+	    ]]>
+	    </delete> 
+	    
+	     <delete id="deleteByIds" parameterType="list">
+	    
+	        delete from au_privilege 
+	        where id in
+				<foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+#{item}				</foreach>	
+	  
+	    </delete>  
+	         
+	    <select id="findById" parameterType="java.lang.Long" resultMap="PrivilegeResult" flushCache="false">
+			select <include refid="privilegeColumns" />
+		    <![CDATA[
+			    from au_privilege 
+		        where 
+		        id = #{id} 
+		    ]]>
+		</select>	
+		<select id="getByIds" parameterType="list"  resultMap="PrivilegeResult" flushCache="false">
+			select <include refid="privilegeColumns" />
+			    from au_privilege 
+		        where id in
+				<foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+#{item}				</foreach>					
+		</select>	
+	<sql id="privilegeDynamicWhere">
+		<!-- ognl访问静态方法的表达式 为@class@method(args),以下为调用rapid中的Ognl.isNotEmpty()方法,还有其它方法如isNotBlank()可以使用，具体请查看Ognl类 -->
+		<where>
+	       
+				<if test="id!=null">
+					and id = #{id}
+				</if>
+	       
+				<if test="acl!=null">
+					and acl = #{acl}
+				</if>
+	       
+				<if test="name!=null">
+					and name = #{name}
+				</if>
+	       
+				<if test="ouTypeId!=null">
+					and ou_type_id = #{ouTypeId}
+				</if>
+	       
+				<if test="remark!=null">
+					and remark = #{remark}
+				</if>
+	       
+				<if test="version!=null">
+					and version = #{version}
+				</if>
+		</where>
+	</sql>
+	
+
+	<select id="getCount" resultType="long">
+        select count(*) from au_privilege 
+    </select>
+    <select id="findListCountByQueryMap" resultType="long">
+        select count(*) from au_privilege 
+		<include refid="privilegeDynamicWhere"/>    
+    </select>
+    
+    <select id="findListCountByParam" resultType="long">
+        select count(*) from au_privilege 
+		<include refid="privilegeDynamicWhere"/>    
+    </select>
+    
+    <!--
+    	分页查询已经使用Dialect进行分页,也可以不使用Dialect直接编写分页
+    	因为分页查询将传 offset,pageSize,lastRows 三个参数,不同的数据库可以根于此三个参数属性应用不同的分页实现
+    -->
+    <select id="findListByQueryMapWithPage" resultMap="PrivilegeResult">
+    	select <include refid="privilegeColumns" />
+	    from au_privilege 
+		<include refid="privilegeDynamicWhere"/>
+		
+    </select>
+    
+    <select id="findListByQueryMap" resultMap="PrivilegeResult">
+    	select <include refid="privilegeColumns" />
+	    from au_privilege 
+		<include refid="privilegeDynamicWhere"/>
+		
+    </select>
+    
+    <select id="findListByParam" resultMap="PrivilegeResult">
+    	select <include refid="privilegeColumns" />
+	    from au_privilege 
+		<include refid="privilegeDynamicWhere"/>
+		
+    </select>
+
+	
+</mapper>

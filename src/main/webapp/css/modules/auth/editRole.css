@@ -1,0 +1,29 @@
+.border-g-right {
+	border-right: 1px solid #abb7b7;
+}
+
+.border-g-lf-rg {
+	border-left: 1px solid #abb7b7;
+	border-right: 1px solid #abb7b7;
+}
+
+.border-g {
+	border: 1px solid #abb7b7;
+}
+
+.form-Privilege-bck {
+	background: #abb7b7;
+}
+
+.margin-bottom-none,.widget.margin-bottom-none {
+	margin-bottom: 0;
+}
+
+.border-g-lf-rg {
+	border-left: 1px solid #abb7b7;
+	border-right: 1px solid #abb7b7;
+}
+
+.overflow {
+	overflow: hidden;
+}

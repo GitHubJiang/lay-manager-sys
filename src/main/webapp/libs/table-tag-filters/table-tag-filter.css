@@ -1,0 +1,72 @@
+.inline-block{
+	display: inline-block;
+}
+.tag-filter{
+	margin-bottom: 15px;
+}
+.tag-filter .nav{
+	border-bottom: none !important;
+}
+.tag-filter .nav li a{
+	cursor: pointer !important;
+}
+.tag-filter .nav li a, .tag-filter .nav li a:hover, .tag-filter .nav li a:active{
+	background: none repeat scroll 0 0 #ebebeb;
+	padding: 8px 30px;
+	margin-right: 2px;
+}
+.tag-filter .nav li.active a, .tag-filter .nav li.active a:hover, .tag-filter .nav li.active a:active{
+	background: none repeat scroll 0 0 #424a55;
+}
+.tag-filter .nav li i.icon-cancel{
+	display: none;
+    margin-top: -8px;
+    position: absolute;
+    right: 4px;
+    top: 50%;
+    cursor: pointer;
+}
+.tag-filter .nav li.active i.icon-cancel, .tag-filter .nav li:hover i.icon-cancel{
+	display: block;
+}
+.tag-filter .nav li.active i.icon-cancel{
+	color: #ffffff;
+}
+.filter-text{
+	padding: 5px 0;
+	position: relative;
+    font-size: 14px;
+}
+.filter-text a{
+	cursor: pointer;
+	margin: 0 5px;
+}
+.filter-content, .tag-filter .nav .advanced-search-text, .filter-pane, .filter-criteria-pane{
+	display: none;
+}
+.filter-content-wrap {
+    border-top: 1px solid #ebebeb;
+    background-color: #fff;
+    padding: 15px;
+}
+.filter-content:first-child{
+	display: block;
+}
+.filter-save-dropdown{
+	position: absolute;
+    right: 0;
+    top: 36px;
+    width: 200px;
+    z-index: 10;
+    display: none;
+}
+.filter-save-dropdown .panel-body{
+	text-align: center;
+}
+.filter-save-dropdown .btn{
+	margin-top: 5px;
+	width: 48%;
+}
+.input-group-addon{
+	cursor: pointer;
+}

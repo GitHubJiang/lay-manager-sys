@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+
+<mapper namespace="com.lay.shop.greeston.dao.auth.OperationUnitDao">
+	<resultMap id="OperationUnitResultExt" type="com.lay.shop.greeston.model.auth.OperationUnit">
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="operationUnitColumnsExt">
+	    <![CDATA[
+	        	id as id,
+	        	code as code,
+	        	name as name,
+	        	lifecycle as lifecycle,
+	        	ou_type_id as ouTypeId,
+	        	parent_id as parentId,
+	        	remark as remark,
+	        	create_time as createTime,
+	        	version as version
+	    ]]>
+	</sql>
+	
+	<sql id="operationUnitDynamicWhereExt">
+		<!-- ognl访问静态方法的表达式 为@class@method(args),以下为调用rapid中的Ognl.isNotEmpty()方法,还有其它方法如isNotBlank()可以使用，具体请查看Ognl类 -->
+		<where>
+	       
+				<if test="id!=null">
+					and id = #{id}
+				</if>
+	       
+				<if test="code!=null">
+					and code = #{code}
+				</if>
+	       
+				<if test="name!=null">
+					and name = #{name}
+				</if>
+	       
+				<if test="lifecycle!=null">
+					and lifecycle = #{lifecycle}
+				</if>
+	       
+				<if test="ouTypeId!=null">
+					and ou_type_id = #{ouTypeId}
+				</if>
+	       
+				<if test="parentId!=null">
+					and parent_id = #{parentId}
+				</if>
+	       
+				<if test="remark!=null">
+					and remark = #{remark}
+				</if>
+	       
+				<if test="createTime!=null">
+					and create_time = #{createTime}
+				</if>
+	       
+				<if test="version!=null">
+					and version = #{version}
+				</if>
+		</where>
+	</sql>
+	
+	<select id="findAllOpUnitTreeCommand" resultType="com.lay.shop.greeston.command.auth.OpUnitTreeCommand"> 
+		select ou.id as id,ou.code as code,ou.name as name,ou.ou_type_id as ouTypeId,ou.parent_id as parentUnitId
+		from au_operation_unit ou 
+	</select>
+	
+	<select id="findOpUnitTreeByUserId"  resultType="com.lay.shop.greeston.command.auth.OpUnitTreeCommand">
+		select ou.id as id,ou.code as code,ou.name as name,ou.ou_type_id as ouTypeId,ou.parent_id as parentUnitId
+		from au_user_role ur,au_operation_unit ou 
+    	where ur.ou_id=ou.id
+				and ou.lifecycle=1
+				and ur.user_id=#{userId}
+		order by ou.id asc
+	</select>
+</mapper>

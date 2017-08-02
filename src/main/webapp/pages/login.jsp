@@ -1,85 +1,50 @@
 <%@include file="/pages/commons/common.jsp" %>
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<!DOCTYPE html>
+<html>
 <head>
-    <title>后台登陆</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
-    <link rel="stylesheet" type="text/css" href="../layui/css/layui.css" />
-    <link rel="stylesheet" type="text/css" href="css/loginCss.css" />
-
+	<title>登录 | WMS</title>   
+	<%@include file="/pages/commons/common-meta.jsp" %>
+	<%@include file="/pages/commons/common-css.jsp" %>
+	<%@include file="/pages/commons/common-compatible.jsp" %>
+	<%@include file="/pages/commons/common-icon.jsp" %>
 </head>
-<body class="login-body">
-    <div class="login-box">
-        <form class="layui-form layui-form-pane" action="main.html" method="post">
-        <div class="layui-form-item">
-            <h3>
-                <span>网站后台管理系统</span>
-                </h3>
-        </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label">
-                用户名：</label>
-            <div class="layui-input-inline">
-                <input type="text" name="username" autocomplete="off" class="layui-input" lay-verify="account"
-                    placeholder="请输入用户名" maxlength="20" />
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label">
-                密码：</label>
-            <div class="layui-input-inline">
-                <input type="password" name="pass" class="layui-input" lay-verify="password" placeholder="请输入密码"
-                    maxlength="20" />
-            </div>
-        </div>
-        <div class="layui-form-item" style="display: none;" ><!--    -->
-            <label class="layui-form-label">
-                验证码：</label>
-            <div class="layui-input-inline">
-                <input type="number" name="verify" autocomplete="off" class="layui-input" lay-verify="verify"
-                    placeholder="验证码" maxlength="4" value="1234" /><img id="verify" src="include/checkcode.html"
-                        alt="验证码" onclick="this.src='include/checkcode.html?t='+(new Date().getTime());"
-                        class="captcha">
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <button type="reset" class="layui-btn btn-reset layui-btn-danger">
-                重置</button>
-            <a href="main.html" class="layui-btn btn-submit logSubmit" >
-                立即登录</a>
-        </div>
-        </form>
-    </div>
-    <script type="text/javascript" src="../layui/layui.js"></script>
-    <script type="text/javascript">
-
-        layui.use(['form', 'layer'], function () {
-            var $ = layui.jquery, form = layui.form(), layer = layui.layer;
-            form.render();
-            // 登录表单验证
-            form.verify({
-                account: function (value) {
-                    if (value == "") {
-                        return "请输入用户名";
-                    }
-                },
-                password: function (value) {
-                    if (value == "") {
-                        return "请输入密码";
-                    }
-                },
-                verify: function (value) {
-                    if (value == "") {
-                        return "请输入验证码";
-                    }
-                }
-            });
-
-        })
-
-    </script>
-</body>
+<body class="fixed-left login-page">
+	<%@include file="/pages/commons/common-layer.jsp" %>
+	<!-- Begin page -->
+	<div class="container">
+		<div class="full-content-center">
+<!-- 			<p class="text-center"><a href="#"><img src="assets/img/login-logo.png" alt="Logo"></a></p> -->
+			<div class="login-wrap animated flipInX">
+				<div class="login-block">
+					<img src="images/users/default-user.png" class="img-circle not-logged-avatar">
+					<form role="form" method="post" action="<%=request.getContextPath()%>/j_spring_security_check">
+						<div class="form-group login-input">
+						<i class="fa fa-user overlay"></i>
+						<input type="text" name="loginName" class="form-control text-input" value="jialei.jiang" placeholder="jialei.jiang">
+						</div>
+						<div class="form-group login-input">
+						<i class="fa fa-key overlay"></i>
+						<input type="password" name="password" class="form-control text-input" value="123456" placeholder="123456">
+						</div>
+						
+						<div class="row">
+							<div class="col-sm-12">
+							<button type="submit" class="btn btn-success btn-block">LOGIN</button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+			
+		</div>
+	</div>
+	<!-- the overlay modal element -->
+	<div class="md-overlay"></div>
+	<!-- End of eoverlay modal -->
+	<script>
+		var resizefunc = [];
+	</script>
+	<%@include file="/pages/commons/common-script.jsp" %>
+	</body>
 </html>

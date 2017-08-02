@@ -6,32 +6,41 @@
            http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
            http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
-	<http pattern="/common/**" security="none" />
-	<http pattern="/modules/**" security="none" />
+	<http pattern="/css/**" security="none" />
+	<http pattern="/images/**" security="none" />
+	<http pattern="/libs/**" security="none" />
+	<http pattern="/scripts/**" security="none" />
+	<http pattern="/favicon.ico" security="none" />
+	<http pattern="/errors/**" security="none" />
 	<http pattern="/login" security="none" />
-	<http>
+
+	<http access-decision-manager-ref="urlAccessDecisionManager">
 		<intercept-url pattern="/**" access="IS_AUTHENTICATED_FULLY" />
-		<!-- 登录设置 -->
-		<form-login login-page="/login" default-target-url="/sys/user/userInfo"
-			always-use-default-target="true" username-parameter="loginName" password-parameter="password"/>
+		<form-login login-page="/login" default-target-url="/index" authentication-success-handler-ref="loginSuccessHandler"
+			always-use-default-target="true" username-parameter="loginName" password-parameter="password" />
 		<!-- 登出设置 -->
-		<logout logout-url="/lout" delete-cookies="JSESSIONID" />
-		<!-- session失效后，跳转到的URL -->
-		<session-management invalid-session-url="/login"
-			session-fixation-protection="migrateSession">
-			<concurrency-control max-sessions="1" 
-				error-if-maximum-exceeded="false" />
+		<logout logout-url="/lout" logout-success-url="/login" invalidate-session="true" delete-cookies="JSESSIONID" />
+		<!-- session控制 -->
+		<session-management>
+			<concurrency-control session-registry-alias="sessionRegistry" />
 		</session-management>
 	</http>
-	<!-- 认证管理 -->
-	<authentication-manager>
-		<authentication-provider user-service-ref="userService">
-			<!-- 密码加密器 -->
-			<password-encoder ref="bcryptEncoder" />
-		</authentication-provider>
-	</authentication-manager>
 
-	<beans:bean id="userService" class="com.lay.shop.modules.sys.service.impl.UserServiceImpl" />
-	<beans:bean id="bcryptEncoder"
-		class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
+
+	<!-- 认证管理 -->
+	<authentication-manager alias="authenticationManager">
+		<authentication-provider user-service-ref="userDetailsService"/>
+	</authentication-manager>
+	
+	<beans:bean id="userDetailsService" class="com.lay.shop.greeston.manager.UserDetailsServiceImpl"></beans:bean>
+	<beans:bean id="loginSuccessHandler" class="com.lay.shop.greeston.manager.LoginSuccessHandler"></beans:bean>
+	
+	<beans:bean id="urlAccessDecisionManager" class="org.springframework.security.access.vote.UnanimousBased">
+		<beans:constructor-arg>
+			<beans:list>
+				<beans:bean class="org.springframework.security.access.vote.AuthenticatedVoter" />
+				<beans:bean class="com.lay.shop.greeston.manager.UrlAccessDecisionVoter" />
+			</beans:list>
+		</beans:constructor-arg>
+	</beans:bean>
 </beans:beans>

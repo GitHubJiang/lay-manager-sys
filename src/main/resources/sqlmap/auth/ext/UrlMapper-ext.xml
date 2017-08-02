@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+
+<mapper namespace="com.lay.shop.greeston.dao.auth.UrlDao">
+	<resultMap id="UrlResultExt" type="com.lay.shop.greeston.model.auth.Url">
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="urlColumnsExt">
+	    <![CDATA[
+	        	id as id,
+	        	url as url
+	    ]]>
+	</sql>
+	
+	<sql id="urlDynamicWhereExt">
+		<!-- ognl访问静态方法的表达式 为@class@method(args),以下为调用rapid中的Ognl.isNotEmpty()方法,还有其它方法如isNotBlank()可以使用，具体请查看Ognl类 -->
+		<where>
+	       
+				<if test="id!=null">
+					and id = #{id}
+				</if>
+	       
+				<if test="url!=null">
+					and url = #{url}
+				</if>
+		</where>
+	</sql>
+	
+	<select id="findUrlByUserId" resultType="string">
+		select distinct l.url url
+		from au_user_role ur join au_role_pri rp on rp.role_id = ur.role_id 
+		join au_prifun_url pu on pu.acl = rp.acl and (pu.fun_code = rp.fun_code or pu.fun_code is null)
+		join au_url l ON l.id = pu.url_id
+		where ur.user_id = #{userId}
+	</select>
+	
+	<select id="findAllUrlList" resultType="string">
+		select distinct url from au_url
+	</select>
+</mapper>

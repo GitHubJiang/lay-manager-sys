@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+
+<mapper namespace="com.lay.shop.greeston.dao.auth.PrifunUrlDao">
+	<resultMap id="PrifunUrlResultExt" type="com.lay.shop.greeston.model.auth.PrifunUrl">
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="prifunUrlColumnsExt">
+	    <![CDATA[
+	        	id as id,
+	        	acl as acl,
+	        	fun_code as funCode,
+	        	url_id as urlId
+	    ]]>
+	</sql>
+	
+	<sql id="prifunUrlDynamicWhereExt">
+		<!-- ognl访问静态方法的表达式 为@class@method(args),以下为调用rapid中的Ognl.isNotEmpty()方法,还有其它方法如isNotBlank()可以使用，具体请查看Ognl类 -->
+		<where>
+	       
+				<if test="id!=null">
+					and id = #{id}
+				</if>
+	       
+				<if test="acl!=null">
+					and acl = #{acl}
+				</if>
+	       
+				<if test="funCode!=null">
+					and fun_code = #{funCode}
+				</if>
+	       
+				<if test="urlId!=null">
+					and url_id = #{urlId}
+				</if>
+		</where>
+	</sql>
+	
+</mapper>

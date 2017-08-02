@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+
+<mapper namespace="com.lay.shop.greeston.dao.auth.MenuDao">
+	<resultMap id="MenuResultExt" type="com.lay.shop.greeston.model.auth.Menu">
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="menuColumnsExt">
+	    <![CDATA[
+	        	m.id as id,
+	        	m.name as name,
+	        	m.acl as acl,
+	        	m.url as url,
+	        	m.sort_no as sortNo,
+	        	m.is_group as isGroup,
+	        	m.parent_id as parentId,
+	        	m.create_time as createTime
+	    ]]>
+	</sql>
+	
+	<sql id="menuDynamicWhereExt">
+		<!-- ognl访问静态方法的表达式 为@class@method(args),以下为调用rapid中的Ognl.isNotEmpty()方法,还有其它方法如isNotBlank()可以使用，具体请查看Ognl类 -->
+		<where>
+	       
+				<if test="id!=null">
+					and id = #{id}
+				</if>
+	       
+				<if test="name!=null">
+					and name = #{name}
+				</if>
+	       
+				<if test="acl!=null">
+					and acl = #{acl}
+				</if>
+	       
+				<if test="url!=null">
+					and url = #{url}
+				</if>
+	       
+				<if test="sortNo!=null">
+					and sort_no = #{sortNo}
+				</if>
+	       
+				<if test="isGroup!=null">
+					and is_group = #{isGroup}
+				</if>
+	       
+				<if test="parentId!=null">
+					and parent_id = #{parentId}
+				</if>
+	       
+				<if test="createTime!=null">
+					and create_time = #{createTime}
+				</if>
+		</where>
+	</sql>
+	<select id="findAllMenuCommandList" resultMap="MenuResultExt">
+		select <include refid="menuColumnsExt"/> from au_menu m
+	</select>
+	
+	<select id="findLeftMenuItems" resultMap="MenuResultExt">
+		select distinct <include refid="menuColumnsExt" />
+		    <![CDATA[
+			    from au_user_role ur 
+					inner join au_role_pri rp on ur.role_id=rp.role_id
+					inner join au_menu m on rp.acl=m.acl
+				where ur.user_id=#{userId}
+					  and ur.ou_id=#{ouId}
+				order by m.sort_no asc
+		    ]]>
+	</select>
+</mapper>

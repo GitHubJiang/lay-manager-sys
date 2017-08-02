@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+
+<mapper namespace="com.lay.shop.greeston.dao.auth.RolePriDao">
+	<resultMap id="RolePriResultExt" type="com.lay.shop.greeston.model.auth.RolePri">
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="rolePriColumnsExt">
+	    <![CDATA[
+	        	id as id,
+	        	role_id as roleId,
+	        	acl as acl,
+	        	fun_code as funCode
+	    ]]>
+	</sql>
+	
+	<sql id="rolePriDynamicWhereExt">
+		<!-- ognl访问静态方法的表达式 为@class@method(args),以下为调用rapid中的Ognl.isNotEmpty()方法,还有其它方法如isNotBlank()可以使用，具体请查看Ognl类 -->
+		<where>
+	       
+				<if test="id!=null">
+					and id = #{id}
+				</if>
+	       
+				<if test="roleId!=null">
+					and role_id = #{roleId}
+				</if>
+	       
+				<if test="acl!=null">
+					and acl = #{acl}
+				</if>
+	       
+				<if test="funCode!=null">
+					and fun_code = #{funCode}
+				</if>
+		</where>
+	</sql>
+	
+	<select id="findRolePriByUserId" resultType="com.lay.shop.greeston.model.auth.RolePri">
+		select distinct rp.acl acl,rp.fun_code funCode 
+		from au_user_role ur 
+		join au_role_pri rp on rp.role_id = ur.role_id 
+		where ur.user_id = #{userId}
+	</select>
+</mapper>

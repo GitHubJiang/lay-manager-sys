@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+
+<mapper namespace="com.lay.shop.greeston.dao.auth.UserDao">
+	<resultMap id="UserResult" type="com.lay.shop.greeston.model.auth.User">
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="userColumns">
+	    <![CDATA[
+	        	id as id,
+	        	ou_id as ouId,
+	        	login_name as loginName,
+	        	user_name as userName,
+	        	job_number as jobNumber,
+	        	password as password,
+	        	email as email,
+	        	mobile as mobile,
+	        	lifecycle as lifecycle,
+	        	create_time as createTime,
+	        	latest_update_time as latestUpdateTime,
+	        	latest_access_time as latestAccessTime,
+	        	memo as memo
+	    ]]>
+	</sql>
+	
+		<!-- 如果有自增字段 -->
+	
+			<!-- useGeneratedKeys="true" keyProperty="xxx" for sqlserver and mysql -->
+			<insert id="insert" parameterType="com.lay.shop.greeston.model.auth.User" 
+				useGeneratedKeys="true" keyProperty="id" 
+			 flushCache="true">
+		    <![CDATA[
+		        INSERT INTO
+		        au_user (
+		        	ou_id ,
+		        	login_name ,
+		        	user_name ,
+		        	job_number ,
+		        	password ,
+		        	email ,
+		        	mobile ,
+		        	lifecycle ,
+		        	create_time ,
+		        	latest_update_time ,
+		        	latest_access_time ,
+		        	memo 
+		        ) VALUES (
+		        	#{ouId,javaType=Long,jdbcType=BIGINT} ,
+		        	#{loginName,javaType=String,jdbcType=VARCHAR} ,
+		        	#{userName,javaType=String,jdbcType=VARCHAR} ,
+		        	#{jobNumber,javaType=String,jdbcType=VARCHAR} ,
+		        	#{password,javaType=String,jdbcType=VARCHAR} ,
+		        	#{email,javaType=String,jdbcType=VARCHAR} ,
+		        	#{mobile,javaType=String,jdbcType=VARCHAR} ,
+		        	#{lifecycle,javaType=Integer,jdbcType=INTEGER} ,
+		        	#{createTime,javaType=java.util.Date,jdbcType=TIMESTAMP} ,
+		        	#{latestUpdateTime,javaType=java.util.Date,jdbcType=TIMESTAMP} ,
+		        	#{latestAccessTime,javaType=java.util.Date,jdbcType=TIMESTAMP} ,
+		        	#{memo,javaType=String,jdbcType=VARCHAR} 
+		        )
+		    ]]>
+	
+			</insert>
+		
+		<update id="update" parameterType="com.lay.shop.greeston.model.auth.User">
+	    <![CDATA[
+	        UPDATE au_user SET
+		        ou_id = #{ouId,javaType=Long,jdbcType=BIGINT} ,
+		        login_name = #{loginName,javaType=String,jdbcType=VARCHAR} ,
+		        user_name = #{userName,javaType=String,jdbcType=VARCHAR} ,
+		        job_number = #{jobNumber,javaType=String,jdbcType=VARCHAR} ,
+		        password = #{password,javaType=String,jdbcType=VARCHAR} ,
+		        email = #{email,javaType=String,jdbcType=VARCHAR} ,
+		        mobile = #{mobile,javaType=String,jdbcType=VARCHAR} ,
+		        lifecycle = #{lifecycle,javaType=Integer,jdbcType=INTEGER} ,
+		        create_time = #{createTime,javaType=java.util.Date,jdbcType=TIMESTAMP} ,
+		        latest_update_time = #{latestUpdateTime,javaType=java.util.Date,jdbcType=TIMESTAMP} ,
+		        latest_access_time = #{latestAccessTime,javaType=java.util.Date,jdbcType=TIMESTAMP} ,
+		        memo = #{memo,javaType=String,jdbcType=VARCHAR} 
+	        WHERE 
+		        id = #{id} 
+	    ]]>
+		</update>
+	   <delete id="delete" parameterType="java.lang.Long">
+	    <![CDATA[
+	        delete from au_user where
+		        id = #{id} 
+	    ]]>
+	    </delete> 
+	    
+	     <delete id="deleteByIds" parameterType="list">
+	    
+	        delete from au_user 
+	        where id in
+				<foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+#{item}				</foreach>	
+	  
+	    </delete>  
+	         
+	    <select id="findById" parameterType="java.lang.Long" resultMap="UserResult" flushCache="false">
+			select <include refid="userColumns" />
+		    <![CDATA[
+			    from au_user 
+		        where 
+		        id = #{id} 
+		    ]]>
+		</select>	
+		<select id="getByIds" parameterType="list"  resultMap="UserResult" flushCache="false">
+			select <include refid="userColumns" />
+			    from au_user 
+		        where id in
+				<foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+#{item}				</foreach>					
+		</select>	
+	<sql id="userDynamicWhere">
+		<!-- ognl访问静态方法的表达式 为@class@method(args),以下为调用rapid中的Ognl.isNotEmpty()方法,还有其它方法如isNotBlank()可以使用，具体请查看Ognl类 -->
+		<where>
+	       
+				<if test="id!=null">
+					and id = #{id}
+				</if>
+	       
+				<if test="ouId!=null">
+					and ou_id = #{ouId}
+				</if>
+	       
+				<if test="loginName!=null">
+					and login_name = #{loginName}
+				</if>
+	       
+				<if test="userName!=null">
+					and user_name = #{userName}
+				</if>
+	       
+				<if test="jobNumber!=null">
+					and job_number = #{jobNumber}
+				</if>
+	       
+				<if test="password!=null">
+					and password = #{password}
+				</if>
+	       
+				<if test="email!=null">
+					and email = #{email}
+				</if>
+	       
+				<if test="mobile!=null">
+					and mobile = #{mobile}
+				</if>
+	       
+				<if test="lifecycle!=null">
+					and lifecycle = #{lifecycle}
+				</if>
+	       
+				<if test="createTime!=null">
+					and create_time = #{createTime}
+				</if>
+	       
+				<if test="latestUpdateTime!=null">
+					and latest_update_time = #{latestUpdateTime}
+				</if>
+	       
+				<if test="latestAccessTime!=null">
+					and latest_access_time = #{latestAccessTime}
+				</if>
+	       
+				<if test="memo!=null">
+					and memo = #{memo}
+				</if>
+		</where>
+	</sql>
+	
+
+	<select id="getCount" resultType="long">
+        select count(*) from au_user 
+    </select>
+    <select id="findListCountByQueryMap" resultType="long">
+        select count(*) from au_user 
+		<include refid="userDynamicWhere"/>    
+    </select>
+    
+    <select id="findListCountByParam" resultType="long">
+        select count(*) from au_user 
+		<include refid="userDynamicWhere"/>    
+    </select>
+    
+    <!--
+    	分页查询已经使用Dialect进行分页,也可以不使用Dialect直接编写分页
+    	因为分页查询将传 offset,pageSize,lastRows 三个参数,不同的数据库可以根于此三个参数属性应用不同的分页实现
+    -->
+    <select id="findListByQueryMapWithPage" resultMap="UserResult">
+    	select <include refid="userColumns" />
+	    from au_user 
+		<include refid="userDynamicWhere"/>
+		
+    </select>
+    
+    <select id="findListByQueryMap" resultMap="UserResult">
+    	select <include refid="userColumns" />
+	    from au_user 
+		<include refid="userDynamicWhere"/>
+		
+    </select>
+    
+    <select id="findListByParam" resultMap="UserResult">
+    	select <include refid="userColumns" />
+	    from au_user 
+		<include refid="userDynamicWhere"/>
+		
+    </select>
+
+	
+</mapper>
