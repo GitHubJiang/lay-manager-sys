@@ -19,23 +19,5 @@
 			<description>acl</description>
 		</attribute>
 	</tag>
-	
-	<tag>
-		<name>dataFormat</name>
-		<tag-class>com.baozun.scm.shopdog.tags.DateFormatTag</tag-class>
-		<body-content>JSP</body-content>
-		<description>日期转换为字符串</description>
-		<attribute>
-			<name>date</name>
-			<required>true</required>
-			<rtexprvalue>true</rtexprvalue>
-			<description>date</description>
-		</attribute>
-		<attribute>
-			<name>format</name>
-			<required>false</required>
-			<rtexprvalue>true</rtexprvalue>
-			<description>转换格式</description>
-		</attribute>
-	</tag>
+
 </taglib>

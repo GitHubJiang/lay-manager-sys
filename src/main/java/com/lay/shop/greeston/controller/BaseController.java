@@ -18,6 +18,9 @@ package com.lay.shop.greeston.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.core.context.SecurityContextHolder;
+
+import com.lay.shop.greeston.command.auth.UserDetailsCommand;
 
 /***
  * 
@@ -29,4 +32,13 @@ public class BaseController{
 	
 	protected Logger logger = LoggerFactory.getLogger(getClass());
 	
+	/**
+     * 获取当前登录用户信息
+     * 
+     * @return
+     */
+    protected UserDetailsCommand getCurrentUserDetails(){
+        UserDetailsCommand user = (UserDetailsCommand) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return user;
+    }
 }

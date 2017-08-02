@@ -37,4 +37,18 @@ public final class AuthConstants {
      * cookie名称的前缀，此cookie用来存放用户上次退出时使用的组织
      */
     public static final String COOKIE_NAME_PREFIX="orgId_";
+    
+    /* ----------------------------- 基础权限类型  ----------------------------------------------- */
+    /** 查看 */
+    public static final String P_FUNCTION_TYPE_VIEW = "view";
+    /** 新增 */
+    public static final String P_FUNCTION_TYPE_SAVE = "add";
+    /** 修改 */
+    public static final String P_FUNCTION_TYPE_UPDATE = "update";
+    /** 删除 */
+    public static final String P_FUNCTION_TYPE_DELETE = "remove";
+    /** 执行 */
+    public static final String P_FUNCTION_TYPE_OPERATE = "operate";
+    /** 配置 */
+    public static final String P_FUNCTION_TYPE_CONFIG = "config";
 }
