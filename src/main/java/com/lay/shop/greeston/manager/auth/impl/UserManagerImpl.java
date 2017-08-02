@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.lay.shop.greeston.command.auth.UserPrivilegeCommand;
+import com.lay.shop.greeston.dao.auth.OperationUnitDao;
 import com.lay.shop.greeston.dao.auth.RolePriDao;
 import com.lay.shop.greeston.dao.auth.UrlDao;
 import com.lay.shop.greeston.dao.auth.UserDao;
@@ -25,6 +26,8 @@ public class UserManagerImpl implements UserManager {
     private RolePriDao rolePriDao;
     @Autowired
     private UrlDao urlDao;
+    @Autowired
+    private OperationUnitDao operationUnitDao;
     
     @Override
     public User findUserByIdOrLoginName(Long id, String loginName) {        
@@ -33,7 +36,9 @@ public class UserManagerImpl implements UserManager {
 
     @Override
     public UserPrivilegeCommand findUserPrivilegeByLoginName(String loginName) {        
-        UserPrivilegeCommand userPrivilegeCommand = this.userDao.findUserPrivilegeByLoginName(loginName);    
+        UserPrivilegeCommand userPrivilegeCommand = this.userDao.findUserPrivilegeByLoginName(loginName); 
+        //获取用户所属组织
+        userPrivilegeCommand.setOu(this.operationUnitDao.findOperationUnitByUserId(userPrivilegeCommand.getUser().getId()));
         //获取用户所拥有的角色和权限
         List<RolePri> rpList = this.rolePriDao.findRolePriByUserId(userPrivilegeCommand.getUser().getId());        
         userPrivilegeCommand.setPriFunMap(this.rolePrivilegeToMap(rpList));

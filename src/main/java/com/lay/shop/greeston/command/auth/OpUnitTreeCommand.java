@@ -3,6 +3,9 @@ package com.lay.shop.greeston.command.auth;
 import java.io.Serializable;
 import java.util.List;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.lay.shop.greeston.serializer.OpUnitTreeSerializer;
+@JsonSerialize(using =OpUnitTreeSerializer.class)
 public class OpUnitTreeCommand implements Serializable {
 
 	/** */

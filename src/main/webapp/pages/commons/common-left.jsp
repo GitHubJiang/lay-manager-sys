@@ -14,7 +14,7 @@
       <!--- Organization Picker -->
       <div class="profile-info">
         <div class="col-xs-12">
-          <div class="profile-text"><spring:message code="系统"/></div>
+          <div class="profile-text">系统</div>
           <div class="profile-buttons"> <a class="md-trigger" data-modal="orgpicker-modal"  data-toggle="tooltip" data-placement="bottom" data-original-title="菜单切换"><i class="fa fa-location-arrow text-blue-1"></i></a> <a class="md-trigger" data-modal="logout-modal"  data-toggle="tooltip" data-placement="bottom" data-original-title="退出"><i class="fa fa-power-off text-red-1"></i></a> </div>
         </div>
       </div>

@@ -8,6 +8,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.lay.shop.common.constants.Constants;
+import com.lay.shop.greeston.model.auth.OperationUnit;
 import com.lay.shop.greeston.model.auth.User;
 
 /***
@@ -25,6 +26,9 @@ public class UserDetailsCommand implements UserDetails {
     
     /** 当前选择的组织的ID */
     private Long currentOuId;
+    
+    /** 当前选择的组织 */
+    private OperationUnit currentOu;
     
     public UserDetailsCommand() { }
 
@@ -98,5 +102,15 @@ public class UserDetailsCommand implements UserDetails {
     public void setCurrentOuId(Long currentOuId) {
         this.currentOuId = currentOuId;
     }
+
+    public OperationUnit getCurrentOu() {
+        return currentOu;
+    }
+
+    public void setCurrentOu(OperationUnit currentOu) {
+        this.currentOu = currentOu;
+    }
+    
+    
     
 }

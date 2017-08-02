@@ -59,11 +59,11 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
 				</if>
 		</where>
 	</sql>
-	<select id="findAllMenuCommandList" resultMap="MenuResultExt">
+	<select id="findAllMenuCommandList" resultType="com.lay.shop.greeston.command.auth.MenuCommand">
 		select <include refid="menuColumnsExt"/> from au_menu m
 	</select>
 	
-	<select id="findLeftMenuItems" resultMap="MenuResultExt">
+	<select id="findLeftMenuItems"  resultType="com.lay.shop.greeston.command.auth.MenuCommand">
 		select distinct <include refid="menuColumnsExt" />
 		    <![CDATA[
 			    from au_user_role ur 

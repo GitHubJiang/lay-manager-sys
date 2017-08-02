@@ -9,7 +9,7 @@
 
 	<tag>
 		<name>menu</name>
-		<tag-class>com.baozun.scm.shopdog.tags.MenuAclTag</tag-class>
+		<tag-class>com.lay.shop.greeston.tags.MenuAclTag</tag-class>
 		<body-content>JSP</body-content>
 		<description>拼接左边菜单</description>
 		<attribute>

@@ -12,6 +12,7 @@ import com.lay.shop.common.persistence.db.dao.Page;
 import com.lay.shop.common.persistence.db.dao.Pagination;
 import com.lay.shop.common.persistence.db.dao.Sort;
 import com.lay.shop.greeston.command.auth.OpUnitTreeCommand;
+import com.lay.shop.greeston.command.auth.OperationUnitCommand;
 import com.lay.shop.greeston.model.auth.OperationUnit;
 
 @MyBatisDao
@@ -24,4 +25,6 @@ public interface OperationUnitDao extends BaseDao<OperationUnit,Long>{
 	List<OpUnitTreeCommand> findOpUnitTreeByUserId(@Param("userId")Long userId);
 	/**获取所有的组织信息*/
 	List<OpUnitTreeCommand> findAllOpUnitTreeCommand();
+	/**查询用户所属组织*/
+	OperationUnitCommand findOperationUnitByUserId(@Param("userId")Long userId);
 }

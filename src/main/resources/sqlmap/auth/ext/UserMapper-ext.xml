@@ -94,9 +94,14 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
 		</where>
 	</select>
 	
-	
 	<resultMap id="userResult" type="com.lay.shop.greeston.model.auth.User">
 		<id property="id" column="id"/>
+		<result property="ouId" column="ouId"/>
+		<result property="loginName" column="loginName"/>
+		<result property="userName" column="userName"/>
+		<result property="jobNumber" column="jobNumber"/>
+		<result property="email" column="email"/>
+		<result property="mobile" column="mobile"/>
 	</resultMap>
 	<resultMap type="com.lay.shop.greeston.command.auth.UserPrivilegeCommand" id="userPrivilegeCommand">
 		<association property="user" resultMap="userResult"></association>

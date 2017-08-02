@@ -105,4 +105,9 @@ public class OperationUnitManagerImpl implements OperationUnitManager {
     public List<OperationUnit> findListByParam(OperationUnit ou) {
         return this.operationUnitDao.findListByParam(ou);
     }
+    
+    @Override
+    public OperationUnit get(Long id) {        
+        return this.operationUnitDao.findById(id);
+    }
 }
