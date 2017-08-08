@@ -15,12 +15,17 @@
 package com.lay.shop.greeston.manager.auth.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.lay.shop.common.persistence.db.dao.Page;
+import com.lay.shop.common.persistence.db.dao.Pagination;
+import com.lay.shop.common.persistence.db.dao.Sort;
 import com.lay.shop.greeston.dao.auth.UrlDao;
 import com.lay.shop.greeston.manager.auth.UrlManager;
+import com.lay.shop.greeston.model.auth.Url;
 @Service("urlManager")
 public class UrlManagerImpl implements UrlManager {
 
@@ -30,6 +35,25 @@ public class UrlManagerImpl implements UrlManager {
     @Override
     public List<String> findAllUrlList() {
         return this.urlDao.findAllUrlList();
+    }
+
+    @Override
+    public void saveOrUpdateUrl(Url url) {
+        if (url.getId() != null) {
+            this.urlDao.update(url);
+        }else{
+            this.urlDao.insert(url);
+        }
+    }
+
+    @Override
+    public void deleteUrlById(Long id) {
+        this.urlDao.delete(id);
+    }
+
+    @Override
+    public Pagination<Url> findListByQueryMapWithPage(Page page, Sort[] sorts, Map<String, Object> params) {
+        return this.urlDao.findListByQueryMapWithPage(page, sorts, params);
     }
 
 }

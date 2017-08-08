@@ -9,7 +9,7 @@
 
 	<tag>
 		<name>view</name>
-		<tag-class>com.baozun.scm.shopdog.tags.ViewPrivilegeTag</tag-class>
+		<tag-class>com.lay.shop.greeston.tags.ViewPrivilegeTag</tag-class>
 		<body-content>JSP</body-content>
 		<description>权限验证</description>
 		<attribute>
@@ -21,7 +21,7 @@
 	</tag>
 	<tag>
 		<name>add</name>
-		<tag-class>com.baozun.scm.shopdog.tags.AddPrivilegeTag</tag-class>
+		<tag-class>com.lay.shop.greeston.tags.AddPrivilegeTag</tag-class>
 		<body-content>JSP</body-content>
 		<description>权限验证</description>
 		<attribute>
@@ -33,7 +33,7 @@
 	</tag>
 	<tag>
 		<name>update</name>
-		<tag-class>com.baozun.scm.shopdog.tags.UpdatePrivilegeTag</tag-class>
+		<tag-class>com.lay.shop.greeston.tags.UpdatePrivilegeTag</tag-class>
 		<body-content>JSP</body-content>
 		<description>权限验证</description>
 		<attribute>
@@ -45,7 +45,7 @@
 	</tag>
 	<tag>
 		<name>remove</name>
-		<tag-class>com.baozun.scm.shopdog.tags.RemovePrivilegeTag</tag-class>
+		<tag-class>com.lay.shop.greeston.tags.RemovePrivilegeTag</tag-class>
 		<body-content>JSP</body-content>
 		<description>权限验证</description>
 		<attribute>
@@ -57,7 +57,7 @@
 	</tag>
 	<tag>
 		<name>operate</name>
-		<tag-class>com.baozun.scm.shopdog.tags.OperatePrivilegeTag</tag-class>
+		<tag-class>com.lay.shop.greeston.tags.OperatePrivilegeTag</tag-class>
 		<body-content>JSP</body-content>
 		<description>权限验证</description>
 		<attribute>
@@ -69,7 +69,7 @@
 	</tag>
 	<tag>
 		<name>config</name>
-		<tag-class>com.baozun.scm.shopdog.tags.ConfigPrivilegeTag</tag-class>
+		<tag-class>com.lay.shop.greeston.tags.ConfigPrivilegeTag</tag-class>
 		<body-content>JSP</body-content>
 		<description>权限验证</description>
 		<attribute>
@@ -81,7 +81,7 @@
 	</tag>
 	<tag>
 		<name>list</name>
-		<tag-class>com.baozun.scm.shopdog.tags.ListPrivilegeTag</tag-class>
+		<tag-class>com.lay.shop.greeston.tags.ListPrivilegeTag</tag-class>
 		<body-content>JSP</body-content>
 		<description>权限验证</description>
 		<attribute>
@@ -93,7 +93,7 @@
 	</tag>
 	<tag>
 		<name>and</name>
-		<tag-class>com.baozun.scm.shopdog.tags.AndPrivilegeTag</tag-class>
+		<tag-class>com.lay.shop.greeston.tags.AndPrivilegeTag</tag-class>
 		<body-content>JSP</body-content>
 		<description>权限验证</description>
 		<attribute>
@@ -135,7 +135,7 @@
 	</tag>
 	<tag>
 		<name>or</name>
-		<tag-class>com.baozun.scm.shopdog.tags.EditOrDeletePrivilegeTag</tag-class>
+		<tag-class>com.lay.shop.greeston.tags.EditOrDeletePrivilegeTag</tag-class>
 		<body-content>JSP</body-content>
 		<description>控制当有编辑权限或删除权限其中至少一个时显示</description>
 		<attribute>

@@ -13,6 +13,9 @@
 	</context:component-scan>
 	<!-- 默认的注解映射的支持，org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping -->
 	<mvc:annotation-driven>
+		<mvc:argument-resolvers>
+			<bean class="com.lay.shop.common.web.bind.QueryBeanModelMethodProcessor"></bean>
+		</mvc:argument-resolvers>
 		<mvc:message-converters register-defaults="true">
 			<!-- 将StringHttpMessageConverter的默认编码设为UTF-8 -->
 			<bean class="org.springframework.http.converter.StringHttpMessageConverter">

@@ -9,7 +9,7 @@
 <uri>http://www.baozun.cn/pagetaglib</uri>
 	<tag>
 		<name>display</name>
-		<tag-class>com.baozun.scm.shopdog.tags.PaginationTag</tag-class>
+		<tag-class>com.lay.shop.greeston.tags.PaginationTag</tag-class>
 		<body-content>empty</body-content>
 		<attribute>
 	        <name>startWith</name>	

@@ -10,7 +10,7 @@
 	<description>驻店宝后台管理自定义标签</description>
 	<tag>
 		<name>textformat</name>
-		<tag-class>com.baozun.scm.shopdog.tags.TextFormatTag</tag-class>
+		<tag-class>com.lay.shop.greeston.tags.TextFormatTag</tag-class>
 		<body-content>JSP</body-content>
 		<attribute>
         	<name>value</name>
