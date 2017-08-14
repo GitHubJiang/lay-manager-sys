@@ -11,12 +11,12 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
 	<!-- 用于select查询公用抽取的列 -->
 	<sql id="privilegeColumnsExt">
 	    <![CDATA[
-	        	id as id,
-	        	acl as acl,
-	        	name as name,
-	        	ou_type_id as ouTypeId,
-	        	remark as remark,
-	        	version as version
+	        	p.id as id,
+	        	p.acl as acl,
+	        	p.name as name,
+	        	p.ou_type_id as ouTypeId,
+	        	p.remark as remark,
+	        	p.version as version
 	    ]]>
 	</sql>
 	
@@ -50,4 +50,29 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
 		</where>
 	</sql>
 	
+	<select id="findPrivilegeCountWithPage"  resultType="long">
+		select count(p.id) 
+		from au_privilege p join au_operation_unit_type pt on pt.id = p.ou_type_id
+		<include refid="findPrivilegeListWithPageWhere"/> 
+	</select>
+	<select id="findPrivilegeListWithPage" resultType="com.lay.shop.greeston.command.auth.PrivilegeCommand">
+		select <include refid="privilegeColumnsExt"/> ,pt.name as ouTypeName
+		from au_privilege p join au_operation_unit_type pt on pt.id = p.ou_type_id
+		<include refid="findPrivilegeListWithPageWhere"/> 
+	</select>
+	<sql id="findPrivilegeListWithPageWhere">
+		<where>
+			<if test="acl!=null">
+				and p.acl like CONCAT('%','${acl}','%' )
+			</if>
+       
+			<if test="name!=null">
+				and p.name like CONCAT('%','${name}','%' )
+			</if>
+       
+			<if test="ouType!=null">
+				and p.ou_type = #{ouType}
+			</if>
+		</where>
+	</sql>
 </mapper>

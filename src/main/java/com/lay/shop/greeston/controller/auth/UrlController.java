@@ -1,5 +1,6 @@
 package com.lay.shop.greeston.controller.auth;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,6 +63,13 @@ public class UrlController extends BaseController {
             result.setMsg(ErrorCodes.RESULT_NO.getMsg());
         }
         return result;
+    }
+    
+    //权限管理使用
+    @RequestMapping(value = {"/url/allUrl"})
+    @ResponseBody
+    public List<Url> allUrl() {        
+        return this.urlManager.findAllUrlByParam(null);
     }
 	
 }

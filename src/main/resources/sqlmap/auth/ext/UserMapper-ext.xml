@@ -112,9 +112,13 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
 			<result property="ouTypeName" column="utName"/>
 		</association>
 	</resultMap>
+	
 	<select id="findUserPrivilegeByLoginName" resultMap="userPrivilegeCommand">
 		select <include refid="userColumnsExt"/> ,ou.code ouCode,ou.name ouName,ut.name utName 
-		from au_user u join au_operation_unit ou on u.ou_id = ou.id join au_operation_unit_type ut on ou.ou_type_id = ut.id 
+		from au_user u 
+		join au_user_role r on u.id=r.user_id
+		join au_operation_unit ou on r.ou_id = ou.id 
+		join au_operation_unit_type ut on ou.ou_type_id = ut.id
 		where u.login_name = #{loginName}
 	</select>
 

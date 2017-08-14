@@ -56,4 +56,10 @@ public class UrlManagerImpl implements UrlManager {
         return this.urlDao.findListByQueryMapWithPage(page, sorts, params);
     }
 
+    @Override
+    public List<Url> findAllUrlByParam(Url url) {
+        return this.urlDao.findListByParam(url);
+    }
+
+    
 }

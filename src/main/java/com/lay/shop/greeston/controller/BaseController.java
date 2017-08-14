@@ -28,7 +28,7 @@ import com.lay.shop.greeston.command.auth.UserDetailsCommand;
  * @date 2017年8月2日 下午6:58:45
  * @since
  */
-public class BaseController{
+public abstract class BaseController{
 	
 	protected Logger logger = LoggerFactory.getLogger(getClass());
 	
@@ -41,4 +41,6 @@ public class BaseController{
         UserDetailsCommand user = (UserDetailsCommand) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return user;
     }
+    
+    
 }

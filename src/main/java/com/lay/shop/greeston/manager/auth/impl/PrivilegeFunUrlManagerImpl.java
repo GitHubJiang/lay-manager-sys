@@ -12,29 +12,28 @@
  * DERIVATIVES.
  * 
  */
-package com.lay.shop.greeston.manager.auth;
+package com.lay.shop.greeston.manager.auth.impl;
 
 import java.util.List;
-import java.util.Map;
 
-import com.lay.shop.common.persistence.db.dao.Page;
-import com.lay.shop.common.persistence.db.dao.Pagination;
-import com.lay.shop.common.persistence.db.dao.Sort;
-import com.lay.shop.greeston.model.auth.Url;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-public interface UrlManager {
-    /** 查询所有受管控的URL */
-    List<String> findAllUrlList();
+import com.lay.shop.greeston.dao.auth.PrifunUrlDao;
+import com.lay.shop.greeston.manager.auth.PrivilegeFunUrlManager;
+import com.lay.shop.greeston.model.auth.PrifunUrl;
+
+@Service("privilegeFunUrlManager")
+public class PrivilegeFunUrlManagerImpl implements PrivilegeFunUrlManager {
+
+    @Autowired
+    private PrifunUrlDao prifunUrlDao;
     
-    /**新增或更新URL表数据*/
-    void saveOrUpdateUrl(Url url);    
-    
-    /**新增或更新URL表数据*/
-    void deleteUrlById(Long id);
-    
-    /**分页查询URL信息*/
-    Pagination<Url> findListByQueryMapWithPage(Page page,Sort[] sorts,Map<String, Object> params);
-    
-    /**查询所有URL*/
-    List<Url> findAllUrlByParam(Url url);
+    @Override
+    public List<PrifunUrl> findAllPrifunUrlByAcl(String acl) {
+        PrifunUrl prifunUrl = new PrifunUrl();
+        prifunUrl.setAcl(acl);
+        return this.prifunUrlDao.findListByParam(prifunUrl);
+    }
+
 }

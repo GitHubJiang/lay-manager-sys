@@ -8,6 +8,7 @@ import com.lay.shop.common.persistence.db.dao.BaseDao;
 import com.lay.shop.common.persistence.db.dao.Page;
 import com.lay.shop.common.persistence.db.dao.Pagination;
 import com.lay.shop.common.persistence.db.dao.Sort;
+import com.lay.shop.greeston.command.auth.PrivilegeCommand;
 import com.lay.shop.greeston.model.auth.Privilege;
 
 
@@ -18,4 +19,6 @@ public interface PrivilegeDao extends BaseDao<Privilege,Long>{
 	@QueryPage("findListCountByQueryMap")
 	Pagination<Privilege> findListByQueryMapWithPage(Page page,Sort[] sorts,Map<String, Object> params);
 
+	@QueryPage("findPrivilegeCountWithPage")
+	Pagination<PrivilegeCommand> findPrivilegeListWithPage(Page page,Sort[] sorts,Map<String, Object> params);
 }

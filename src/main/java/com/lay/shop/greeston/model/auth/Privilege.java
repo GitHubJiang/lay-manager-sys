@@ -23,8 +23,7 @@ public class Privilege extends BaseModel {
 	private String remark;
 	/** 修改时间 */
 	private java.util.Date version;
-	//columns END
-
+	
 	public Privilege(){
 	}
 

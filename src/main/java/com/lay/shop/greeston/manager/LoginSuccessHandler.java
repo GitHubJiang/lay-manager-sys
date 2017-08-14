@@ -96,10 +96,10 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 				OperationUnit ou=new OperationUnit();
 				ou.setId(orgid);
 				List<OperationUnit> oulist=operationUnitManager.findListByParam(ou);
-				if(oulist!=null&&!oulist.isEmpty()){
-				    OperationUnit currentOu = oulist.get(0);
-					udc.setCurrentOu(currentOu);
-				}
+                if (oulist != null && !oulist.isEmpty()) {
+                    OperationUnit currentOu = oulist.get(0);
+                    udc.setCurrentOu(currentOu);
+                }
 			}
 		}
 		
