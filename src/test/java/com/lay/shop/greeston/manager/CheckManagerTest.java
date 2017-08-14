@@ -14,21 +14,24 @@
  */
 package com.lay.shop.greeston.manager;
 
+import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
+import com.lay.shop.SpringTest;
 import com.lay.shop.greeston.command.CheckCommand;
-import com.lay.shop.greeston.dao.common.CheckDao;
 
-@Service("checkManager")
-public class CheckManagerImpl implements CheckManager {
+public class CheckManagerTest extends SpringTest{
 
     @Autowired
-    private CheckDao checkDao;
+    private CheckManager checkManager;
     
-    @Override
-    public Boolean checkUniqueCode(CheckCommand command) {
-        return this.checkDao.checkUniqueCode(command);
+    @Test
+    public void checkUniqueCodeTest(){
+        CheckCommand command = new CheckCommand();
+        command.setFieldName("role_id");
+        command.setFieldValue("1");
+        command.setTable("au_role_pri");
+        command.setId(1L);
+        this.checkManager.checkUniqueCode(command);
     }
-
 }

@@ -143,7 +143,7 @@
 					<div class="form-group">
 						<label class="col-sm-2 control-label" for="label-acl" ><span class="glyphicon glyphicon-asterisk text-red-1"></span>ACL编码</label>
 						<div class="col-sm-8">
-							<input type="text" id="label-acl" data-custom="uniqueAcl" name="acl" class="form-control" value=""  required/>
+							<input type="text" id="label-acl" data-custom="UniqueCode" name="acl" class="form-control" value=""  required/>
 							<div class="help-block with-errors"></div>
 						</div>
 					</div>
@@ -163,20 +163,22 @@
 						<div class="col-sm-12">
 							<h4>勾选权限</h4>
 						</div>
-						<div class="col-sm-12">									
-							<table class="table table-hover th-bold-none" data-sortable-initialized="true">
-								<thead>
-									<tr>
-										<th  width="25%">URL</th>
-										<th  width="15%">查看</th>
-										<th  width="15%">新增</th>										
-										<th  width="15%">修改</th>
-										<th  width="15%">删除</th>
-									</tr>
-								</thead>
-								<tbody id="tbody">
-								</tbody>
-							</table>
+						<div class="col-sm-12">
+							<div class="table-responsive" style="max-height:300px;overflow-y:auto;overflow-x:auto;">									
+								<table class="table table-hover th-bold-none" style="table-layout:fixed;" data-sortable-initialized="true">
+									<thead>
+										<tr>
+											<th  width="25%">URL</th>
+											<th  width="15%">查看</th>
+											<th  width="15%">新增</th>										
+											<th  width="15%">修改</th>
+											<th  width="15%">删除</th>
+										</tr>
+									</thead>
+									<tbody id="tbody">
+									</tbody>
+								</table>
+							</div>
 						</div>					
 					</div>					
 				</form>

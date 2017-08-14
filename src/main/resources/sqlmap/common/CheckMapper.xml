@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+
+<mapper namespace="com.lay.shop.greeston.dao.common.CheckDao">
+	<select id="checkUniqueCode" resultType="long" statementType="STATEMENT">
+	    select count(0)
+	    from ${table}
+	    where ${fieldName} = '${fieldValue}'
+	    <if test="id != null">
+	    	and id != ${id}
+	    </if>
+	  </select>
+</mapper>

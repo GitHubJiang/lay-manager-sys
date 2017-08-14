@@ -14,6 +14,9 @@
  */
 package com.lay.shop.greeston.manager;
 
-public interface CheckManager {
+import com.lay.shop.greeston.command.CheckCommand;
 
+public interface CheckManager {
+    
+    Boolean checkUniqueCode(CheckCommand command);
 }

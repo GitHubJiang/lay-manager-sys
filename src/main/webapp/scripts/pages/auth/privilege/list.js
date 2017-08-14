@@ -18,9 +18,9 @@ wms.addReadyFunc(function(){
 	 });
 	
 	$(".btn-add").on("click",function(){
-		var form = $("#addForm");		
+		var form = $("#addForm");	
 		wms.asyncPost(pagebase+"/auth/url/allUrl",{},{successHandler:function(data, textStatus){
-			if(data){			
+			if(data){		
 				var htmlTd='';
 				data = JSON.parse(data);
                 $.each(data, function(index, item){
@@ -108,59 +108,12 @@ function search() {
 }
 
 /**校验ACL的唯一性*/
-function checkUniqueAcl(e, nv) {
-	var data = wms.syncPost(pagebase + "/auth/pri/checkUniqueAcl", { "acl":$("#label-acl").val(),"aclId":$("#aclId").val() });
-	if (data) {
+function checkUniqueCode(e, nv) {
+	var data = wms.syncPost(pagebase + "/check/checkUniqueCode", { "table":"au_privilege","fieldValue":$("#label-acl").val(),"id":$("#aclId").val(),"fieldName":"acl" });
+	if (data == true) {
 		return wms.validator.SUCCESS;
 	}	
-	return "ACL不允许重复";
+	return "ACL编码不允许重复";
 }
 
-function randerUrlTable(priFunMap) {
 
-	var acl = $("input[name=acl]").val();
-	$.post(pagebase+"/uac/privilege/url/list",{appId:appId,acl:acl},function(map){
-		var html = map.html;
-		var htmlC = map.htmlC;
-		var htmlT = map.htmlT;
-		size = map.size;
-		$(".add-model-form #myTable tbody").html(html);
-		$("#myTableC tbody").html(htmlC);
-		$("#myTableC thead").html(htmlT);
-		
-		//动态绑定
-		 $('.mycheck').on('click', function() {
-			 var $this = !$(this).prop('checked');
-			 var $index = $(this).closest("th").index();
-		        $("#myTableC table tbody tr").each(function(){
-		        	if($this){
-		        		$(this).find("td:eq("+$index+") input").attr('checked', false);
-		        		$(this).find("td:eq("+$index+") div").removeClass('checked');
-		        	}else{
-		        		$(this).find("td:eq("+$index+") input").attr('checked', 'checked');
-		        		$(this).find("td:eq("+$index+") div").addClass('checked');
-		        	}
-				});
-		    });  
-		
-		var checkboxs = $(".add-model-form table input:checkbox");
-		checkboxs.iCheck({
-	        checkboxClass: 'icheckbox_square-aero',
-	        radioClass: 'iradio_minimal',
-	        increaseArea: '20%'
-	    });
-		
-		if(priFunMap) {
-			for(var key in priFunMap) {
-				var _item = priFunMap[key];
-				for(var i=0;i<_item.length;i++) {
-					checkboxs.filter("[data-id="+key+"][data-role="+_item[i]+"]").iCheck("check");
-				}
-			}
-		}
-		var i = parseInt(size)>7?7:parseInt(size);
-		$('#myModalShow').height(32*i+86);
-		$('#myModal').css('margin-top',12*i+550);
-	});
-	
-}

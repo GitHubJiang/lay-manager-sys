@@ -12,23 +12,25 @@
  * DERIVATIVES.
  * 
  */
-package com.lay.shop.greeston.manager;
+package com.lay.shop.greeston.dao.common;
 
+import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Repository;
 
 import com.lay.shop.greeston.command.CheckCommand;
-import com.lay.shop.greeston.dao.common.CheckDao;
 
-@Service("checkManager")
-public class CheckManagerImpl implements CheckManager {
-
-    @Autowired
-    private CheckDao checkDao;
+@Repository("checkDao")
+public class CheckDao {
     
-    @Override
+    @Autowired
+    private SqlSessionTemplate sqlSessionTemplate;
+    
     public Boolean checkUniqueCode(CheckCommand command) {
-        return this.checkDao.checkUniqueCode(command);
+        Long count = (Long) sqlSessionTemplate.selectOne(this.getClass().getName() + ".checkUniqueCode", command);
+        if (count > 0) {
+            return true;
+        }
+        return false;
     }
-
 }
