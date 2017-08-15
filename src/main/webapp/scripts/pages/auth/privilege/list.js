@@ -6,11 +6,6 @@
 /** ************************************************** */
 /** *************2. 页面加载时设定********************** */
 /** ************************************************** */
-$(function(){	
-	 $("#queryFormBtn").on("click", function() {
-		 search();
-	 });
-});
 
 wms.addReadyFunc(function(){
 	$("#queryFormBtn").on("click", function() {
@@ -41,10 +36,24 @@ wms.addReadyFunc(function(){
 			}
 		}});
 		
+		wms.asyncPost(pagebase+"/auth/opt/allopt",{},{successHandler:function(data, textStatus){
+			if(data){		
+				var html='';
+				data = JSON.parse(data);
+                $.each(data, function(index, item){
+                      html+= '<option value="'+item.id+'">'+item.name+'</option>';            
+                });
+                $('#label-ouType').html(html);                
+			} else {
+				wms.frame.notifyError("提示信息","系统异常");
+			}
+		}});
+		
 		var id = $(this).attr("data-id");	
 		if(id){
 			wms.asyncPost(pagebase+"/auth/pri/get", {id:id},{successHandler:function(data, textStatus){
 				var checkboxs = $("#tbody input:checkbox");
+				data = JSON.parse(data);
 				if(data){
 					form.fill(data);
 					var priFunMap = data["priFunMap"];
@@ -73,18 +82,23 @@ wms.addReadyFunc(function(){
 		}
 		flag = true;
 		var form = $("#addForm");
+		var check = $("#addForm").data("bs.validator").checkValid();
+	    if(!check){
+	    	return "";
+	    }
 		var data = form.serializeArray();
 		wms.asyncPost(pagebase+"/auth/pri/add", data,{successHandler:function(data, textStatus){
-			if(data){				
-				if(data.code==0) {
-					wms.frame.notifySuccess(i18n.t("info"), data["message"]);
+			if(data){
+				data = JSON.parse(data);
+				if(data.code==1) {
+					wms.frame.notifySuccess("提示信息","成功");
 					setTimeout('eval($("#queryForm").submit())',10);
 				} else {
-					wms.frame.notifyError(i18n.t("info"),data["message"]);
+					wms.frame.notifyError("提示信息",data.msg);
 					setTimeout('eval($("#queryForm").submit())',1000);
 				}
 			} else {
-				wms.frame.notifyError(i18n.t("info"),i18n.t("edit-f"));
+				wms.frame.notifyError("提示信息","系统异常");
 			}
 		}});		
 	});
@@ -110,7 +124,7 @@ function search() {
 /**校验ACL的唯一性*/
 function checkUniqueCode(e, nv) {
 	var data = wms.syncPost(pagebase + "/check/checkUniqueCode", { "table":"au_privilege","fieldValue":$("#label-acl").val(),"id":$("#aclId").val(),"fieldName":"acl" });
-	if (data == true) {
+	if (data == 'true') {
 		return wms.validator.SUCCESS;
 	}	
 	return "ACL编码不允许重复";

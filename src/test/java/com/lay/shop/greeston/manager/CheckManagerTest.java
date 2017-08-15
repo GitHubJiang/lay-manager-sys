@@ -28,10 +28,10 @@ public class CheckManagerTest extends SpringTest{
     @Test
     public void checkUniqueCodeTest(){
         CheckCommand command = new CheckCommand();
-        command.setFieldName("role_id");
-        command.setFieldValue("1");
-        command.setTable("au_role_pri");
-        command.setId(1L);
-        this.checkManager.checkUniqueCode(command);
+        command.setFieldName("acl");
+        command.setFieldValue("ACL_AUTH_ROLE");
+        command.setTable("au_privilege");
+       // command.setId(1L);
+       this.printPretty(this.checkManager.checkUniqueCode(command)); 
     }
 }

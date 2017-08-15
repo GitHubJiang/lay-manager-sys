@@ -19,12 +19,16 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.lay.shop.common.exception.BusinessException;
+import com.lay.shop.common.exception.ErrorCodes;
 import com.lay.shop.common.persistence.db.dao.Page;
 import com.lay.shop.common.persistence.db.dao.Pagination;
 import com.lay.shop.common.persistence.db.dao.Sort;
+import com.lay.shop.common.web.Result;
 import com.lay.shop.common.web.bind.QueryBean;
 import com.lay.shop.common.web.bind.QueryBeanParam;
 import com.lay.shop.greeston.command.auth.PrivilegeCommand;
@@ -54,5 +58,32 @@ public class PrivilegeController extends BaseController {
     public PrivilegeCommand priFun(Long id) {
         PrivilegeCommand command = this.privilegeManager.findAllPrifunUrlByAclId(id);
         return command;
+    }
+    
+    @RequestMapping(value = {"/pri/add"})
+    @ResponseBody
+    public Result<Object> add(PrivilegeCommand command, Model model){
+        Result<Object> result = new Result<>();
+        try{
+            privilegeManager.saveOrUpdatePrivilege(command);  
+        }catch(BusinessException e){
+            
+        }catch(Exception e){
+            result.setCode(ErrorCodes.RESULT_NO.getValue());
+            result.setMsg(ErrorCodes.RESULT_NO.getMsg());
+        }        
+        return result;
+    }
+    
+    @RequestMapping(value = {"/pri/get"})
+    @ResponseBody
+    public PrivilegeCommand get(Long id) {        
+        return this.privilegeManager.findAclAndUrlById(id);
+    }
+    
+    @RequestMapping(value = {"/pri/del/{id}"})
+    public String deleteById(@PathVariable("id") Long id) {
+        privilegeManager.deletePrivilegeById(id);
+        return "redirect:/auth/pri/list";
     }
 }

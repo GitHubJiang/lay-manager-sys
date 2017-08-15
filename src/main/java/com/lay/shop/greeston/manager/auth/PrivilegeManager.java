@@ -14,4 +14,10 @@ public interface PrivilegeManager {
     
     /**根据权限ID查询 该权限拥有的所有权限功能*/
     PrivilegeCommand findAllPrifunUrlByAclId(Long id);
+    /**新增权限信息*/
+    void saveOrUpdatePrivilege(PrivilegeCommand command);
+    /**删除权限*/
+    void deletePrivilegeById(Long id);
+    /**查询权限信息*/
+    PrivilegeCommand findAclAndUrlById(Long id);
 }

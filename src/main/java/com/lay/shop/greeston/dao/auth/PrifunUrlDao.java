@@ -18,4 +18,5 @@ public interface PrifunUrlDao extends BaseDao<PrifunUrl,Long>{
 	@QueryPage("findListCountByQueryMap")
 	Pagination<PrifunUrl> findListByQueryMapWithPage(Page page,Sort[] sorts,Map<String, Object> params);
 
+	void deletePrifunUrlByAcl(String acl);
 }

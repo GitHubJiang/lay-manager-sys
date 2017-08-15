@@ -12,25 +12,11 @@
  * DERIVATIVES.
  * 
  */
-package com.lay.shop.greeston.dao.common;
+package com.lay.shop.greeston.manager.auth.impl;
 
-import org.mybatis.spring.SqlSessionTemplate;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
+import com.lay.shop.greeston.manager.auth.RoleManager;
 
-import com.lay.shop.greeston.command.CheckCommand;
+public class RoleManagerImpl implements RoleManager {
 
-@Repository("checkDao")
-public class CheckDao {
     
-    @Autowired
-    private SqlSessionTemplate sqlSessionTemplate;
-    
-    public Boolean checkUniqueCode(CheckCommand command) {
-        Long count = (Long) sqlSessionTemplate.selectOne(this.getClass().getName() + ".checkUniqueCode", command);
-        if (count > 0) {
-            return false;
-        }
-        return true;
-    }
 }

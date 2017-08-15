@@ -12,25 +12,17 @@
  * DERIVATIVES.
  * 
  */
-package com.lay.shop.greeston.dao.common;
+package com.lay.shop.greeston.manager.auth;
 
-import org.mybatis.spring.SqlSessionTemplate;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
+import java.util.Map;
 
-import com.lay.shop.greeston.command.CheckCommand;
+import com.lay.shop.common.persistence.db.dao.Page;
+import com.lay.shop.common.persistence.db.dao.Pagination;
+import com.lay.shop.common.persistence.db.dao.Sort;
+import com.lay.shop.greeston.command.auth.RoleCommand;
 
-@Repository("checkDao")
-public class CheckDao {
-    
-    @Autowired
-    private SqlSessionTemplate sqlSessionTemplate;
-    
-    public Boolean checkUniqueCode(CheckCommand command) {
-        Long count = (Long) sqlSessionTemplate.selectOne(this.getClass().getName() + ".checkUniqueCode", command);
-        if (count > 0) {
-            return false;
-        }
-        return true;
-    }
+public interface RoleManager {
+
+    /**分页查询角色信息*/
+    Pagination<RoleCommand> findRoleListWithPage(Page page,Sort[] sorts,Map<String, Object> params);
 }

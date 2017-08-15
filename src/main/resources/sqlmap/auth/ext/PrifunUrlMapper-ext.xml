@@ -39,5 +39,7 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
 				</if>
 		</where>
 	</sql>
-	
+	<delete id="deletePrifunUrlByAcl">
+		delete from au_prifun_url where acl = #{acl}
+	</delete>
 </mapper>

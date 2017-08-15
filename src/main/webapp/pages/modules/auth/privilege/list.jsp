@@ -26,7 +26,7 @@
 		<!-- 面包屑 -->
 	    <ol class="breadcrumb">
 			<li><a href="javaScript:void(0);">权限管理</a></li>
-			<li class="active"><a href="javaScript:void(0);">权限管理</a></li>
+			<li class="active"><a href="javaScript:void(0);">ACL管理</a></li>
 	    </ol>
 	    
 <!--主要内容开始部分 START-->     
@@ -150,11 +150,7 @@
 					<div class="form-group">
 						<label class="col-sm-2 control-label" for="label-ouType" ><span class="glyphicon glyphicon-asterisk text-red-1"></span>所属组织类型</label>
 						<div class="col-sm-8">
-							<select id="label-ouType" class='form-control input-sm filter' name='ouType' required>
-								<option value=''>-</option>	
-								<option value='1'>系统</option>
-								<option value='2'>品牌</option>
-								<option value='3'>渠道</option>
+							<select id="label-ouType" class='form-control input-sm filter' name='ouTypeId' required>
 							</select>
 							<div class="help-block with-errors"></div>
 						</div>

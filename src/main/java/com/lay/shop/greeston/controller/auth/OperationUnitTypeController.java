@@ -12,25 +12,29 @@
  * DERIVATIVES.
  * 
  */
-package com.lay.shop.greeston.dao.common;
+package com.lay.shop.greeston.controller.auth;
 
-import org.mybatis.spring.SqlSessionTemplate;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.lay.shop.greeston.command.CheckCommand;
+import com.lay.shop.greeston.controller.BaseController;
+import com.lay.shop.greeston.manager.auth.OperationUnitTypeManager;
+import com.lay.shop.greeston.model.auth.OperationUnitType;
+@Controller
+@RequestMapping(value = "/auth")
+public class OperationUnitTypeController extends BaseController {
 
-@Repository("checkDao")
-public class CheckDao {
-    
     @Autowired
-    private SqlSessionTemplate sqlSessionTemplate;
+    private OperationUnitTypeManager operationUnitTypeManager;
     
-    public Boolean checkUniqueCode(CheckCommand command) {
-        Long count = (Long) sqlSessionTemplate.selectOne(this.getClass().getName() + ".checkUniqueCode", command);
-        if (count > 0) {
-            return false;
-        }
-        return true;
+    //权限管理使用
+    @RequestMapping(value = {"/opt/allopt"})
+    @ResponseBody
+    public List<OperationUnitType> allopt() {        
+        return this.operationUnitTypeManager.findAllOptByParam(null);
     }
 }
