@@ -25,4 +25,10 @@ public interface RoleManager {
 
     /**分页查询角色信息*/
     Pagination<RoleCommand> findRoleListWithPage(Page page,Sort[] sorts,Map<String, Object> params);
+    /**新增角色信息*/
+    void saveOrUpdateRole(RoleCommand command);
+    /**查询角色详情*/
+    RoleCommand findRoleAndPriById(Long id);
+    /**删除角色信息*/
+    void deleteRoleById(Long id);
 }

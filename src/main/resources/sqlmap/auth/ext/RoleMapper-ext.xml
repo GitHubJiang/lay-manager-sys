@@ -11,10 +11,10 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
 	<!-- 用于select查询公用抽取的列 -->
 	<sql id="roleColumnsExt">
 	    <![CDATA[
-	        	id as id,
-	        	name as name,
-	        	ou_type_id as ouTypeId,
-	        	lifecycle as lifecycle
+	        	r.id as id,
+	        	r.name as name,
+	        	r.ou_type_id as ouTypeId,
+	        	r.lifecycle as lifecycle
 	    ]]>
 	</sql>
 	
@@ -23,21 +23,31 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
 		<where>
 	       
 				<if test="id!=null">
-					and id = #{id}
+					and r.id = #{id}
 				</if>
 	       
 				<if test="name!=null">
-					and name = #{name}
+					and r.name like CONCAT('%','${name}','%' )
 				</if>
 	       
 				<if test="ouTypeId!=null">
-					and ou_type_id = #{ouTypeId}
+					and r.ou_type_id = #{ouTypeId}
 				</if>
 	       
 				<if test="lifecycle!=null">
-					and lifecycle = #{lifecycle}
+					and r.lifecycle = #{lifecycle}
 				</if>
 		</where>
 	</sql>
 	
+	<select id="findRoleListWithPage" resultType="com.lay.shop.greeston.command.auth.RoleCommand">
+		select <include refid="roleColumnsExt"/>,opt.name ouTypeName  
+		from au_role r join au_operation_unit_type opt on r.ou_type_id = opt.id
+		<include refid="roleDynamicWhereExt"/>
+	</select>
+	<select id="findRoleListCountWithPage" resultType="long">
+		select count(0)  
+		from au_role r join au_operation_unit_type opt on r.ou_type_id = opt.id
+		<include refid="roleDynamicWhereExt"/>
+	</select>
 </mapper>

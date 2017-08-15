@@ -1,11 +1,13 @@
 package com.lay.shop.greeston.manager.auth;
 
+import java.util.List;
 import java.util.Map;
 
 import com.lay.shop.common.persistence.db.dao.Page;
 import com.lay.shop.common.persistence.db.dao.Pagination;
 import com.lay.shop.common.persistence.db.dao.Sort;
 import com.lay.shop.greeston.command.auth.PrivilegeCommand;
+import com.lay.shop.greeston.model.auth.Privilege;
 
 public interface PrivilegeManager {
 
@@ -20,4 +22,6 @@ public interface PrivilegeManager {
     void deletePrivilegeById(Long id);
     /**查询权限信息*/
     PrivilegeCommand findAclAndUrlById(Long id);
+    /**查询所有的权限信息*/
+    List<Privilege> findAllPri(Privilege p);
 }

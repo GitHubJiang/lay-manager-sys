@@ -14,22 +14,29 @@
  */
 package com.lay.shop.greeston.controller.auth;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.lay.shop.common.exception.BusinessException;
+import com.lay.shop.common.exception.ErrorCodes;
 import com.lay.shop.common.persistence.db.dao.Page;
 import com.lay.shop.common.persistence.db.dao.Pagination;
 import com.lay.shop.common.persistence.db.dao.Sort;
+import com.lay.shop.common.web.Result;
 import com.lay.shop.common.web.bind.QueryBean;
 import com.lay.shop.common.web.bind.QueryBeanParam;
 import com.lay.shop.greeston.command.auth.RoleCommand;
 import com.lay.shop.greeston.controller.BaseController;
 import com.lay.shop.greeston.manager.auth.PrivilegeManager;
 import com.lay.shop.greeston.manager.auth.RoleManager;
+import com.lay.shop.greeston.model.auth.Privilege;
 
 @Controller
 @RequestMapping("/auth/role")
@@ -46,6 +53,40 @@ public class RoleController extends BaseController {
         Map<String, Object> param = queryBean.getParaMap();
         Pagination<RoleCommand> pagination = this.roleManager.findRoleListWithPage(page, sorts, param);
         model.addAttribute("pagination", pagination);
-        return "modules/auth/roleList";
+        return "modules/auth/role/list";
+    }
+    
+    @RequestMapping(value = {"/allPri"})
+    @ResponseBody
+    public List<Privilege> allPri() {
+        return this.privilegeManager.findAllPri(null);
+    }
+    
+    @RequestMapping(value = {"/add"})
+    @ResponseBody
+    public Result<Object> add(RoleCommand command, Model model){
+        Result<Object> result = new Result<>();
+        try{
+            roleManager.saveOrUpdateRole(command);  
+        }catch(BusinessException e){
+            
+        }catch(Exception e){
+            logger.error(e.getMessage());
+            result.setCode(ErrorCodes.RESULT_NO.getValue());
+            result.setMsg(ErrorCodes.RESULT_NO.getMsg());
+        }        
+        return result;
+    }
+    
+    @RequestMapping(value = {"/get"})
+    @ResponseBody
+    public RoleCommand get(Long id) {        
+        return this.roleManager.findRoleAndPriById(id);
+    }
+    
+    @RequestMapping(value = {"/del/{id}"})
+    public String delete(@PathVariable("id")Long id) {
+        this.roleManager.deleteRoleById(id);
+        return "redirect:/auth/role/list";
     }
 }

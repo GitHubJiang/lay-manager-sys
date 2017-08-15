@@ -17,15 +17,14 @@ wms.addReadyFunc(function(){
 		wms.asyncPost(pagebase+"/auth/url/allUrl",{},{successHandler:function(data, textStatus){
 			if(data){		
 				var htmlTd='';
-				data = JSON.parse(data);
                 $.each(data, function(index, item){
                       htmlTd+='<tr><td style="width:20%">'+item.url+'</td>'+
-                      '<td style="width:20%"><input class="rows-check" type="checkbox" data-role="view" data-id=\''+item.id+'\'name="rps" value="{fun:\'view\',url:\''+item.url+'\'}"></td>'+
-                      '<td style="width:20%"><input class="rows-check" type="checkbox" data-role="add"  data-id=\''+item.id+'\'name="rps" value="{fun:\'add\',url:\''+item.url+'\'}"></td>'+
-                      '<td style="width:20%"><input class="rows-check" type="checkbox" data-role="update" data-id=\''+item.id+'\'name="rps" value="{fun:\'update\',url:\''+item.url+'\'}"></td>'+
-                      '<td style="width:20%"><input class="rows-check" type="checkbox" data-role="remove" data-id=\''+item.id+'\'name="rps" value="{fun:\'remove\',url:\''+item.url+'\'}"></td></tr>';                      
+                      '<td style="width:20%"><input class="rows-check" type="checkbox" data-role="view" data-id=\''+item.id+'\'name="rps" value="{funCode:\'view\',urlId:\''+item.id+'\'}"></td>'+
+                      '<td style="width:20%"><input class="rows-check" type="checkbox" data-role="add"  data-id=\''+item.id+'\'name="rps" value="{funCode:\'add\',urlId:\''+item.id+'\'}"></td>'+
+                      '<td style="width:20%"><input class="rows-check" type="checkbox" data-role="update" data-id=\''+item.id+'\'name="rps" value="{funCode:\'update\',urlId:\''+item.id+'\'}"></td>'+
+                      '<td style="width:20%"><input class="rows-check" type="checkbox" data-role="remove" data-id=\''+item.id+'\'name="rps" value="{funCode:\'remove\',urlId:\''+item.id+'\'}"></td></tr>';                      
                 });
-                $('#tbody').html(htmlTd);
+                $('#tbody').append(htmlTd);
                 $("#tbody input:checkbox").iCheck({
         	        checkboxClass: 'icheckbox_square-aero',
         	        radioClass: 'iradio_minimal',
@@ -39,7 +38,6 @@ wms.addReadyFunc(function(){
 		wms.asyncPost(pagebase+"/auth/opt/allopt",{},{successHandler:function(data, textStatus){
 			if(data){		
 				var html='';
-				data = JSON.parse(data);
                 $.each(data, function(index, item){
                       html+= '<option value="'+item.id+'">'+item.name+'</option>';            
                 });
@@ -53,7 +51,6 @@ wms.addReadyFunc(function(){
 		if(id){
 			wms.asyncPost(pagebase+"/auth/pri/get", {id:id},{successHandler:function(data, textStatus){
 				var checkboxs = $("#tbody input:checkbox");
-				data = JSON.parse(data);
 				if(data){
 					form.fill(data);
 					var priFunMap = data["priFunMap"];
@@ -89,7 +86,6 @@ wms.addReadyFunc(function(){
 		var data = form.serializeArray();
 		wms.asyncPost(pagebase+"/auth/pri/add", data,{successHandler:function(data, textStatus){
 			if(data){
-				data = JSON.parse(data);
 				if(data.code==1) {
 					wms.frame.notifySuccess("提示信息","成功");
 					setTimeout('eval($("#queryForm").submit())',10);
@@ -124,7 +120,7 @@ function search() {
 /**校验ACL的唯一性*/
 function checkUniqueCode(e, nv) {
 	var data = wms.syncPost(pagebase + "/check/checkUniqueCode", { "table":"au_privilege","fieldValue":$("#label-acl").val(),"id":$("#aclId").val(),"fieldName":"acl" });
-	if (data == 'true') {
+	if (data == true) {
 		return wms.validator.SUCCESS;
 	}	
 	return "ACL编码不允许重复";

@@ -25,6 +25,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import com.lay.shop.common.persistence.db.dao.Page;
 import com.lay.shop.common.persistence.db.dao.Pagination;
@@ -90,6 +91,9 @@ public class PrivilegeManagerImpl implements PrivilegeManager {
         List<PrifunUrl> priFuns = new ArrayList<>();
         if (rpsList != null && !rpsList.isEmpty()) {
             for (String rps : rpsList) {
+                if(StringUtils.isEmpty(rps)){
+                    continue;
+                }
                 PrifunUrl priFun = JsonUtil.buildNormalBinder().getJsonToObject(rps, PrifunUrl.class);
                 priFun.setAcl(command.getAcl());
                 priFuns.add(priFun);
@@ -176,5 +180,10 @@ public class PrivilegeManagerImpl implements PrivilegeManager {
         }
         command.setPriFunMap(priFunMap);
         return command;
+    }
+
+    @Override
+    public List<Privilege> findAllPri(Privilege p) {
+        return this.privilegeDao.findListByParam(p);
     }
 }

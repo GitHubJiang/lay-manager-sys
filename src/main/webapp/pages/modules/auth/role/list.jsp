@@ -43,7 +43,7 @@
 	<div class="toolbar-btn-action">
 		<div class="btn-toolbar" role="toobar">
 			<div class="btn-group">
-			<pri:add acl="ACL_AUTH_ROLE"><a class="btn btn-success btn-add" data-toggle="modal" data-target="#myModalAdd" ><i class="fa fa-plus-circle"></i> 新增</a></pri:add>
+				<pri:add acl="ACL_AUTH_ROLE"><a class="btn btn-success btn-add" data-toggle="modal" data-target="#myModalAdd" ><i class="fa fa-plus-circle"></i> 新增</a></pri:add>
 			</div>
 		</div>
 	</div>
@@ -64,34 +64,30 @@
 										data-page="${pagination.currentPage}" data-page-count="${pagination.totalPages}">
 										<thead>
 											<tr class="sort-header">
-												<th data-sort-name="id">ID</th>
-												<th data-sort-name="ouType" width="25%">角色名称</th>
-												<th data-sort-name="code" width="25%">所属组织类型</th>
-												<th data-sort-name="name" width="25%">角色状态</th>												
+												<th data-sortable="false">ID</th>
+												<th data-sortable="false" width="25%">角色名称</th>
+												<th data-sortable="false" width="25%">所属组织类型</th>
+												<th data-sortable="false" width="25%">角色状态</th>												
 												<th data-sortable="false" width="15%">操作</th>
 											</tr>
 											<tr class="filter-header">
 												<th></th>
 												<th>
-													<input type="text" value="${param.q_sl_name }" name="q_sl_name" class="form-control input-sm filter">
+													<input type="text" value="${param.name }" name="name" class="form-control input-sm filter">
 												</th>
 												<th>
-													<select id="q_int_ouType" name="q_int_ouType" class="form-control" style="width:100px">
-														<option value="0">——</option>
-														<option value="1" <c:if test="${param.q_int_ouType == 1}">selected</c:if>>系统</option>
-														<option value="2" <c:if test="${param.q_int_ouType == 2}">selected</c:if>>品牌</option>
-														<option value="3" <c:if test="${param.q_int_ouType == 3}">selected</c:if>>渠道</option>
+													<select id="ouTypeId" name="ouTypeId" class="form-control input-sm filter">														
 													</select>
 												</th>
 												<th>
-													<select id="q_int_lifecycle" name="q_int_lifecycle" class="form-control" style="width:100px">
-														<option value="0">——</option>
-														<option value="1" <c:if test="${param.q_int_lifecycle == 1}">selected</c:if>>启用</option>
-														<option value="2" <c:if test="${param.q_int_lifecycle == 2}">selected</c:if>>禁用</option>
+													<select name="lifecycle" class="form-control input-sm filter" >
+														<option ></option>
+														<option value="1" <c:if test="${param.lifecycle == 1}">selected</c:if>>正常</option>
+														<option value="2" <c:if test="${param.lifecycle == 2}">selected</c:if>>已禁用</option>
 													</select>
 												</th>
 												<th>
-													<button id="queryFormBtn" class="btn btn-primary btn-sm" name="" type="button"><i class="icon-search"></i> <spring:message code="label.operator.search"/></button>
+													<button id="queryFormBtn" class="btn btn-primary btn-sm" name="" type="button"><i class="icon-search"></i> 搜索</button>
 												</th>
 											</tr>
 										</thead>
@@ -103,34 +99,15 @@
 													${item.name }
 												</td>
 												<td>
-													<c:choose>
-														<c:when test="${item.ouType == 1}">
-															系统
-														</c:when>
-														<c:when test="${item.ouType == 2 }">
-															品牌
-														</c:when>
-														<c:when test="${item.ouType == 3 }">
-															渠道
-														</c:when>
-														<c:otherwise>
-															——
-														</c:otherwise>
-													</c:choose>
+													${item.ouTypeName }
 												</td>
-												<td name="lifecycle${item.id}">
+												<td>
 													<c:choose>
 														<c:when test="${item.lifecycle == 1 }">
-															<spring:message code="label.off"/>
-															<a type="button" name="select" class="label label-warning"  onclick="isStatusChange('${item.id}','${item.lifecycle}')">
-																<spring:message code="label.store.on"/>
-															</a>
+															正常
 														</c:when>
 														<c:when test="${item.lifecycle == 2 }">
-															<spring:message code="label.on"/>
-															<a type="button" name="select" class="label label-success"  onclick="isStatusChange('${item.id}','${item.lifecycle}')">
-																<spring:message code="label.store.off"/>
-															</a>
+															已禁用
 														</c:when>
 													</c:choose>
 												</td>
@@ -138,7 +115,7 @@
 													<div class="btn-group btn-group-xs">
 														<pri:view acl="ACL_AUTH_ROLE">
 															<a type="button" class="btn btn-default btn-add" data-id="${item.id}" data-toggle="modal" data-target="#myModalAdd"
-															 href="javaScript:void(0)"  onclick="findRoleByIdModify('${item.id}')"> <i class="fa fa-edit"></i><spring:message code="label.operator.edit"/>
+															 href="javaScript:void(0)" > <i class="fa fa-edit"></i>编辑
 															</a>
 														</pri:view>
 														<pri:or acl="ACL_AUTH_ROLE">
@@ -150,7 +127,7 @@
 														</pri:or>
 														<ul class="dropdown-menu" role="menu">
 															<pri:remove acl="ACL_AUTH_ROLE">
-																<li><a data-toggle="modal" data-target="#myModalDelete" onclick="affirmDelete('${item.id}')"><i class="fa fa-trash-o"></i><spring:message code="label.operator.delete"/></a></li>
+																<li><a href="${staticbase}/auth/role/del/${item.id}"><i class="fa fa-trash-o"></i>删除</a></li>
 															</pri:remove>
 														</ul>
 													</div>
@@ -183,21 +160,18 @@
 			<div class="modal-body">
 				<form class="form-horizontal" role="form" data-toggle="form-validator" id="addForm" method="post" action ="${staticbase}/auth/role/add" >
 					<input type="hidden" name="id" id="idAdd" class="form-control" value="" /> 
+					<input type="hidden" name="rolePriList"  /> 
 					<div class="form-group">
-						<label class="col-sm-2 control-label" ><font color="red">*</font>角色名称</label>
+						<label class="col-sm-2 control-label" ><span class="glyphicon glyphicon-asterisk text-red-1"></span>角色名称</label>
 						<div class="col-sm-10">
-							<input type="text"  data-custom="uniqueName" placeholder="角色名称" id="nameAdd" name="name" class="form-control"  minlength="2" maxlength="8" value=""   required/>
+							<input type="text"  data-custom="uniqueCode" placeholder="角色名称" id="nameAdd" name="name" class="form-control" value=""   required/>
 							<div class="help-block with-errors"></div>
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="col-sm-2 control-label" ><font color="red">*</font>所属组织类型</label>
+						<label class="col-sm-2 control-label" for="ouTypeAdd" ><span class="glyphicon glyphicon-asterisk text-red-1"></span>所属组织类型</label>
 						<div class="col-sm-10">
-							<select class="form-control" aria-labelledby="birth-label" id="ouTypeAdd"  runat="server" name="ouType" >
-								<option value=''>-</option>	
-								<option value='1'>系统</option>
-								<option value='2'>品牌</option>
-								<option value='3'>渠道</option>
+							<select class="form-control" id="ouTypeAdd" name="ouTypeId" required>
 							</select>
 							<div class="help-block with-errors"></div>
 						</div>
@@ -227,10 +201,10 @@
 			</div>
 			<div class="modal-footer">
 				<div class="col-sm-3">
-					<button type="button" class="btn btn-default"  id="closeBtn" data-dismiss="modal" >< <spring:message code="label.operator.return"/></button>
+					<button type="button" class="btn btn-default"  id="closeBtn" data-dismiss="modal" >返回</button>
 				</div>
 				<div class="col-sm-9">
-					<button class="btn  btn-primary pull-right role-save" id="subBtn"  type="button" ><i class="fa fa-floppy-o"></i><spring:message code="label.operator.save"/></button>
+					<button class="btn  btn-primary pull-right role-save" id="subBtn"  type="button" ><i class="fa fa-floppy-o"></i>保存</button>
 				</div>
 			</div>
 		</div>
@@ -250,8 +224,8 @@
 					<input type="hidden"  name="id" id="idDelete" value="" /> 				
 					<div class="form-group">
 						<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-power-off"></i><spring:message code="tip.user.org.change.no"/></button>
-						<button class="btn  btn-primary pull-right role-save" data-dismiss="modal" onclick="deleteFormSubmit()"><i class="fa fa-check"></i><spring:message code="tip.user.org.change.yes"/></button>
+						<button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-power-off"></i>取消</button>
+						<button class="btn  btn-primary pull-right role-save" data-dismiss="modal" onclick="deleteFormSubmit()"><i class="fa fa-check"></i>确认删除</button>
 						</div>
 					</div>
 				</form>
@@ -282,7 +256,7 @@
  <%@include file="/pages/commons/common-script.jsp" %>
 
 <!-- Page Specific JS Libraries --> 
-<script src="${staticbase }/scripts/pages/auth/roleList.js?${version}"></script>
+<script src="${staticbase }/scripts/pages/auth/role/list.js?${version}"></script>
 
 
 <script type="text/javascript">

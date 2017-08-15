@@ -21,7 +21,7 @@
 			<bean class="org.springframework.http.converter.StringHttpMessageConverter">
 		    	<constructor-arg value="UTF-8" />
 			</bean>
-            <!-- 配置Fastjson支持 -->
+<!--             配置Fastjson支持
             <bean class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter">
                 <property name="supportedMediaTypes">
                     <list>
@@ -35,7 +35,9 @@
                         <value>QuoteFieldNames</value>
                     </list>
                 </property>
-            </bean>
+            </bean> -->
+            <bean class="org.springframework.http.converter.ByteArrayHttpMessageConverter"/>
+            <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"/>
         </mvc:message-converters>
 	</mvc:annotation-driven>
 	<!-- 拦截器配置，拦截顺序：先执行后定义的，排在第一位的最后执行。-->

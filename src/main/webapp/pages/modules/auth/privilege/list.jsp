@@ -133,6 +133,7 @@
 			<div class="modal-body">
 				<form class="form-horizontal" role="form" data-toggle="form-validator" id="addForm" method="post" action ="${staticbase}/auth/pri/add" >
 					<input type="hidden" id="aclId" name="id" value="">
+					<input  type="hidden" name="rps" >
 					<div class="form-group">
 						<label class="col-sm-2 control-label" for="label-name" ><span class="glyphicon glyphicon-asterisk text-red-1"></span>权限名称</label>
 						<div class="col-sm-8">
@@ -172,6 +173,7 @@
 										</tr>
 									</thead>
 									<tbody id="tbody">
+										
 									</tbody>
 								</table>
 							</div>

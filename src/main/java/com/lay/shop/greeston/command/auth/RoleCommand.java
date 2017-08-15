@@ -15,6 +15,8 @@
 package com.lay.shop.greeston.command.auth;
 
 import java.io.Serializable;
+import java.util.List;
+import java.util.Map;
 
 public class RoleCommand implements Serializable {
 
@@ -29,7 +31,12 @@ public class RoleCommand implements Serializable {
     /** 组织类型Id */
     private String ouTypeName;
     /** 1.可用;2.已禁用(无效);3.已删除 */
-    private Integer lifecycle;
+    private Integer lifecycle;    
+    /** 前端的传过来的  角色权限功能关联信息 */
+    private List<String> rolePriList;
+    /**提供给前端渲染页面用的*/
+    private Map<String,List<String>>  rolePriMap;
+    
     public Long getId() {
         return id;
     }
@@ -60,7 +67,18 @@ public class RoleCommand implements Serializable {
     public void setLifecycle(Integer lifecycle) {
         this.lifecycle = lifecycle;
     }
-    
+    public List<String> getRolePriList() {
+        return rolePriList;
+    }
+    public void setRolePriList(List<String> rolePriList) {
+        this.rolePriList = rolePriList;
+    }
+    public Map<String, List<String>> getRolePriMap() {
+        return rolePriMap;
+    }
+    public void setRolePriMap(Map<String, List<String>> rolePriMap) {
+        this.rolePriMap = rolePriMap;
+    }
     
 
 }

@@ -22,4 +22,6 @@ public interface RolePriDao extends BaseDao<RolePri,Long>{
 	Pagination<RolePri> findListByQueryMapWithPage(Page page,Sort[] sorts,Map<String, Object> params);
 	/**根据用户ID获取用户角色权限信息*/
 	List<RolePri>  findRolePriByUserId(@Param("userId")Long userId);
+	/**根据role_id删除，角色权限关联信息*/
+	void deleteRolePriByRoleId(Long roleId);
 }

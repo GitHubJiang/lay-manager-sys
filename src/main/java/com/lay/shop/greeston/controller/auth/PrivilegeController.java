@@ -69,6 +69,7 @@ public class PrivilegeController extends BaseController {
         }catch(BusinessException e){
             
         }catch(Exception e){
+            logger.error(e.getMessage());
             result.setCode(ErrorCodes.RESULT_NO.getValue());
             result.setMsg(ErrorCodes.RESULT_NO.getMsg());
         }        
