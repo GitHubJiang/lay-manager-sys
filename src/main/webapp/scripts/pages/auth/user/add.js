@@ -235,6 +235,8 @@ function buildOuTypeSelect(ouType){
 	            });	            
 	            $('#label-ouType').empty();
 	            $('#label-ouType').append(html);
+	            $('#label-ouType').selectpicker('render');
+	            $('#label-ouType').selectpicker('refresh');
 	            var ouTypeId = $("#label-ouType").val();
 	        	buildOpUnitSelect(ouTypeId);
 	        	buildRoleSelect(ouTypeId);
@@ -294,10 +296,10 @@ function buildRoleAcl(ouTypeId){
 			var htmlTd='';
             $.each(data.data, function(index, item){
                   htmlTd+='<tr><td style="width:25%">'+item.name+'</td>'+
-                  '<td style="width:15%"><input class="rows-check" disabled="disabled" type="checkbox" data-role="view" data-id=\''+item.id+'\'name="rolePriList" value="{fun:\'view\',acl:\''+item.acl+'\'}"></td>'+
-                  '<td style="width:15%"><input class="rows-check" disabled="disabled" type="checkbox" data-role="add"  data-id=\''+item.id+'\'name="rolePriList" value="{fun:\'add\',acl:\''+item.acl+'\'}"></td>'+
-                  '<td style="width:15%"><input class="rows-check" disabled="disabled" type="checkbox" data-role="update" data-id=\''+item.id+'\'name="rolePriList" value="{fun:\'update\',acl:\''+item.acl+'\'}"></td>'+
-                  '<td style="width:15%"><input class="rows-check" disabled="disabled" type="checkbox" data-role="remove" data-id=\''+item.id+'\'name="rolePriList" value="{fun:\'remove\',acl:\''+item.acl+'\'}"></td>'+
+                  '<td style="width:15%"><input class="rows-check" disabled="disabled" type="checkbox" data-role="view" data-id=\''+item.acl+'\'name="rolePriList" value="{funCode:\'view\',acl:\''+item.acl+'\'}"></td>'+
+                  '<td style="width:15%"><input class="rows-check" disabled="disabled" type="checkbox" data-role="add"  data-id=\''+item.acl+'\'name="rolePriList" value="{funCode:\'add\',acl:\''+item.acl+'\'}"></td>'+
+                  '<td style="width:15%"><input class="rows-check" disabled="disabled" type="checkbox" data-role="update" data-id=\''+item.acl+'\'name="rolePriList" value="{funCode:\'update\',acl:\''+item.acl+'\'}"></td>'+
+                  '<td style="width:15%"><input class="rows-check" disabled="disabled" type="checkbox" data-role="remove" data-id=\''+item.acl+'\'name="rolePriList" value="{funCode:\'remove\',acl:\''+item.acl+'\'}"></td>'+
                   '</tr>';                      
             });
 
@@ -310,7 +312,7 @@ function buildRoleAcl(ouTypeId){
 		} else {
 			wms.frame.notifyError("提示信息","查询权限信息失败");
 		}
-		/*checkRoleAcl();*/
+		checkRoleAcl();
 	}});	
 	
 }
@@ -343,10 +345,11 @@ function saveUserRole(){
     }
     var data = $("#roleForm").serializeArray();
     wms.asyncPost(pagebase+"/auth/user/saveUserRole", data,{successHandler:function(data, textStatus){
-    	if(data.code=="0"){
+    	if(data.code=='1'){
+    		wms.frame.notifySuccess("提示信息","配置角色成功");
     		window.location.href = pagebase+'/auth/user/toAdd?id='+$("#user_id").val()+'&addFlag=true';
 		} else {
-			wms.frame.notifyError("提示信息",i18n.t("edit-f"));
+			wms.frame.notifyError("提示信息","配置角色信息失败");
 		}
 	}});
 }

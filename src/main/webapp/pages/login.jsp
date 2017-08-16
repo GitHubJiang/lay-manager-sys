@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>登录 | WMS</title>   
+	<title>登录 | 格林斯顿 </title>   
 	<%@include file="/pages/commons/common-meta.jsp" %>
 	<%@include file="/pages/commons/common-css.jsp" %>
 	<%@include file="/pages/commons/common-compatible.jsp" %>

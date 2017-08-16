@@ -17,6 +17,7 @@ import com.lay.shop.common.web.Result;
 import com.lay.shop.common.web.bind.QueryBean;
 import com.lay.shop.common.web.bind.QueryBeanParam;
 import com.lay.shop.greeston.command.auth.UserCommand;
+import com.lay.shop.greeston.command.auth.UserRoleCommand;
 import com.lay.shop.greeston.controller.BaseController;
 import com.lay.shop.greeston.manager.auth.UserManager;
 import com.lay.shop.greeston.model.auth.User;
@@ -104,4 +105,20 @@ public class UserController extends BaseController {
         }
         return result;
     }
+    
+    @RequestMapping(value = {"/user/saveUserRole"})
+    @ResponseBody
+    public Result<Object> saveUserRole(UserRoleCommand command) {
+        Result<Object> result = new Result<>();
+        try {
+            this.userManager.saveUserRole(command);
+            result.setData(null);
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+            result.setCode(ErrorCodes.RESULT_NO.getValue());
+            result.setMsg(ErrorCodes.RESULT_NO.getMsg());
+        }
+        return result;
+    }
+    
 }

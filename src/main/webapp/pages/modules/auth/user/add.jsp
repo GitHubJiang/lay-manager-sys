@@ -161,7 +161,7 @@
 					<div class="form-group">
 						<label class="col-sm-2 control-label" for="label-ouType"><span class="glyphicon glyphicon-asterisk text-red-1"></span>所属组织类型</label>
 						<div class="col-sm-10"> 
-							<select id="label-ouType" class='form-control input-sm filter' name='ouType' required>
+							<select id="label-ouType" class='modal-select selectPicker form-control input-sm filter' name='ouTypeId' required>
 							</select>
 							<div class="help-block with-errors"></div>
 						</div>
@@ -169,7 +169,7 @@
 					<div class="form-group">
 						<label class="col-sm-2 control-label" for="label-ouId"><span class="glyphicon glyphicon-asterisk text-red-1"></span>组织名称</label>
 						<div class="col-sm-10"> 
-							<select id="label-ouId" class='modal-select selectPicker form-control input-sm filter' name='auId' required>
+							<select id="label-ouId" class='modal-select selectPicker form-control input-sm filter' name='ouId' required>
 							</select>
 							<div class="help-block with-errors"></div>
 						</div>

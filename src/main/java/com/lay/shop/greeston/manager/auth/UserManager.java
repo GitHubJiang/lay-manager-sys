@@ -7,6 +7,7 @@ import com.lay.shop.common.persistence.db.dao.Pagination;
 import com.lay.shop.common.persistence.db.dao.Sort;
 import com.lay.shop.greeston.command.auth.UserCommand;
 import com.lay.shop.greeston.command.auth.UserPrivilegeCommand;
+import com.lay.shop.greeston.command.auth.UserRoleCommand;
 import com.lay.shop.greeston.model.auth.User;
 /**
  * 用户信息管理
@@ -31,4 +32,6 @@ public interface UserManager {
     UserCommand findUserCommandByUserId(Long userId);
     /**删除用户角色关联信息 */
     void removeUserRoleById(Long id);
+    /**保存用户角色组织关联信息*/
+    void saveUserRole(UserRoleCommand command);
 }

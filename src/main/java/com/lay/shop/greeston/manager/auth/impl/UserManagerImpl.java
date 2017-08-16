@@ -26,6 +26,7 @@ import com.lay.shop.greeston.dao.auth.UserRoleDao;
 import com.lay.shop.greeston.manager.auth.UserManager;
 import com.lay.shop.greeston.model.auth.RolePri;
 import com.lay.shop.greeston.model.auth.User;
+import com.lay.shop.greeston.model.auth.UserRole;
 
 @Service("userManager")
 public class UserManagerImpl implements UserManager {
@@ -125,6 +126,14 @@ public class UserManagerImpl implements UserManager {
     @Transactional(propagation=Propagation.REQUIRED)
     public void removeUserRoleById(Long id) {
         this.userRoleDao.delete(id);
+    }
+
+    @Override
+    @Transactional(propagation=Propagation.REQUIRED)
+    public void saveUserRole(UserRoleCommand command) {
+        UserRole userRole = new UserRole();
+        BeanUtils.copyProperties(command, userRole);
+        this.userRoleDao.insert(userRole);
     }
 
 
