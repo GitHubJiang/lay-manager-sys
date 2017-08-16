@@ -132,4 +132,10 @@ public class RoleManagerImpl implements RoleManager {
         this.roleDao.delete(id);
     }
 
+    @Override
+    @Transactional(propagation = Propagation.SUPPORTS)
+    public List<Role> findRoleListByParam(Role role) {
+        return this.roleDao.findListByParam(role);
+    }
+
 }

@@ -37,6 +37,7 @@ import com.lay.shop.greeston.controller.BaseController;
 import com.lay.shop.greeston.manager.auth.PrivilegeManager;
 import com.lay.shop.greeston.manager.auth.RoleManager;
 import com.lay.shop.greeston.model.auth.Privilege;
+import com.lay.shop.greeston.model.auth.Role;
 
 @Controller
 @RequestMapping("/auth/role")
@@ -89,4 +90,28 @@ public class RoleController extends BaseController {
         this.roleManager.deleteRoleById(id);
         return "redirect:/auth/role/list";
     }
+    
+    /**获取角色列表*/
+    @RequestMapping(value = {"/rolelist"})
+    @ResponseBody
+    public Result<List<Role>> getRole(Long ouTypeId) {
+        Result<List<Role>> result = new Result<>();
+        try {
+            Role role = new Role();
+            role.setOuTypeId(ouTypeId);
+            List<Role> data = this.roleManager.findRoleListByParam(role);
+            result.setData(data);
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+            result.setCode(ErrorCodes.RESULT_NO.getValue());
+            result.setMsg(ErrorCodes.RESULT_NO.getMsg());
+        }
+        return result;
+    }
+    
+    /*@RequestMapping(value = {"/get"})
+    @ResponseBody
+    public RoleCommand get(Long id) {        
+        return this.roleManager.findRoleAndPriById(id);
+    }*/
 }

@@ -14,12 +14,14 @@
  */
 package com.lay.shop.greeston.manager.auth;
 
+import java.util.List;
 import java.util.Map;
 
 import com.lay.shop.common.persistence.db.dao.Page;
 import com.lay.shop.common.persistence.db.dao.Pagination;
 import com.lay.shop.common.persistence.db.dao.Sort;
 import com.lay.shop.greeston.command.auth.RoleCommand;
+import com.lay.shop.greeston.model.auth.Role;
 
 public interface RoleManager {
 
@@ -31,4 +33,6 @@ public interface RoleManager {
     RoleCommand findRoleAndPriById(Long id);
     /**删除角色信息*/
     void deleteRoleById(Long id);
+    /**查询角色列表*/
+    List<Role> findRoleListByParam(Role role);
 }

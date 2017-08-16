@@ -11,10 +11,10 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
 	<!-- 用于select查询公用抽取的列 -->
 	<sql id="userRoleColumnsExt">
 	    <![CDATA[
-	        	id as id,
-	        	user_id as userId,
-	        	role_id as roleId,
-	        	ou_id as ouId
+	        	ur.id as id,
+	        	ur.user_id as userId,
+	        	ur.role_id as roleId,
+	        	ur.ou_id as ouId
 	    ]]>
 	</sql>
 	
@@ -23,21 +23,29 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
 		<where>
 	       
 				<if test="id!=null">
-					and id = #{id}
+					and ur.id = #{id}
 				</if>
 	       
 				<if test="userId!=null">
-					and user_id = #{userId}
+					and ur.user_id = #{userId}
 				</if>
 	       
 				<if test="roleId!=null">
-					and role_id = #{roleId}
+					and ur.role_id = #{roleId}
 				</if>
 	       
 				<if test="ouId!=null">
-					and ou_id = #{ouId}
+					and ur.ou_id = #{ouId}
 				</if>
 		</where>
 	</sql>
 	
+	<select id="findUserRoleOUByUserId" resultType="com.lay.shop.greeston.command.auth.UserRoleCommand">
+		select <include refid="userRoleColumnsExt"/> , ou.name as ouName,r.name as roleName,ot.id as ouTypeId,ot.name as ouTypeName
+		from au_user_role ur 
+		join au_operation_unit ou on ur.ou_id = ou.id 
+		join au_role r on r.id = ur.role_id
+		join au_operation_unit_type ot on ot.id = ou.ou_type_id
+		where ur.user_id = #{userId}
+	</select>
 </mapper>

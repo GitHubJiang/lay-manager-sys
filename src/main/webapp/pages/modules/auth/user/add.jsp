@@ -46,22 +46,14 @@
 								<div class="form-group">
 									<label class="col-sm-2 control-label" for="loginName"><span class="glyphicon glyphicon-asterisk text-red-1"></span>登录名</label>
 									<div class="col-sm-4">
-										<input placeholder="登录名" data-custom="uniqueLoginName" maxlength="20" id="loginName" name="loginName" type="text" class="form-control" required/>
+										<input placeholder="英文字母，数字或_.-组成，必须以英文字母，数字开头" data-custom="uniqueLoginName loginName" maxlength="20" id="loginName" name="loginName" type="text" class="form-control" required/>
 										<div class="help-block with-errors"></div>
 									</div>									
 								</div>
 								<div class="form-group">
 									<label class="col-sm-2 control-label" for="userName"><span class="glyphicon glyphicon-asterisk text-red-1"></span>用户姓名</label>
 									<div class="col-sm-4">
-										<input placeholder="用户姓名" maxlength="10" id="userName" name="userName" type="text" class="form-control" required/>
-										<div class="help-block with-errors"></div>
-									</div>									
-								</div>
-								<div class="form-group">
-									<label class="col-sm-2 control-label" for="ou_id"><span class="glyphicon glyphicon-asterisk text-red-1"></span>所属组织</label>
-									<div class="col-sm-4">
-										<select id="ou_id" name="ouId"  class="form-control" required>										
-										</select>
+										<input placeholder="用户姓名" maxlength="20" id="userName" name="userName" type="text" class="form-control" required/>
 										<div class="help-block with-errors"></div>
 									</div>									
 								</div>
@@ -75,7 +67,7 @@
 								<div class="form-group" id="password-hid">
 									<label class="col-sm-2 control-label" for="password"><span class="glyphicon glyphicon-asterisk text-red-1"></span>密码</label>
 									<div class="col-sm-4">
-										<input id="password" name="password" type="password" class="form-control" required/>
+										<input id="password" name="password" data-custom="Password" type="password" placeholder="英文字母，数字或_.-组成，必须以英文字母，数字开头" class="form-control" required/>
 										<div class="help-block with-errors"></div>
 									</div>									
 								</div>
@@ -89,7 +81,7 @@
 								<div class="form-group">
 									<label class="col-sm-2 control-label" for="email"><span class="glyphicon glyphicon-asterisk text-red-1"></span>邮箱</label>
 									<div class="col-sm-4">
-										<input placeholder="邮箱" maxlength="10" id="email" name="email" type="text" class="form-control" required/>
+										<input placeholder="邮箱" maxlength="50" data-custom="email" id="email" name="email" type="text" class="form-control" required/>
 										<div class="help-block with-errors"></div>
 									</div>									
 								</div>
@@ -169,7 +161,7 @@
 					<div class="form-group">
 						<label class="col-sm-2 control-label" for="label-ouType"><span class="glyphicon glyphicon-asterisk text-red-1"></span>所属组织类型</label>
 						<div class="col-sm-10"> 
-							<select id="label-ouType" class='modal-select selectPicker form-control input-sm filter' name='ouType' required>
+							<select id="label-ouType" class='form-control input-sm filter' name='ouType' required>
 							</select>
 							<div class="help-block with-errors"></div>
 						</div>

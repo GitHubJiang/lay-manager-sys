@@ -37,8 +37,6 @@ wms.addReadyFunc(function(){
 		style : null,
 		liveSearch : false
 	});
-	
-	getOpUnitTree();
 	//添加成功标识
 	var id =  $("#user_id").val()||"";
 	if("" != id ) {
@@ -59,13 +57,13 @@ wms.addReadyFunc(function(){
 	 	wms.asyncPost(url,data,{
 			type: "POST",
 			successHandler:function(data, textStatus){				
-				if(data.code=='0'){
-					wms.frame.notifySuccess(i18n.t("info"),i18n.t("addUser-suc"));
+				if(data.code=='1'){
+					wms.frame.notifySuccess("提示信息","保存用户信息成功，但不包括用户角色信息");
 					window.location.href = jumpUrl+'?id='+data.data+'&addFlag=true';
 				}
 				//如果有错误信息，则显示错误信息
 				else{
-					wms.frame.notifyError(i18n.t("info"),i18n.t("addUser-fail"));
+					wms.frame.notifyError("提示信息","保存用户信息失败");
 				}
 			}
 		});
@@ -96,20 +94,6 @@ wms.addReadyFunc(function(){
 /***************3. FUNCTION 函数和方法*****************/
 /*****************************************************/
 
-
-function getOpUnitTree(){
-	wms.asyncGet(pagebase + "/auth/operation/tree", {}, {
-		successHandler : function(data, textStatus) {
-			var html = '<option value="">-</option>';
-            $.each(data, function(index, item){
-              html += '<option value='+item.id+'>'+item.name+'</option>';                                        
-            });
-            $('#ou_id').empty();
-            $('#ou_id').append(html);
-		}
-	});
-}
-
 function getUserInfo(id){
 	$("#password").removeAttr("required");
 	$("#repassword").removeAttr("required");
@@ -119,13 +103,8 @@ function getUserInfo(id){
 	$("#repassword-hid").hide();
 	wms.asyncGet(pagebase + "/auth/user/getUserInfo", {"id":id}, {
 		successHandler : function(data, textStatus) {
-			if(data.code=='0'){
-				$("#ouType_id").val(data.data.ouType);
-				$("#loginName").val(data.data.loginName);
-			 	$("#userName").val(data.data.userName);		 	
-			 	option(data.data.ouId);		 	
-				$("#jobNumber").val(data.data.jobNumber);
-				$("#email").val(data.data.email);
+			if(data.code=='1'){
+				$("#userInfoForm").fill(data.data)
 				var htmlTd='';
 				$.each(data.data.list, function(index, item){
 	                htmlTd+='<tr><td style="width:25%">'+item.ouTypeName+'</td>'+
@@ -163,16 +142,16 @@ function getUserInfo(id){
 				$(".deleteRoleUser").on('click',function(){
 					wms.asyncGet(pagebase + "/auth/user/removeUserRole", {"id":$(this).attr("data-id")}, {
 						successHandler : function(data, textStatus) {
-							if(data.code=='0'){
+							if(data.code=='1'){
 								window.location.href = pagebase+'/auth/user/toAdd?id='+$("#user_id").val()+'&addFlag=true';
 							}else{
-								wms.frame.notifyError(i18n.t("info"),i18n.t("addUser-fail"));
+								wms.frame.notifyError("提示信息","保存用户信息失败");
 							}
 						}
 					});
 				});
 			}else{
-				wms.frame.notifyError(i18n.t("info"),i18n.t("addUser-fail"));
+				wms.frame.notifyError("提示信息","获取用户信息失败");
 			}
 		}
 	});
@@ -180,11 +159,20 @@ function getUserInfo(id){
 
 /**校验用户名的唯一性*/
 function checkUniqueLoginName(e, nv) {
-	var data = wms.syncPost(pagebase + "/auth/user/checkUniqueLoginName", { "loginName":$("#loginName").val(),"id":$("#user_id").val() });
+	var data = wms.syncPost(pagebase + "/check/checkUniqueCode", { "table":"au_user","fieldValue":$("#loginName").val(),"id":$("#user_id").val(),"fieldName":"login_name"  });
 	if (data==true) {
 		return wms.validator.SUCCESS;
 	}
 	return "登录名不能重复";
+}
+
+function checkLoginName(){
+	var loginName=$("#loginName").val();
+	var reg = /^[A-Za-z0-9][A-Za-z0-9-_\.]{4,29}$/;
+	if(!reg.test(loginName)){		
+		return '由长度为5~30个字符的英文字母，数字或_.-组成，必须以英文字母，数字开头';
+	}
+	return wms.validator.SUCCESS;
 }
 
 //校验密码是否重复
@@ -196,6 +184,29 @@ function checkRePassword(e){
 	}
     return wms.validator.SUCCESS;
 }
+
+function checkPassword(){
+	var loginName=$("#loginName").val();
+	var password=$("#password").val();
+	var reg = /^[A-Za-z0-9][A-Za-z0-9-_\.]{4,19}$/;
+	if(!reg.test(password)){
+		return '由长度为5~20个字符的英文字母，数字或_.-组成，必须以英文字母，数字开头';
+	}
+	if(password == loginName){
+		return "密码不能与用户名相同";
+	}
+	return wms.validator.SUCCESS;
+}
+
+function checkEmail(){
+	var email = $("#email").val();
+	var pPattern = /[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?/;
+	if(!pPattern.test(email)){
+		return '邮箱格式不正确'
+	}
+	return wms.validator.SUCCESS;
+}
+
 /**选中option*/
 function option(ouId){
 	var select = $("#ou_id option");
@@ -215,27 +226,31 @@ function buildModalData(){
 /**构造所属组织类型*/
 function buildOuTypeSelect(ouType){	
 	var html = "";
-	if(ouType=="1"){
-		html = '<option value="1">系统</option>'+'<option value="2">品牌</option>'+'<option value="3">渠道</option>';                             
-	}else if(ouType=="2"){
-		html = '<option value="2">品牌</option>'+'<option value="3">渠道</option>';
-	}else if(ouType=="3"){
-		html = '<option value="3">渠道</option>';
-	}
-	$('#label-ouType').empty();
-    $('#label-ouType').append(html);
-    $('#label-ouType').selectpicker('render');
-    $('#label-ouType').selectpicker('refresh');
-	var ouType = $("#label-ouType").val();
-	buildOpUnitSelect(ouType);
-	buildRoleSelect(ouType);
+	wms.asyncGet(pagebase + "/auth/opt/allopt", {}, {
+		successHandler : function(data, textStatus) {
+			if(data){
+				var html = '';
+	            $.each(data, function(index, item){
+	              html += '<option value='+item.id+'>'+item.name+'</option>';                                        
+	            });	            
+	            $('#label-ouType').empty();
+	            $('#label-ouType').append(html);
+	            var ouTypeId = $("#label-ouType").val();
+	        	buildOpUnitSelect(ouTypeId);
+	        	buildRoleSelect(ouTypeId);
+			}else{
+				wms.frame.notifyError("提示信息","查询组织类型列表失败");
+			}
+		}
+	});
+	
 }
 /**构造所属组织*/
-function buildOpUnitSelect(ouType){	
+function buildOpUnitSelect(ouTypeId){	
 	var html = "";
-	wms.asyncGet(pagebase + "/auth/user/operationUnitList", {"ouType":ouType}, {
+	wms.asyncGet(pagebase + "/auth/org/operationUnitList", {"ouTypeId":ouTypeId}, {
 		successHandler : function(data, textStatus) {
-			if(data.code=='0'){
+			if(data.code=='1'){
 				var html = '';
 	            $.each(data.data, function(index, item){
 	              html += '<option value='+item.id+'>'+item.name+'</option>';                                        
@@ -245,17 +260,17 @@ function buildOpUnitSelect(ouType){
 	            $('#label-ouId').selectpicker('render');
 	            $('#label-ouId').selectpicker('refresh');
 			}else{
-				wms.frame.notifyError(i18n.t("info"),i18n.t("addUser-fail"));
+				wms.frame.notifyError("提示信息","查询组织信息失败");
 			}
 		}
 	});
 }
 /**构造角色列表*/
-function buildRoleSelect(ouType){	
+function buildRoleSelect(ouTypeId){	
 	var html = "";
-	wms.asyncGet(pagebase + "/auth/user/rolelist", {"ouType":ouType}, {
+	wms.asyncGet(pagebase + "/auth/role/rolelist", {"ouTypeId":ouTypeId}, {
 		successHandler : function(data, textStatus) {
-			if(data.code=='0'){
+			if(data.code=='1'){
 				var html = '';
 	            $.each(data.data, function(index, item){
 	              html += '<option value='+item.id+'>'+item.name+'</option>';                                        
@@ -265,17 +280,17 @@ function buildRoleSelect(ouType){
 	            $('#label-role').selectpicker('render');
 	            $('#label-role').selectpicker('refresh');
 			}else{
-				wms.frame.notifyError(i18n.t("info"),i18n.t("addUser-fail"));
+				wms.frame.notifyError("提示信息","查询角色信息失败");
 			}
-			buildRoleAcl(ouType);			
+			buildRoleAcl(ouTypeId);			
 		}
 	});
 }
 
 /**构造角色对应的权限表格*/
-function buildRoleAcl(ouType){	
-	wms.asyncPost(pagebase+"/auth/user/allAcl",{"ouType":ouType},{successHandler:function(data, textStatus){
-		if(data.code=='0'){	
+function buildRoleAcl(ouTypeId){	
+	wms.asyncPost(pagebase+"/auth/pri/allAcl",{"ouTypeId":ouTypeId},{successHandler:function(data, textStatus){
+		if(data.code=='1'){	
 			var htmlTd='';
             $.each(data.data, function(index, item){
                   htmlTd+='<tr><td style="width:25%">'+item.name+'</td>'+
@@ -293,9 +308,9 @@ function buildRoleAcl(ouType){
     	        increaseArea: '20%'
     	    });
 		} else {
-			wms.frame.notifyError(i18n.t("info"),i18n.t("edit-f"));
+			wms.frame.notifyError("提示信息","查询权限信息失败");
 		}
-		checkRoleAcl();
+		/*checkRoleAcl();*/
 	}});	
 	
 }
@@ -316,7 +331,7 @@ function checkRoleAcl(){
 					}
 				}
 			} else {
-				wms.frame.notifyError(i18n.t("info"),i18n.t("edit-f"));
+				wms.frame.notifyError("提示信息",i18n.t("edit-f"));
 			}
 		}});
 	}	
@@ -331,7 +346,7 @@ function saveUserRole(){
     	if(data.code=="0"){
     		window.location.href = pagebase+'/auth/user/toAdd?id='+$("#user_id").val()+'&addFlag=true';
 		} else {
-			wms.frame.notifyError(i18n.t("info"),i18n.t("edit-f"));
+			wms.frame.notifyError("提示信息",i18n.t("edit-f"));
 		}
 	}});
 }

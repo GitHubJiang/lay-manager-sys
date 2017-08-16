@@ -15,7 +15,7 @@ public class UserRoleCommand implements Serializable {
     /** 组织类型 ID*/
     private Long ouTypeId;
     /** 组织类型 名称*/
-    private Long ouTypeName;
+    private String ouTypeName;
     /** 角色id */
     private Long roleId;
     /** 角色名 */
@@ -53,11 +53,11 @@ public class UserRoleCommand implements Serializable {
         this.ouTypeId = ouTypeId;
     }
 
-    public Long getOuTypeName() {
+    public String getOuTypeName() {
         return ouTypeName;
     }
 
-    public void setOuTypeName(Long ouTypeName) {
+    public void setOuTypeName(String ouTypeName) {
         this.ouTypeName = ouTypeName;
     }
 

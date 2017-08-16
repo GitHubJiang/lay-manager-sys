@@ -27,4 +27,8 @@ public interface UserManager {
     void updateUserStatusById(Long id,Integer status);
     /**保存用户信息*/
     Long saveUser(UserCommand user);
+    /**根据用户ID获取用户信息*/
+    UserCommand findUserCommandByUserId(Long userId);
+    /**删除用户角色关联信息 */
+    void removeUserRoleById(Long id);
 }

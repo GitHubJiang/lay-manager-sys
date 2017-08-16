@@ -14,6 +14,8 @@
  */
 package com.lay.shop.greeston.controller.auth;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.http.Cookie;
@@ -22,12 +24,17 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.lay.shop.common.constants.AuthConstants;
+import com.lay.shop.common.exception.ErrorCodes;
+import com.lay.shop.common.web.Result;
 import com.lay.shop.greeston.command.auth.MenuCommand;
+import com.lay.shop.greeston.command.auth.OpUnitTreeCommand;
 import com.lay.shop.greeston.command.auth.UserDetailsCommand;
 import com.lay.shop.greeston.controller.BaseController;
 import com.lay.shop.greeston.manager.auth.MenuManager;
@@ -67,5 +74,23 @@ public class OperationUnitController extends BaseController {
         response.addCookie(cookie);
         
         return "redirect:/index";
+    }
+    
+    /**获取组织列表*/
+    @RequestMapping(value = {"/org/operationUnitList"})
+    @ResponseBody
+    public Result<List<OperationUnit>> getOperationUnitList(Long ouTypeId) {
+        Result<List<OperationUnit>> result = new Result<>();
+        try {
+            OperationUnit operationUnit = new OperationUnit();
+            operationUnit.setOuTypeId(ouTypeId);
+            List<OperationUnit> list = this.operationUnitManager.findListByParam(operationUnit);            
+            result.setData(list);
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+            result.setCode(ErrorCodes.RESULT_NO.getValue());
+            result.setMsg(ErrorCodes.RESULT_NO.getMsg());
+        }
+        return result;
     }
 }

@@ -14,6 +14,7 @@
  */
 package com.lay.shop.greeston.controller.auth;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +35,7 @@ import com.lay.shop.common.web.bind.QueryBeanParam;
 import com.lay.shop.greeston.command.auth.PrivilegeCommand;
 import com.lay.shop.greeston.controller.BaseController;
 import com.lay.shop.greeston.manager.auth.PrivilegeManager;
+import com.lay.shop.greeston.model.auth.Privilege;
 
 @Controller
 @RequestMapping(value = "/auth")
@@ -86,5 +88,21 @@ public class PrivilegeController extends BaseController {
     public String deleteById(@PathVariable("id") Long id) {
         privilegeManager.deletePrivilegeById(id);
         return "redirect:/auth/pri/list";
+    }
+    
+    @RequestMapping(value = {"/pri/allAcl"})
+    @ResponseBody
+    public Result<List<Privilege>> findAllAcl(Long ouTypeId){
+        Result<List<Privilege>> result = new Result<>();
+        try {
+            Privilege p = new Privilege();
+            p.setOuTypeId(ouTypeId);
+            result.setData(this.privilegeManager.findAllPri(p));
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+            result.setCode(ErrorCodes.RESULT_NO.getValue());
+            result.setMsg(ErrorCodes.RESULT_NO.getMsg());
+        }
+        return result;
     }
 }

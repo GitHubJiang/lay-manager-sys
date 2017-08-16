@@ -73,4 +73,35 @@ public class UserController extends BaseController {
         
         return result;
     }
+    
+    /**获取用户信息*/
+    @RequestMapping(value = {"/user/getUserInfo"})
+    @ResponseBody
+    public Result<UserCommand> findUserInfo(Long id) {
+        Result<UserCommand> result = new Result<>();
+        try {
+            UserCommand command = this.userManager.findUserCommandByUserId(id);
+            result.setData(command);
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+            result.setCode(ErrorCodes.RESULT_NO.getValue());
+            result.setMsg(ErrorCodes.RESULT_NO.getMsg());
+        }
+        return result;
+    }
+    
+    @RequestMapping(value = {"/user/removeUserRole"})
+    @ResponseBody
+    public Result<Object> removeUserRole(Long id) {
+        Result<Object> result = new Result<>();
+        try {
+            this.userManager.removeUserRoleById(id);
+            result.setData(null);
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+            result.setCode(ErrorCodes.RESULT_NO.getValue());
+            result.setMsg(ErrorCodes.RESULT_NO.getMsg());
+        }
+        return result;
+    }
 }
