@@ -7,8 +7,6 @@ public class User extends BaseModel {
 	/** */
     private static final long serialVersionUID = -2847078309925267615L;
     
-	/** 所属组织ID */
-	private Long ouId;
 	/** 登录名 */
 	private String loginName;
 	/** 用户姓名 */
@@ -41,13 +39,6 @@ public class User extends BaseModel {
 		this.id = id;
 	}
 
-	public void setOuId(Long value) {
-		this.ouId = value;
-	}
-	
-	public Long getOuId() {
-		return this.ouId;
-	}
 	public void setLoginName(String value) {
 		this.loginName = value;
 	}

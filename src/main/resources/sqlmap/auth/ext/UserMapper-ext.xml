@@ -12,7 +12,6 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
 	<sql id="userColumnsExt">
 	    <![CDATA[
 	        	u.id as id,
-	        	u.ou_id as ouId,
 	        	u.login_name as loginName,
 	        	u.user_name as userName,
 	        	u.job_number as jobNumber,
@@ -35,28 +34,20 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
 					and u.id = #{id}
 				</if>
 	       
-				<if test="ouId!=null">
-					and u.ou_id = #{ouId}
-				</if>
-	       
 				<if test="loginName!=null">
-					and u.login_name = #{loginName}
+					and u.login_name like CONCAT('%','${loginName}','%' )
 				</if>
 	       
 				<if test="userName!=null">
-					and u.user_name = #{userName}
+					and u.user_name like CONCAT('%','${userName}','%' )
 				</if>
 	       
 				<if test="jobNumber!=null">
 					and u.job_number = #{jobNumber}
 				</if>
 	       
-				<if test="password!=null">
-					and u.password = #{password}
-				</if>
-	       
 				<if test="email!=null">
-					and u.email = #{email}
+					and u.email like CONCAT('%','${email}','%' )
 				</if>
 	       
 				<if test="mobile!=null">
@@ -96,7 +87,6 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
 	
 	<resultMap id="userResult" type="com.lay.shop.greeston.model.auth.User">
 		<id property="id" column="id"/>
-		<result property="ouId" column="ouId"/>
 		<result property="loginName" column="loginName"/>
 		<result property="userName" column="userName"/>
 		<result property="jobNumber" column="jobNumber"/>
@@ -114,12 +104,22 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
 	</resultMap>
 	
 	<select id="findUserPrivilegeByLoginName" resultMap="userPrivilegeCommand">
-		select <include refid="userColumnsExt"/> ,ou.code ouCode,ou.name ouName,ut.name utName 
+		select <include refid="userColumnsExt"/> ,ou.id ouId,ou.code ouCode,ou.name ouName,ut.name utName 
 		from au_user u 
 		join au_user_role r on u.id=r.user_id
 		join au_operation_unit ou on r.ou_id = ou.id 
 		join au_operation_unit_type ut on ou.ou_type_id = ut.id
 		where u.login_name = #{loginName}
+	</select>
+	
+	<select id="findUserListCountByQueryMapWithPage" resultType="long">
+		select count(0) from au_user u 
+		<include refid="userDynamicWhereExt"/>
+	</select>
+	
+	<select id="findUserListByQueryMapWithPage" resultType="com.lay.shop.greeston.model.auth.User">
+		select <include refid="userColumnsExt"/> from au_user u 
+		<include refid="userDynamicWhereExt"/>
 	</select>
 
 </mapper>

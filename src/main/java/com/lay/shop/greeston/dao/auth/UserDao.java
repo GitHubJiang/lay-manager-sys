@@ -25,4 +25,7 @@ public interface UserDao extends BaseDao<User, Long> {
     User findUserByIdOrLoginName(@Param("id") Long id, @Param("loginName") String loginName);
     /**根据用户的登录名查询用户信息和组织信息*/
     UserPrivilegeCommand findUserPrivilegeByLoginName(String loginName);
+    
+    @QueryPage("findUserListCountByQueryMapWithPage")
+    Pagination<User> findUserListByQueryMapWithPage(Page page, Sort[] sorts, Map<String, Object> params);
 }

@@ -12,7 +12,6 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
 	<sql id="userColumns">
 	    <![CDATA[
 	        	id as id,
-	        	ou_id as ouId,
 	        	login_name as loginName,
 	        	user_name as userName,
 	        	job_number as jobNumber,
@@ -36,7 +35,6 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
 		    <![CDATA[
 		        INSERT INTO
 		        au_user (
-		        	ou_id ,
 		        	login_name ,
 		        	user_name ,
 		        	job_number ,
@@ -49,7 +47,6 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
 		        	latest_access_time ,
 		        	memo 
 		        ) VALUES (
-		        	#{ouId,javaType=Long,jdbcType=BIGINT} ,
 		        	#{loginName,javaType=String,jdbcType=VARCHAR} ,
 		        	#{userName,javaType=String,jdbcType=VARCHAR} ,
 		        	#{jobNumber,javaType=String,jdbcType=VARCHAR} ,
@@ -69,7 +66,6 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
 		<update id="update" parameterType="com.lay.shop.greeston.model.auth.User">
 	    <![CDATA[
 	        UPDATE au_user SET
-		        ou_id = #{ouId,javaType=Long,jdbcType=BIGINT} ,
 		        login_name = #{loginName,javaType=String,jdbcType=VARCHAR} ,
 		        user_name = #{userName,javaType=String,jdbcType=VARCHAR} ,
 		        job_number = #{jobNumber,javaType=String,jdbcType=VARCHAR} ,
@@ -122,10 +118,6 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
 	       
 				<if test="id!=null">
 					and id = #{id}
-				</if>
-	       
-				<if test="ouId!=null">
-					and ou_id = #{ouId}
 				</if>
 	       
 				<if test="loginName!=null">

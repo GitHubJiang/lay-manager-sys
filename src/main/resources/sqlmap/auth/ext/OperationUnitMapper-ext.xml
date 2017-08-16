@@ -78,12 +78,4 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
 				and ur.user_id=#{userId}
 		order by ou.id asc
 	</select>
-	
-	<select id="findOperationUnitByUserId" resultType="com.lay.shop.greeston.command.auth.OperationUnitCommand">
-		select o.id as id,o.code as code,o.name as name,ot.name as ouTypeName
-		from au_operation_unit o 
-		join au_operation_unit_type ot on o.ou_type_id = ot.id
-		join au_user u on u.ou_id = o.id
-		where u.id=#{userId}
-	</select>
 </mapper>

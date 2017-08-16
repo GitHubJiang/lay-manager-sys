@@ -5,11 +5,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.lay.shop.common.persistence.db.dao.Page;
+import com.lay.shop.common.persistence.db.dao.Pagination;
+import com.lay.shop.common.persistence.db.dao.Sort;
+import com.lay.shop.greeston.command.auth.UserCommand;
 import com.lay.shop.greeston.command.auth.UserPrivilegeCommand;
-import com.lay.shop.greeston.dao.auth.OperationUnitDao;
 import com.lay.shop.greeston.dao.auth.RolePriDao;
 import com.lay.shop.greeston.dao.auth.UrlDao;
 import com.lay.shop.greeston.dao.auth.UserDao;
@@ -26,8 +32,6 @@ public class UserManagerImpl implements UserManager {
     private RolePriDao rolePriDao;
     @Autowired
     private UrlDao urlDao;
-    @Autowired
-    private OperationUnitDao operationUnitDao;
     
     @Override
     public User findUserByIdOrLoginName(Long id, String loginName) {        
@@ -37,8 +41,6 @@ public class UserManagerImpl implements UserManager {
     @Override
     public UserPrivilegeCommand findUserPrivilegeByLoginName(String loginName) {        
         UserPrivilegeCommand userPrivilegeCommand = this.userDao.findUserPrivilegeByLoginName(loginName); 
-        //获取用户所属组织
-        userPrivilegeCommand.setOu(this.operationUnitDao.findOperationUnitByUserId(userPrivilegeCommand.getUser().getId()));
         //获取用户所拥有的角色和权限
         List<RolePri> rpList = this.rolePriDao.findRolePriByUserId(userPrivilegeCommand.getUser().getId());        
         userPrivilegeCommand.setPriFunMap(this.rolePrivilegeToMap(rpList));
@@ -65,5 +67,38 @@ public class UserManagerImpl implements UserManager {
         }
         
         return map;
+    }
+
+    @Override
+    @Transactional(propagation=Propagation.SUPPORTS)
+    public Pagination<User> findUserListByQueryMapWithPage(Page page, Sort[] sorts, Map<String, Object> params) {
+        return this.userDao.findUserListByQueryMapWithPage(page, sorts, params);
+    }
+
+    @Override
+    @Transactional(propagation=Propagation.REQUIRED)
+    public void updateUserStatusById(Long id, Integer status) {
+        User user = this.userDao.findById(id);
+        user.setLifecycle(status);
+        this.userDao.update(user);
+    }
+
+    @Override
+    @Transactional(propagation=Propagation.REQUIRED)
+    public Long saveUser(UserCommand userCommand) {
+        if (userCommand.getId() == null) {
+            User user = new User();
+            BeanUtils.copyProperties(userCommand, user);
+            this.userDao.insert(user);
+            return user.getId();
+        } else {
+            User user = this.userDao.findById(userCommand.getId());
+            user.setUserName(userCommand.getUserName());
+            user.setJobNumber(userCommand.getJobNumber());
+            user.setEmail(userCommand.getEmail());
+            user.setMobile(userCommand.getMobile());
+            this.userDao.update(user);
+            return user.getId();
+        }
     }
 }
