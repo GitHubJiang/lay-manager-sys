@@ -11,6 +11,49 @@
 
 </head>
 <body class="fixed-left" locale="${locale }" onload="prettyPrint()">
+<!-- /.modal-dialog -->
+<!-- /.modal -->
+<div id="myModalBatchUp" class="modal fade modal-import" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard="true" data-backdrop="static">
+  <div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-body">
+				<div class="col-md-12">					
+					<h4 class="marign-none form-title">库存导入</h4>
+				</div>
+				 <div class="widget-content padding form-horizontal">
+					<form class="form-horizontal" role="form" data-toggle="form-validator" id="uploadForm" novalidate="true" action="/store/upload" method="post" enctype="multipart/form-data">
+	                	<div class="bck-white-all overflow">
+	                		<div class="content-all-padding">
+	                			<div class="form-group">
+			                        <label class="col-sm-2 control-label" for="inputfile" style="width:auto"><span class="glyphicon glyphicon-asterisk text-red-1"></span> <span> 上传文件</span></label>
+			                        <div class="col-sm-6">
+			                          <input type="file" id="invFile" class="file-loading" name="file"/>
+			                          <div class="help-block with-errors"></div>
+			                        </div>
+			                        <div class="col-sm-4">
+			                          <a class="btn btn-default btn-primary" href="/store/exceldemo" target="_blank">模板下载</a>
+			                        </div>
+			                    </div>
+			                     
+								<div class="form-group">
+									<div class="pull-right">
+										<button class="btn btn-primary btn-upload" type="button" onclick="uploadFormSubmit()"><i class="fa fa-upload"></i> 上传</button>
+										&nbsp;&nbsp;
+										<button class="btn btn-primary closeBtn" type="button"  onclick="uploadFormClose()" data-dismiss="modal"><i class="fa fa-close"></i> 关闭</button>
+									</div>
+								</div>
+							</div>
+						</div>	
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- /.modal -->
+<!-- 弹出窗体部分 END -->
+
+
 <%@include file="/pages/commons/common-layer.jsp" %>
 <!-- Begin page -->
 <div id="wrapper"> 
@@ -40,6 +83,7 @@
 	</div>
 	<div class="col-md-8">
 		<div class="toolbar-btn-action">	 
+			<pri:add acl="ACL_INV_FULL"><a href="#" data-toggle="modal" data-target=".modal-import" class="btn btn-success btn-import"><i class="fa fa-plus-circle"></i>全量库存导入</a></pri:add>
 	   		<pri:view acl="ACL_INV_FULL"><a class="btn btn-success" id="exportStoreButton btn-export" onclick="exportInventory()">导出库存</a></pri:view>
 	   	</div>
 	</div>

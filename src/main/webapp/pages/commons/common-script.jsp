@@ -42,6 +42,7 @@
 <script src="${staticbase }/libs/bootstrap-validator/validator.js?${version}"></script>
 <script src="${staticbase }/libs/blockui/jquery.blockUI.js?${version}"></script>
 <script src="${staticbase }/libs/jquery-cookie/jquery.cookie.js?${version}"></script>
+<script src="${staticbase }/libs/bootstrap-fileinput/js/fileinput.js?${version}"></script>
 <!-- Menu Data -->
 <script src="${staticbase }/scripts/menus.js?${version}"></script>
 <script src="${staticbase }/scripts/main.js?${version}"></script>
@@ -60,6 +61,4 @@
 <script src="${staticbase }/libs/table-tag-filters/table-tag-filter.js?${version}"></script>
 <script src="${staticbase }/libs/table-tag-filters/tag-filter.js?${version}"></script>
 
-<!-- i18n -->
-<script src="${staticbase }/scripts/pages/common-i18n.js?${version}"></script>
 

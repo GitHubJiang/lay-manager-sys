@@ -12,6 +12,6 @@
 <c:set var="pagebase" scope="request"><%=request.getContextPath()%></c:set>
 <c:set var="staticbase" scope="request"><%=request.getContextPath()%></c:set>
 <c:set var="uploadbase" scope="request"><%=request.getContextPath()%></c:set>
-<c:set var="version" scope="request">version=000002</c:set>
+<c:set var="version" scope="request">version=000003</c:set>
 <c:set var="title" scope="application">shopdog</c:set>
 <c:set var="lang" scope="request">zh-CN</c:set>

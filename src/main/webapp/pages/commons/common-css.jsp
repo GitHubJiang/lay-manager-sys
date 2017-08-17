@@ -22,6 +22,7 @@
 <link href="${staticbase }/libs/bootstrap-tagsinput/bootstrap-tagsinput.css?${version}" rel="stylesheet" />
 <link href="${staticbase }/libs/bootstrap-contextmenu/jquery.contextMenu.css?${version}" rel="stylesheet" />
 <link href="${staticbase }/libs/bootstrap-multiple-select/multiple-select.css?${version}" rel="stylesheet" />
+<link href="${staticbase }/libs/bootstrap-fileinput/css/fileinput.min.css?${version}" rel="stylesheet" />
 
 <link href="${staticbase }/css/main.min.css?${version}" rel="stylesheet" type="text/css" />
 <!-- Extra CSS Libraries End -->
