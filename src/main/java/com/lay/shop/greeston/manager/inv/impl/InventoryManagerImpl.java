@@ -1,11 +1,18 @@
 package com.lay.shop.greeston.manager.inv.impl;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.lay.shop.common.exception.BusinessException;
 import com.lay.shop.common.persistence.db.dao.Page;
 import com.lay.shop.common.persistence.db.dao.Pagination;
 import com.lay.shop.common.persistence.db.dao.Sort;
@@ -20,13 +27,47 @@ public class InventoryManagerImpl implements InventoryManager {
     private InventoryDao inventoryDao;
     
     @Override
+    @Transactional(propagation = Propagation.SUPPORTS)
     public Pagination<Inventory> findListByQueryMapWithPage(Page page, Sort[] sorts, Map<String, Object> params) {       
         return this.inventoryDao.findListByQueryMapWithPage(page, sorts, params);
     }
 
     @Override
+    @Transactional(propagation = Propagation.SUPPORTS)
     public List<Inventory> findListByQueryMapParam(Map<String, Object> params) {
         return this.inventoryDao.findListByQueryMapParam(params);
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED)
+    public void importInv(XSSFWorkbook workbook) {
+        XSSFSheet xssfSheet = workbook.getSheetAt(0);
+        // 获取当前工作薄的每一行
+        for (int rowNum = 1; rowNum <= xssfSheet.getLastRowNum(); rowNum++) {
+            XSSFRow xssfRow = xssfSheet.getRow(rowNum);
+            try{
+                if (xssfRow != null) {
+                    String brandCode = xssfRow.getCell(0).getStringCellValue();
+                    String brandName = xssfRow.getCell(1).getStringCellValue();
+                    String skuCode = xssfRow.getCell(2).getStringCellValue();
+                    String skuName = xssfRow.getCell(3).getStringCellValue();
+                    String quantity = xssfRow.getCell(4).getStringCellValue();
+                    Inventory temp = new Inventory();
+                    temp.setBrandCode(brandCode);
+                    temp.setBrandName(brandName);
+                    temp.setSkuCode(skuCode);
+                    temp.setSkuName(skuName);
+                    temp.setQuantity(Integer.valueOf(quantity));
+                    temp.setOriginalQuantity(Integer.valueOf(quantity));
+                    temp.setCreateTime(new Date());
+                    temp.setVersion(new Date());
+                    this.inventoryDao.insert(temp);
+                }
+            }catch(Exception e){
+                throw new BusinessException("", "EXCEL 文件第"+rowNum+1+"行有问题请重新检查一遍再重新导入");
+            }            
+        }
+        
     }
 
 }

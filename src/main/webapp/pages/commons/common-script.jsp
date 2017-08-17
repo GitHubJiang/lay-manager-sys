@@ -43,6 +43,7 @@
 <script src="${staticbase }/libs/blockui/jquery.blockUI.js?${version}"></script>
 <script src="${staticbase }/libs/jquery-cookie/jquery.cookie.js?${version}"></script>
 <script src="${staticbase }/libs/bootstrap-fileinput/js/fileinput.js?${version}"></script>
+<script src="${staticbase }/libs/bootstrap-fileinput/js/locales/zh.js?${version}"></script>
 <!-- Menu Data -->
 <script src="${staticbase }/scripts/menus.js?${version}"></script>
 <script src="${staticbase }/scripts/main.js?${version}"></script>

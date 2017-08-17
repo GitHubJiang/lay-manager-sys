@@ -22,8 +22,10 @@ public enum ErrorCodes {
     USER_DISABLE("3","用户被禁用"),
     LOGIN_NAME_NO("4","登录名不能为空"),
     LOGIN_PASSWORD_NO("5","登录密码不能为空"),
-    ORG_CODE_NO("6","组织编码不能为空");
+    ORG_CODE_NO("6","组织编码不能为空"),    
     
+    /**文件相关异常 用10打头  异常编码改为6位编码*/
+    FILE_IS_EMPTY("100001","文件内容为空");
     private String value;
     
     private String msg;

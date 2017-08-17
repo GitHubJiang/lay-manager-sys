@@ -3,6 +3,8 @@ package com.lay.shop.greeston.manager.inv;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
 import com.lay.shop.common.persistence.db.dao.Page;
 import com.lay.shop.common.persistence.db.dao.Pagination;
 import com.lay.shop.common.persistence.db.dao.Sort;
@@ -18,4 +20,6 @@ public interface InventoryManager {
     Pagination<Inventory> findListByQueryMapWithPage(Page page,Sort[] sorts,Map<String, Object> params);
     /**库存导出*/
     List<Inventory> findListByQueryMapParam(Map<String, Object> params);
+    /**库存导入*/
+    void importInv(XSSFWorkbook workbook);
 }

@@ -21,25 +21,25 @@
 					<h4 class="marign-none form-title">库存导入</h4>
 				</div>
 				 <div class="widget-content padding form-horizontal">
-					<form class="form-horizontal" role="form" data-toggle="form-validator" id="uploadForm" novalidate="true" action="/store/upload" method="post" enctype="multipart/form-data">
+					<form class="form-horizontal" role="form" data-toggle="form-validator" id="uploadForm" novalidate="true" action="${staticbase}/inv/inventory/importInv" method="post" enctype="multipart/form-data">
 	                	<div class="bck-white-all overflow">
 	                		<div class="content-all-padding">
 	                			<div class="form-group">
-			                        <label class="col-sm-2 control-label" for="inputfile" style="width:auto"><span class="glyphicon glyphicon-asterisk text-red-1"></span> <span> 上传文件</span></label>
+			                        <label class="col-sm-2 control-label" for="invFile"><span class="glyphicon glyphicon-asterisk text-red-1"></span> <span> 上传文件</span></label>
 			                        <div class="col-sm-6">
-			                          <input type="file" id="invFile" class="file-loading" name="file"/>
+			                          <input type="file" id="invFile" class="file-loading" type="file" multiple name="invFile"/>			                          
 			                          <div class="help-block with-errors"></div>
 			                        </div>
 			                        <div class="col-sm-4">
-			                          <a class="btn btn-default btn-primary" href="/store/exceldemo" target="_blank">模板下载</a>
+			                          <a class="btn btn-default btn-primary" href="${staticbase}/inv/inventory/invImportTemplate" target="_blank">模板下载</a>
 			                        </div>
 			                    </div>
 			                     
 								<div class="form-group">
 									<div class="pull-right">
-										<button class="btn btn-primary btn-upload" type="button" onclick="uploadFormSubmit()"><i class="fa fa-upload"></i> 上传</button>
+										<button class="btn btn-primary btn-upload" type="button"><i class="fa fa-upload"></i> 上传</button>
 										&nbsp;&nbsp;
-										<button class="btn btn-primary closeBtn" type="button"  onclick="uploadFormClose()" data-dismiss="modal"><i class="fa fa-close"></i> 关闭</button>
+										<button class="btn btn-primary closeBtn" type="button" data-dismiss="modal"><i class="fa fa-close"></i> 关闭</button>
 									</div>
 								</div>
 							</div>
@@ -172,7 +172,7 @@
 
 <script type="text/javascript">
 	var maxPage="${param.pageCount}";
-	var curPage="${param.currentPage}";
+	var curPage="${param.currentPage}";	
 </script>
 </body>
 </html>
