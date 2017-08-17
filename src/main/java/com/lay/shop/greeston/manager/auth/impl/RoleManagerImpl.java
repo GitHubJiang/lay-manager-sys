@@ -32,11 +32,9 @@ import com.lay.shop.common.persistence.db.dao.Pagination;
 import com.lay.shop.common.persistence.db.dao.Sort;
 import com.lay.shop.common.utils.JsonUtil;
 import com.lay.shop.greeston.command.auth.RoleCommand;
-import com.lay.shop.greeston.dao.auth.PrivilegeDao;
 import com.lay.shop.greeston.dao.auth.RoleDao;
 import com.lay.shop.greeston.dao.auth.RolePriDao;
 import com.lay.shop.greeston.manager.auth.RoleManager;
-import com.lay.shop.greeston.model.auth.Privilege;
 import com.lay.shop.greeston.model.auth.Role;
 import com.lay.shop.greeston.model.auth.RolePri;
 
@@ -47,8 +45,6 @@ public class RoleManagerImpl implements RoleManager {
     private RoleDao roleDao;
     @Autowired
     private RolePriDao rolePriDao;
-    @Autowired
-    private PrivilegeDao privilegeDao;
 
     @Override
     @Transactional(propagation = Propagation.SUPPORTS)
