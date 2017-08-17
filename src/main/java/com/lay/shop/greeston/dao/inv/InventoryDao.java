@@ -33,8 +33,7 @@ import com.lay.shop.greeston.model.inv.Inventory;
 @MyBatisDao
 public interface InventoryDao extends BaseDao<Inventory,Long>{
 
-
-	@QueryPage("findListCountByQueryMap")
+    @QueryPage("findListCountByQueryMap")
 	Pagination<Inventory> findListByQueryMapWithPage(Page page,Sort[] sorts,Map<String, Object> params);
 	/**库存报表导出*/
 	List<Inventory> findListByQueryMapParam(Map<String, Object> params);
