@@ -19,6 +19,8 @@
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.lay.shop.common.persistence.db.annotation.MyBatisDao;
 import com.lay.shop.common.persistence.db.annotation.QueryPage;
 import com.lay.shop.common.persistence.db.dao.BaseDao;
@@ -36,4 +38,6 @@ public interface InventoryDao extends BaseDao<Inventory,Long>{
 	Pagination<Inventory> findListByQueryMapWithPage(Page page,Sort[] sorts,Map<String, Object> params);
 	/**库存报表导出*/
 	List<Inventory> findListByQueryMapParam(Map<String, Object> params);
+	/**根据商品编码查询库存信息*/
+	Inventory findInventoryBySkuCode(@Param("skuCode")String skuCode);
 }

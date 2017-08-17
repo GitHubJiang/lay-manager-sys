@@ -8,6 +8,8 @@ import java.util.Map;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -39,6 +41,8 @@ public class UserManagerImpl implements UserManager {
     private UrlDao urlDao;
     @Autowired
     private UserRoleDao userRoleDao;
+    @Autowired  
+    private PasswordEncoder passwordEncoder;
 
     @Override
     public User findUserByIdOrLoginName(Long id, String loginName) {
@@ -96,6 +100,7 @@ public class UserManagerImpl implements UserManager {
         if (userCommand.getId() == null) {
             User user = new User();
             BeanUtils.copyProperties(userCommand, user);
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
             user.setLifecycle(Constants.LIFECYCLE_NORMAL);
             user.setCreateTime(new Date());
             this.userDao.insert(user);
@@ -136,5 +141,8 @@ public class UserManagerImpl implements UserManager {
         this.userRoleDao.insert(userRole);
     }
 
-
+    public static void main(String[] args){
+        BCryptPasswordEncoder pass = new BCryptPasswordEncoder();
+        System.out.println(pass.encode("123456") );
+    }
 }

@@ -29,8 +29,11 @@
 
 	<!-- 认证管理 -->
 	<authentication-manager alias="authenticationManager">
-		<authentication-provider user-service-ref="userDetailsService"/>
+		<authentication-provider user-service-ref="userDetailsService">
+			<password-encoder ref="bcryptEncoder"/>
+		</authentication-provider>
 	</authentication-manager>
+    <beans:bean id="bcryptEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
 	
 	<beans:bean id="userDetailsService" class="com.lay.shop.greeston.manager.UserDetailsServiceImpl"></beans:bean>
 	<beans:bean id="loginSuccessHandler" class="com.lay.shop.greeston.manager.LoginSuccessHandler"></beans:bean>
@@ -42,5 +45,5 @@
 				<beans:bean class="com.lay.shop.greeston.manager.UrlAccessDecisionVoter" />
 			</beans:list>
 		</beans:constructor-arg>
-	</beans:bean>
+	</beans:bean>        
 </beans:beans>

@@ -68,4 +68,9 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
 		select <include refid="inventoryColumnsExt"/> from inv_inventory inv
 		<include refid="inventoryDynamicWhereExt"/>
 	</select>
+	
+	<select id="findInventoryBySkuCode" resultType="com.lay.shop.greeston.model.inv.Inventory">
+		select <include refid="inventoryColumnsExt"/> from inv_inventory inv
+		where inv.sku_code = #{skuCode}	
+	</select>
 </mapper>
