@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+
+<mapper namespace="com.lay.shop.greeston.dao.inv.InventoryDao">
+	<resultMap id="InventoryResultExt" type="com.lay.shop.greeston.model.inv.Inventory">
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="inventoryColumnsExt">
+	    <![CDATA[
+	        	inv.id as id,
+	        	inv.brand_code as brandCode,
+	        	inv.brand_name as brandName,
+	        	inv.sku_code as skuCode,
+	        	inv.sku_name as skuName,
+	        	inv.quantity as quantity,
+	        	inv.original_quantity as originalQuantity,
+	        	inv.create_time as createTime,
+	        	inv.version as version
+	    ]]>
+	</sql>
+	
+	<sql id="inventoryDynamicWhereExt">
+		<!-- ognl访问静态方法的表达式 为@class@method(args),以下为调用rapid中的Ognl.isNotEmpty()方法,还有其它方法如isNotBlank()可以使用，具体请查看Ognl类 -->
+		<where>
+	       
+				<if test="id!=null">
+					and inv.id = #{id}
+				</if>
+	       
+				<if test="brandCode!=null">
+					and inv.brand_code = #{brandCode}
+				</if>
+	       
+				<if test="brandName!=null">
+					and inv.brand_name = #{brandName}
+				</if>
+	       
+				<if test="skuCode!=null">
+					and inv.sku_code = #{skuCode}
+				</if>
+	       
+				<if test="skuName!=null">
+					and inv.sku_name = #{skuName}
+				</if>
+	       
+				<if test="quantity!=null">
+					and inv.quantity = #{quantity}
+				</if>
+	       
+				<if test="originalQuantity!=null">
+					and inv.original_quantity = #{originalQuantity}
+				</if>
+	       
+				<if test="createTime!=null">
+					and inv.create_time = #{createTime}
+				</if>
+	       
+				<if test="version!=null">
+					and inv.version = #{version}
+				</if>
+		</where>
+	</sql>
+	<select id="findListByQueryMapParam" resultType="com.lay.shop.greeston.model.inv.Inventory">
+		select <include refid="inventoryColumnsExt"/> from inv_inventory inv
+		<include refid="inventoryDynamicWhereExt"/>
+	</select>
+</mapper>
