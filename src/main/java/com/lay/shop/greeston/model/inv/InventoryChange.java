@@ -17,18 +17,16 @@
  package com.lay.shop.greeston.model.inv;
 
 import com.lay.shop.common.persistence.BaseModel;
-/***
+/**
  * 
- * @author Lay
- * @date 2017年8月17日 上午11:33:42
- * @since
+ * @author larkark
+ *
  */
 public class InventoryChange extends BaseModel {
 	
 	/** */
-    private static final long serialVersionUID = 7021832572644856744L;
-    
-	/** 品牌编码 */
+    private static final long serialVersionUID = 1601283649100025850L;
+    /** 品牌编码 */
 	private String brandCode;
 	/** 品牌编码 */
 	private String shopCode;
@@ -38,15 +36,16 @@ public class InventoryChange extends BaseModel {
 	private Integer quantity;
 	/** 库存变化表   0:未处理  1:已处理 2:已失败 */
 	private Integer status;
-	/** 库存变化表   0:未处理  1:已处理 2:已失败 */
-	private String remark;
+	/** 导入数据类型:1.入库数据;2.出库数据 */
+	private Integer invType;
 	/** 创建时间 */
 	private java.util.Date createTime;
 	/** 更新时间 */
 	private java.util.Date updateTime;
 	/** 操作用户ID */
 	private Long userId;
-
+	/** 备注：失败原因 */
+	private String remark;
 
 	public InventoryChange(){
 	}
@@ -86,12 +85,12 @@ public class InventoryChange extends BaseModel {
 	public Integer getStatus() {
 		return this.status;
 	}
-	public void setRemark(String value) {
-		this.remark = value;
+	public void setInvType(Integer value) {
+		this.invType = value;
 	}
 	
-	public String getRemark() {
-		return this.remark;
+	public Integer getInvType() {
+		return this.invType;
 	}
 	
 	public void setCreateTime(java.util.Date value) {
@@ -116,6 +115,13 @@ public class InventoryChange extends BaseModel {
 	public Long getUserId() {
 		return this.userId;
 	}
-   
+	public void setRemark(String value) {
+		this.remark = value;
+	}
+	
+	public String getRemark() {
+		return this.remark;
+	}
+    
 }
 

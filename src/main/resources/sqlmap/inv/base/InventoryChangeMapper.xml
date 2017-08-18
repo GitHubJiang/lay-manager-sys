@@ -17,10 +17,11 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
 	        	sku_code as skuCode,
 	        	quantity as quantity,
 	        	status as status,
-	        	remark as remark,
+	        	inv_type as invType,
 	        	create_time as createTime,
 	        	update_time as updateTime,
-	        	user_id as userId
+	        	user_id as userId,
+	        	remark as remark
 	    ]]>
 	</sql>
 	
@@ -38,20 +39,22 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
 		        	sku_code ,
 		        	quantity ,
 		        	status ,
-		        	remark ,
+		        	inv_type ,
 		        	create_time ,
 		        	update_time ,
-		        	user_id 
+		        	user_id ,
+		        	remark 
 		        ) VALUES (
 		        	#{brandCode,javaType=String,jdbcType=VARCHAR} ,
 		        	#{shopCode,javaType=String,jdbcType=VARCHAR} ,
 		        	#{skuCode,javaType=String,jdbcType=VARCHAR} ,
 		        	#{quantity,javaType=Integer,jdbcType=INTEGER} ,
 		        	#{status,javaType=Integer,jdbcType=INTEGER} ,
-		        	#{remark,javaType=String,jdbcType=LONGVARCHAR} ,
+		        	#{invType,javaType=Integer,jdbcType=INTEGER} ,
 		        	#{createTime,javaType=java.util.Date,jdbcType=TIMESTAMP} ,
 		        	#{updateTime,javaType=java.util.Date,jdbcType=TIMESTAMP} ,
-		        	#{userId,javaType=Long,jdbcType=BIGINT} 
+		        	#{userId,javaType=Long,jdbcType=BIGINT} ,
+		        	#{remark,javaType=String,jdbcType=LONGVARCHAR} 
 		        )
 		    ]]>
 	
@@ -65,10 +68,11 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
 		        sku_code = #{skuCode,javaType=String,jdbcType=VARCHAR} ,
 		        quantity = #{quantity,javaType=Integer,jdbcType=INTEGER} ,
 		        status = #{status,javaType=Integer,jdbcType=INTEGER} ,
-		        remark = #{remark,javaType=String,jdbcType=LONGVARCHAR} ,
+		        inv_type = #{invType,javaType=Integer,jdbcType=INTEGER} ,
 		        create_time = #{createTime,javaType=java.util.Date,jdbcType=TIMESTAMP} ,
 		        update_time = #{updateTime,javaType=java.util.Date,jdbcType=TIMESTAMP} ,
-		        user_id = #{userId,javaType=Long,jdbcType=BIGINT} 
+		        user_id = #{userId,javaType=Long,jdbcType=BIGINT} ,
+		        remark = #{remark,javaType=String,jdbcType=LONGVARCHAR} 
 	        WHERE 
 		        id = #{id} 
 	    ]]>
@@ -132,8 +136,8 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
 					and status = #{status}
 				</if>
 	       
-				<if test="remark!=null">
-					and remark = #{remark}
+				<if test="invType!=null">
+					and inv_type = #{invType}
 				</if>
 	       
 				<if test="createTime!=null">
@@ -146,6 +150,10 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
 	       
 				<if test="userId!=null">
 					and user_id = #{userId}
+				</if>
+	       
+				<if test="remark!=null">
+					and remark = #{remark}
 				</if>
 		</where>
 	</sql>

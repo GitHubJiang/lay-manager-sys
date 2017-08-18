@@ -19,11 +19,19 @@ public final class Constants {
     private Constants(){};
 
     /** 正常*/
-    public static final Integer LIFECYCLE_NORMAL=1;
-    
+    public static final Integer LIFECYCLE_NORMAL=1;    
     /** 禁用 */
-    public static final Integer LIFECYCLE_DISABLE=2;
-    
+    public static final Integer LIFECYCLE_DISABLE=2;    
     /** 已删除 */
-    public static final Integer LIFECYCLE_DELETED=3;
+    public static final Integer LIFECYCLE_DELETED=3;    
+    /** 入库操作 */
+    public static final Integer INVC_TYPE_IN = 1;    
+    /** 出库操作 */
+    public static final Integer INVC_TYPE_OUT = 2;    
+    /** 处理状态:0.待处理 */
+    public static final Integer PROCESS_STATUS_NEW = 0;
+    /** 处理状态:1.已处理 */
+    public static final Integer PROCESS_STATUS_SUCCESS = 1;
+    /** 处理状态:2.异常 */
+    public static final Integer PROCESS_STATUS_ERROR = 2;
 }

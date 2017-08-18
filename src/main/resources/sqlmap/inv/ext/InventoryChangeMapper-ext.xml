@@ -17,10 +17,11 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
 	        	sku_code as skuCode,
 	        	quantity as quantity,
 	        	status as status,
-	        	remark as remark,
+	        	inv_type as invType,
 	        	create_time as createTime,
 	        	update_time as updateTime,
-	        	user_id as userId
+	        	user_id as userId,
+	        	remark as remark
 	    ]]>
 	</sql>
 	
@@ -52,8 +53,8 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
 					and status = #{status}
 				</if>
 	       
-				<if test="remark!=null">
-					and remark = #{remark}
+				<if test="invType!=null">
+					and inv_type = #{invType}
 				</if>
 	       
 				<if test="createTime!=null">
@@ -66,6 +67,10 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
 	       
 				<if test="userId!=null">
 					and user_id = #{userId}
+				</if>
+	       
+				<if test="remark!=null">
+					and remark = #{remark}
 				</if>
 		</where>
 	</sql>
