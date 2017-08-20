@@ -39,4 +39,6 @@ public interface InventoryDao extends BaseDao<Inventory,Long>{
 	List<Inventory> findListByQueryMapParam(Map<String, Object> params);
 	/**根据商品编码查询库存信息*/
 	Inventory findInventoryBySkuCode(@Param("skuCode")String skuCode);
+    /**更新库存信息*/
+    void updateInventoryById(@Param("id") Long id, @Param("quantity") Integer quantity);
 }

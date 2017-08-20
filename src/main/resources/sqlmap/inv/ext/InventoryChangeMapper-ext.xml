@@ -75,4 +75,12 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
 		</where>
 	</sql>
 	
+	<select id="findInventoryChangeList" resultType="com.lay.shop.greeston.model.inv.InventoryChange">
+		select invc.id id,invc.sku_code skuCode,invc.quantity from inv_inventory_change invc
+		where invc.inv_type = #{invType} and invc.status = #{status}
+	</select>
+	
+	<update id="updateStatusById">
+		update inv_inventory_change set status = #{status} where id = #{id}
+	</update>
 </mapper>

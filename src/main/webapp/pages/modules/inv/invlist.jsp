@@ -18,7 +18,7 @@
 		<div class="modal-content">
 			<div class="modal-body">
 				<div class="col-md-12">					
-					<h4 class="marign-none form-title">库存导入</h4>
+					<h4 class="marign-none form-title">商品\库存导入</h4>
 				</div>
 				 <div class="widget-content padding form-horizontal">
 					<form class="form-horizontal" role="form" data-toggle="form-validator" id="uploadForm" novalidate="true" action="${staticbase}/inv/inventory/importInv" method="post" enctype="multipart/form-data">
@@ -53,6 +53,89 @@
 <!-- /.modal -->
 <!-- 弹出窗体部分 END -->
 
+<!-- /.modal-dialog -->
+<!-- /.modal -->
+<div id="myModalSale" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard="true" data-backdrop="static">
+  <div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-body">
+				<div class="col-md-12">					
+					<h4 class="marign-none form-title">销售出库</h4>
+				</div>
+				 <div class="widget-content padding form-horizontal">
+					<form class="form-horizontal" role="form" data-toggle="form-validator" id="saleUploadForm" novalidate="true" action="${staticbase}/inv/invc/importOutInvc" method="post" enctype="multipart/form-data">
+	                	<div class="bck-white-all overflow">
+	                		<div class="content-all-padding">
+	                			<div class="form-group">
+			                        <label class="col-sm-2 control-label" for="invFile"><span class="glyphicon glyphicon-asterisk text-red-1"></span> <span> 销售出库文件</span></label>
+			                        <div class="col-sm-6">
+			                          <input type="file" class="file-loading" type="file" multiple name="invcFile" required/>			                          
+			                          <div class="help-block with-errors"></div>
+			                        </div>
+			                        <div class="col-sm-4">
+			                          <a class="btn btn-default btn-primary" href="${staticbase}/inv/invc/invcImportOutTemplate" target="_blank">模板下载</a>
+			                        </div>
+			                    </div>
+			                     
+								<div class="form-group">
+									<div class="pull-right">
+										<button class="btn btn-primary btn-sale-upload" type="button"><i class="fa fa-upload"></i> 上传</button>
+										&nbsp;&nbsp;
+										<button class="btn btn-primary closeBtn" type="button" data-dismiss="modal"><i class="fa fa-close"></i> 关闭</button>
+									</div>
+								</div>
+							</div>
+						</div>	
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- /.modal -->
+<!-- 弹出窗体部分 END -->
+
+<!-- /.modal-dialog -->
+<!-- /.modal -->
+<div id="myModalIn" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard="true" data-backdrop="static">
+  <div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-body">
+				<div class="col-md-12">					
+					<h4 class="marign-none form-title">入库</h4>
+				</div>
+				 <div class="widget-content padding form-horizontal">
+					<form class="form-horizontal" role="form" data-toggle="form-validator" id="inUploadForm" action="${staticbase}/inv/invc/importInInvc" method="post" enctype="multipart/form-data">
+	                	<div class="bck-white-all overflow">
+	                		<div class="content-all-padding">
+	                			<div class="form-group">
+			                        <label class="col-sm-2 control-label" for="invFile"><span class="glyphicon glyphicon-asterisk text-red-1"></span> <span> 入库文件</span></label>
+			                        <div class="col-sm-6">
+			                          <input type="file" class="file-loading" type="file" multiple name="invcFile" required/>			                          
+			                          <div class="help-block with-errors"></div>
+			                        </div>
+			                        <div class="col-sm-4">
+			                          <a class="btn btn-default btn-primary" href="${staticbase}/inv/invc/invcImportInTemplate" target="_blank">模板下载</a>
+			                        </div>
+			                    </div>
+			                     
+								<div class="form-group">
+									<div class="pull-right">
+										<button class="btn btn-primary btn-in-upload" type="button"><i class="fa fa-upload"></i> 上传</button>
+										&nbsp;&nbsp;
+										<button class="btn btn-primary closeBtn" type="button" data-dismiss="modal"><i class="fa fa-close"></i> 关闭</button>
+									</div>
+								</div>
+							</div>
+						</div>	
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- /.modal -->
+<!-- 弹出窗体部分 END -->
 
 <%@include file="/pages/commons/common-layer.jsp" %>
 <!-- Begin page -->
@@ -82,8 +165,10 @@
 		<h3 class="marign-none">商品库存</h3>
 	</div>
 	<div class="col-md-8">
-		<div class="toolbar-btn-action">	 
-			<pri:add acl="ACL_INV_FULL"><a href="#" data-toggle="modal" data-target=".modal-import" class="btn btn-success btn-import"><i class="fa fa-plus-circle"></i>全量库存导入</a></pri:add>
+		<div class="toolbar-btn-action">
+			<pri:add acl="ACL_INV_FULL"><a href="#" data-toggle="modal" data-target="#myModalIn" class="btn btn-success btn-import"><i class="fa fa-plus-circle"></i>入库</a></pri:add>	 
+	   		<pri:add acl="ACL_INV_FULL"><a href="#" data-toggle="modal" data-target="#myModalSale" class="btn btn-success btn-import"><i class="fa fa-plus-circle"></i>销售出库</a></pri:add>
+			<pri:add acl="ACL_INV_FULL"><a href="#" data-toggle="modal" data-target=".modal-import" class="btn btn-success btn-import"><i class="fa fa-plus-circle"></i>商品全量库存导入</a></pri:add>
 	   		<pri:view acl="ACL_INV_FULL"><a class="btn btn-success" id="exportStoreButton btn-export" onclick="exportInventory()">导出库存</a></pri:view>
 	   	</div>
 	</div>

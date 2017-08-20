@@ -11,9 +11,18 @@ wms.addReadyFunc(function() {
 	$(".btn-upload").on("click",function(){
 		doUpload();
 	});
+	
+
+	$(".btn-sale-upload").on("click",function(){
+		doSaleUpload();
+	});
+	
+	$(".btn-in-upload").on("click",function(){
+		doInUpload();
+	});
 });
 
-$("#invFile").fileinput({
+$(".file-loading").fileinput({
     language: 'zh', //设置语言
     showPreview :true, //是否显示预览
     uploadAsync: false, //默认异步上传
@@ -65,5 +74,54 @@ function doUpload() {
     });  
 } 
 
+function doSaleUpload() {  
+    var formData = new FormData($('#saleUploadForm')[0]);  
+    $.ajax({  
+         url: pagebase+'/inv/invc/importOutInvc' ,  
+         type: 'POST',  
+         data: formData,  
+         async: false,  
+         cache: false,  
+         contentType: false,  
+         processData: false,  
+         success: function (returndata) { 
+        	 if(returndata.code=='1'){
+        		 wms.frame.notifySuccess("提示信息","库存数据导入成功");
+        		 setTimeout('search()',100);
+        	 }else{
+        		 wms.frame.notifyError("提示信息",returndata.msg);
+        	 }
+        	 
+         },  
+         error: function (returndata) {  
+        	 wms.frame.notifyError("提示信息",returndata);
+         }  
+    });  
+}
+
+function doInUpload() {  
+    var formData = new FormData($('#inUploadForm')[0]);  
+    $.ajax({  
+         url: pagebase+'/inv/invc/importInInvc' ,  
+         type: 'POST',  
+         data: formData,  
+         async: false,  
+         cache: false,  
+         contentType: false,  
+         processData: false,  
+         success: function (returndata) { 
+        	 if(returndata.code=='1'){
+        		 wms.frame.notifySuccess("提示信息","库存数据导入成功");
+        		 setTimeout('search()',100);
+        	 }else{
+        		 wms.frame.notifyError("提示信息",returndata.msg);
+        	 }
+        	 
+         },  
+         error: function (returndata) {  
+        	 wms.frame.notifyError("提示信息",returndata);
+         }  
+    });  
+} 
 
 

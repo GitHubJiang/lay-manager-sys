@@ -14,7 +14,10 @@
  */
 package com.lay.shop.greeston.dao.inv;
 
+import java.util.List;
 import java.util.Map;
+
+import org.apache.ibatis.annotations.Param;
 
 import com.lay.shop.common.persistence.db.annotation.MyBatisDao;
 import com.lay.shop.common.persistence.db.annotation.QueryPage;
@@ -30,4 +33,9 @@ public interface InventoryChangeDao extends BaseDao<InventoryChange, Long> {
 
     @QueryPage("findListCountByQueryMap")
     Pagination<InventoryChange> findListByQueryMapWithPage(Page page, Sort[] sorts, Map<String, Object> params);
+
+    /**按照导入数据类型查询待处理数据*/
+    List<InventoryChange> findInventoryChangeList(@Param("invType")Integer invType,@Param("status")Integer status);
+    /**更新数据状态*/
+    void updateStatusById(@Param("id")Long id,@Param("status") Integer status);
 }

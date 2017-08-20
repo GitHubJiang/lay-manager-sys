@@ -84,7 +84,7 @@ public class InventoryChangeController extends BaseController {
         return result;
     }
     
-    /**入库库存导入*/
+    /**销售出库库存导入*/
     @RequestMapping(value = {"/importOutInvc"})
     @ResponseBody
     public Result<Object> importOutInvc(@RequestParam(value = "invcFile",required = false) MultipartFile file) {

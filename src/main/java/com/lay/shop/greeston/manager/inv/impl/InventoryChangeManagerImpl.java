@@ -10,6 +10,8 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.lay.shop.common.constants.Constants;
 import com.lay.shop.common.exception.BusinessException;
@@ -66,7 +68,7 @@ public class InventoryChangeManagerImpl implements InventoryChangeManager {
                     }                    
                     Inventory temp = this.inventoryDao.findInventoryBySkuCode(skuCode);
                     if(temp == null){
-                        throw new BusinessException("", "商品编码"+skuCode+"在库存表中不存在");
+                        throw new BusinessException("", "商品编码："+skuCode+"的商品不存在");
                     }
                     InventoryChange inventoryChange = new InventoryChange();
                     inventoryChange.setBrandCode(temp.getBrandCode());
@@ -83,6 +85,32 @@ public class InventoryChangeManagerImpl implements InventoryChangeManager {
                 throw new BusinessException("", "EXCEL 文件第"+rowNum+1+"行有问题请重新检查一遍再重新导入");
             }            
         }
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED)
+    public void importOutInvcTask() {
+        List<InventoryChange> list = this.inventoryChangeDao.findInventoryChangeList(Constants.INVC_TYPE_OUT, Constants.PROCESS_STATUS_NEW);
+        if(list!=null&&!list.isEmpty()){
+            for(InventoryChange invc:list){
+                Inventory inventory = this.inventoryDao.findInventoryBySkuCode(invc.getSkuCode());
+                this.inventoryDao.updateInventoryById(inventory.getId(),inventory.getQuantity()-invc.getQuantity());
+                this.inventoryChangeDao.updateStatusById(invc.getId(), Constants.PROCESS_STATUS_SUCCESS);
+            }
+        }      
+        
+    }
+
+    @Override
+    public void importInInvcTask() {
+        List<InventoryChange> list = this.inventoryChangeDao.findInventoryChangeList(Constants.INVC_TYPE_IN, Constants.PROCESS_STATUS_NEW);
+        if(list!=null&&!list.isEmpty()){
+            for(InventoryChange invc:list){
+                Inventory inventory = this.inventoryDao.findInventoryBySkuCode(invc.getSkuCode());
+                this.inventoryDao.updateInventoryById(inventory.getId(),inventory.getQuantity()+invc.getQuantity());
+                this.inventoryChangeDao.updateStatusById(invc.getId(), Constants.PROCESS_STATUS_SUCCESS);
+            }
+        }    
     }
 
 }
