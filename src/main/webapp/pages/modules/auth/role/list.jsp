@@ -11,6 +11,20 @@
 
 </head>
 <body class="fixed-left" locale="${locale }" onload="prettyPrint()">
+<div class="md-modal md-3d-slit" id="delete-modal">
+	<form id="deleteForm" action="${staticbase}/auth/role/del">	
+		<input name="id" id="role-id" type="hidden" value="">	
+		<div class="md-content" style="height:120px;">			
+			<div>
+				<p class="text-center">你确定删除此角色吗?</p>
+				<p class="text-center">
+					<a class="btn btn-default md-close">取消</a>
+					<a href="javascript:void(0)" id="deleteBtn" class="btn btn-danger btn-lifecycle md-close">确认删除</a>
+				</p>
+			</div>   
+		</div>
+	</form>
+</div>
 <%@include file="/pages/commons/common-layer.jsp" %>
 <!-- Begin page -->
 <div id="wrapper"> 
@@ -39,14 +53,9 @@
 		<h3 class="marign-none">角色管理</h3>
 	</div>
 	<div class="col-md-8">
-	<div class="col-md-9"></div>
-	<div class="toolbar-btn-action">
-		<div class="btn-toolbar" role="toobar">
-			<div class="btn-group">
-				<pri:add acl="ACL_AUTH_ROLE"><a class="btn btn-success btn-add" data-toggle="modal" data-target="#myModalAdd" ><i class="fa fa-plus-circle"></i> 新增</a></pri:add>
-			</div>
+		<div class="toolbar-btn-action">
+			<pri:add acl="ACL_AUTH_ROLE"><a class="btn btn-success btn-add" data-toggle="modal" data-target="#myModalAdd" ><i class="fa fa-plus-circle"></i> 新增</a></pri:add>
 		</div>
-	</div>
 	</div>
 	<div class="row">
 		<div class="col-md-12  portlets">
@@ -126,8 +135,8 @@
 															</button>
 														</pri:or>
 														<ul class="dropdown-menu" role="menu">
-															<pri:remove acl="ACL_AUTH_ROLE">
-																<li><a href="${staticbase}/auth/role/del/${item.id}"><i class="fa fa-trash-o"></i>删除</a></li>
+															<pri:remove acl="ACL_AUTH_ROLE">																
+																<li><a href="javaScript:void(0);" class="md-trigger state" data-modal="delete-modal" data-id="${item.id}" class="role-trash-o state"><i class="fa fa-trash-o"></i>删除</a></li>
 															</pri:remove>
 														</ul>
 													</div>
@@ -213,29 +222,6 @@
 	<!-- /.modal-dialog -->
 </div>
 <!-- /.modal -->
-
-<div id="myModalDelete" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-					<h4 class="modal-title" id="myModalLabel">确定要删除该角色?</h4>
-				<form class="form-horizontal" role="form" data-toggle="form-validator"  id="deleteForm" novalidate="true" method="post" action="${staticbase}/auth/role/delete">
-					<input type="hidden"  name="id" id="idDelete" value="" /> 				
-					<div class="form-group">
-						<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-power-off"></i>取消</button>
-						<button class="btn  btn-primary pull-right role-save" data-dismiss="modal" onclick="deleteFormSubmit()"><i class="fa fa-check"></i>确认删除</button>
-						</div>
-					</div>
-				</form>
-			</div>
-		</div>
-		<!-- /.modal-content -->
-	</div>
-	<!-- /.modal-dialog -->
-</div>
-
 <!-- 弹出窗体部分 END -->
 
 <!--主要内容开始部分 END-->

@@ -111,7 +111,7 @@ wms.addReadyFunc(function(){
 	 	var id = $(this).attr("data-id");
 	 	$("#acl-id").val(id);
 	 });
-	$("#delete-modal").on("click",function() {
+	$("#deleteBtn").on("click",function() {
 	 	$("#deleteForm").submit();
 	});
 	

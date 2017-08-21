@@ -132,6 +132,20 @@ public class UserManagerImpl implements UserManager {
     public void removeUserRoleById(Long id) {
         this.userRoleDao.delete(id);
     }
+    
+    @Override
+    @Transactional(propagation=Propagation.REQUIRED)
+    public void removeUserById(Long id) {
+        this.userDao.delete(id);
+        UserRole userRole = new UserRole();
+        userRole.setUserId(id);
+        List<UserRole> list = this.userRoleDao.findListByParam(userRole);
+        if (list != null && !list.isEmpty()) {
+            for (UserRole role : list) {
+                this.userRoleDao.delete(role.getId());
+            }
+        }
+    }
 
     @Override
     @Transactional(propagation=Propagation.REQUIRED)

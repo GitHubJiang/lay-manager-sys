@@ -121,4 +121,10 @@ public class UserController extends BaseController {
         return result;
     }
     
+    /**用户列表页*/
+    @RequestMapping(value = {"/user/del"})
+    public String delete(Long id){
+        this.userManager.removeUserById(id);
+        return "redirect:/auth/user/list";
+    }
 }

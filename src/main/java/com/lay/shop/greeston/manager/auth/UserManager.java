@@ -32,6 +32,8 @@ public interface UserManager {
     UserCommand findUserCommandByUserId(Long userId);
     /**删除用户角色关联信息 */
     void removeUserRoleById(Long id);
+    /**删除用户信息*/
+    void removeUserById(Long id);
     /**保存用户角色组织关联信息*/
     void saveUserRole(UserRoleCommand command);
 }

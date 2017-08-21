@@ -19,8 +19,8 @@
 			<div>
 				<p class="text-center">你确定删除么?</p>
 				<p class="text-center">
-					<button class="btn btn-default md-close">取消</button>
-					<a href="javascript:void(0)" class="btn btn-danger btn-lifecycle md-close">确认删除</a>
+					<a class="btn btn-default md-close">取消</a>
+					<a href="javascript:void(0)" id="deleteBtn" class="btn btn-danger btn-lifecycle md-close">确认删除</a>
 				</p>
 			</div>   
 		</div>

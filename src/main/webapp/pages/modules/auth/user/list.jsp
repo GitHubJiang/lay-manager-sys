@@ -11,6 +11,20 @@
 
 </head>
 <body class="fixed-left" locale="${locale }" onload="prettyPrint()">
+<div class="md-modal md-3d-slit" id="delete-modal">
+	<form id="deleteForm" action="${staticbase}/auth/user/del">	
+		<input name="id" id="user-id" type="hidden" value="">	
+		<div class="md-content" style="height:120px;">			
+			<div>
+				<p class="text-center">你确定删除此用户吗?</p>
+				<p class="text-center">
+					<a class="btn btn-default md-close">取消</a>
+					<a href="javascript:void(0)" id="deleteBtn" class="btn btn-danger btn-lifecycle md-close">确认删除</a>
+				</p>
+			</div>   
+		</div>
+	</form>
+</div>
 <%@include file="/pages/commons/common-layer.jsp" %>
 <!-- Begin page -->
 <div id="wrapper"> 
@@ -131,7 +145,7 @@
 																<span class="sr-only">Toggle Dropdown</span>
 															</button>
 															<ul class="dropdown-menu" role="menu">
-	                                                        	<li><a href="${staticbase}/auth/userinfo/del/${item.id}"><i class="fa fa-trash-o"></i>删除</a></li>
+	                                                        	<li><a href="javaScript:void(0);" class="md-trigger state" data-modal="delete-modal" data-id="${item.id}" class="role-trash-o state"><i class="fa fa-trash-o"></i>删除</a></li>
 															</ul>
 														</pri:remove>
 													</div>

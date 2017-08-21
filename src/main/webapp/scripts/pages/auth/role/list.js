@@ -25,55 +25,31 @@ wms.addReadyFunc(function(){
 	});
     
     $(".btn-add").on("click",function(){
-		var form = $("#addForm");		
-		wms.asyncPost(pagebase+"/auth/role/allPri",{},{successHandler:function(data, textStatus){
-			if(data){			
+    	var id = $(this).attr("data-id");
+    	if(id){
+    		getRoleInfo(id);
+    	}    	
+    	var roleName = $("#nameAdd").val();
+		if(roleName == ''){
+			$('#tbody').html('');
+			return ;
+		}		
 		
-				var htmlTd='';
-                $.each(data, function(index, item){
-                    
-                      htmlTd+='<tr><td style="width:25%">'+item.name+'</td>'+
-                      '<td style="width:15%"><input class="rows-check" type="checkbox" data-role="view" data-id=\''+item.acl+'\'name="rolePriList" value="{funCode:\'view\',acl:\''+item.acl+'\'}"></td>'+
-                      '<td style="width:15%"><input class="rows-check" type="checkbox" data-role="add"  data-id=\''+item.acl+'\'name="rolePriList" value="{funCode:\'add\',acl:\''+item.acl+'\'}"></td>'+
-                      '<td style="width:15%"><input class="rows-check" type="checkbox" data-role="update" data-id=\''+item.acl+'\'name="rolePriList" value="{funCode:\'update\',acl:\''+item.acl+'\'}"></td>'+
-                      '<td style="width:15%"><input class="rows-check" type="checkbox" data-role="remove" data-id=\''+item.acl+'\'name="rolePriList" value="{funCode:\'remove\',acl:\''+item.acl+'\'}"></td>'+
-                      '<td style="width:15%"><input class="row-all" type="checkbox"  data-id=\''+item.id+'\'name="rolePriList" value=""></td>'+
-                      '</tr>';                      
-                });
+		
+	});
+    
+    $("#ouTypeAdd").on("change",function(){
 
-                $('#tbody').html(htmlTd);
-                $("#tbody input:checkbox").iCheck({
-        	        checkboxClass: 'icheckbox_square-aero',
-        	        radioClass: 'iradio_minimal',
-        	        increaseArea: '20%'
-        	    });
-			} else {
-				wms.frame.notifyError("提示信息","调用接口失败");
-			}
-		}});
+		var ouTypeId = $("#ouTypeAdd").val();
+		if(ouTypeId == ''){
+			$('#tbody').html('');
+			return ;
+		}		
+		buildRolePri(ouTypeId);
 		
-		var id = $(this).attr("data-id");	
-		if(id){
-			wms.asyncPost(pagebase+"/auth/role/get", {id:id},{successHandler:function(data, textStatus){
-				var checkboxs = $("#tbody input:checkbox");
-				if(data){
-					form.fill(data);
-					var rolePriMap = data["rolePriMap"];
-					if(rolePriMap) {
-						for(var key in rolePriMap) {
-							var _item = rolePriMap[key];						
-							for(var i=0;i<_item.length;i++) {							
-								checkboxs.filter("[data-id="+key+"][data-role="+_item[i]+"]").iCheck("check");
-							}
-						}
-					}
-				} else {
-					wms.frame.notifyError(i18n.t("info"),i18n.t("edit-f"));
-				}
-			}});
-		}
-	});	
-	/**提交表单数据*/
+	});
+	
+    /**提交表单数据*/
 	var flag = false;
 	$("#subBtn").on("click",function(){
 		
@@ -112,6 +88,14 @@ wms.addReadyFunc(function(){
 		 .removeAttr('checked')    
 		 .removeAttr('selected');
 	});
+	
+	$(".state").on('click',function(){
+		$("#role-id").val($(this).attr("data-id"));
+	});
+	
+	$("#deleteBtn").on('click',function(){
+		$("#deleteForm").submit();
+	});
     
 });
 
@@ -134,6 +118,63 @@ function search() {
 	$("#queryForm").submit();
 }
 
+function buildRolePri(ouTypeId,rolePriMap){
+	
+	wms.asyncPost(pagebase+"/auth/pri/allAcl",{'ouTypeId':ouTypeId},{successHandler:function(data, textStatus){
+		if(data){		
+	
+			var htmlTd='';
+			$('#tbody').html(htmlTd);
+            $.each(data.data, function(index, item){
+                
+                  htmlTd+='<tr><td style="width:25%">'+item.name+'</td>'+
+                  '<td style="width:15%"><input class="rows-check" type="checkbox" data-role="view" data-id=\''+item.acl+'\'name="rolePriList" value="{funCode:\'view\',acl:\''+item.acl+'\'}"></td>'+
+                  '<td style="width:15%"><input class="rows-check" type="checkbox" data-role="add"  data-id=\''+item.acl+'\'name="rolePriList" value="{funCode:\'add\',acl:\''+item.acl+'\'}"></td>'+
+                  '<td style="width:15%"><input class="rows-check" type="checkbox" data-role="update" data-id=\''+item.acl+'\'name="rolePriList" value="{funCode:\'update\',acl:\''+item.acl+'\'}"></td>'+
+                  '<td style="width:15%"><input class="rows-check" type="checkbox" data-role="remove" data-id=\''+item.acl+'\'name="rolePriList" value="{funCode:\'remove\',acl:\''+item.acl+'\'}"></td>'+
+                  '<td style="width:15%"><input class="row-all" type="checkbox"  data-id=\''+item.id+'\'name="rolePriList" value=""></td>'+
+                  '</tr>';                      
+            });
+
+            $('#tbody').html(htmlTd);
+            $("#tbody input:checkbox").iCheck({
+    	        checkboxClass: 'icheckbox_square-aero',
+    	        radioClass: 'iradio_minimal',
+    	        increaseArea: '20%'
+    	    });
+                        
+            if(rolePriMap) {
+            	var checkboxs = $("#tbody input:checkbox");
+				for(var key in rolePriMap) {
+					var _item = rolePriMap[key];						
+					for(var i=0;i<_item.length;i++) {							
+						checkboxs.filter("[data-id="+key+"][data-role="+_item[i]+"]").iCheck("check");
+					}
+				}
+			}
+		} else {
+			wms.frame.notifyError("提示信息","调用接口失败");
+		}
+	}});
+}
+function getRoleInfo(id){	
+	var form = $("#addForm");
+	if(id){
+		wms.asyncPost(pagebase+"/auth/role/get", {id:id},{successHandler:function(data, textStatus){
+			
+			if(data){
+				form.fill(data);
+				var ouTypeId = $("#ouTypeAdd").val();
+				var rolePriMap = data["rolePriMap"];
+				buildRolePri(ouTypeId,rolePriMap);			
+				
+			} else {
+				wms.frame.notifyError('提示信息','查询数据失败');
+			}
+		}});
+	}
+}
+
 function isStatusChange(id,status) {
 	wms.asyncGet(pagebase + "/auth/role/refresh/" +id+"/"+status, {}, {
 		successHandler : function(data, textStatus) {
@@ -148,23 +189,8 @@ function isStatusChange(id,status) {
 	});
 }
 
-//affirm delete
-function affirmDelete(id) {
-	$("#idDelete").val(id);
-}
-
 function deleteFormSubmit() {
-	var form = $(this).closest("form");
-	$('#deleteForm').ajaxForm({
-		success: function (data) {
-			$(".blockUI").remove();
-			if(data!="SUCESS") {
-				wms.frame.notifyError(data);
-			}else{
-				location.href ="/auth/role/list";
-			}
-        }
-	});
+	
 	$('#deleteForm').submit();
 	
 }

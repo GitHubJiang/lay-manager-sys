@@ -53,16 +53,9 @@ public class UrlController extends BaseController {
     }
     
     @RequestMapping(value = {"/url/remove"})
-    @ResponseBody
-    public Result<Object> remove(Long id){
-        Result<Object> result = new Result<>();
-        try{
-           this.urlManager.deleteUrlById(id); 
-        }catch(Exception e){
-            result.setCode(ErrorCodes.RESULT_NO.getValue());
-            result.setMsg(ErrorCodes.RESULT_NO.getMsg());
-        }
-        return result;
+    public String remove(Long id){
+        this.urlManager.deleteUrlById(id);
+        return "redirect:/auth/url/list";
     }
     
     //权限管理使用

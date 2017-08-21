@@ -13,14 +13,14 @@
 <body class="fixed-left" locale="${locale }" onload="prettyPrint()">
 <%@include file="/pages/commons/common-layer.jsp" %>
 <div class="md-modal md-3d-slit" id="delete-modal">
-	<form id="deleteForm">	
+	<form id="deleteForm" action="${staticbase}/auth/url/remove">	
 		<input name="id" id="url-id" type="hidden" value="">	
 		<div class="md-content" style="height:120px;">			
 			<div>
 				<p class="text-center">你确定删除么?</p>
 				<p class="text-center">
-					<button class="btn btn-default md-close">取消</button>
-					<a href="javascript:void(0)" class="btn btn-danger btn-lifecycle md-close">确认删除</a>
+					<a class="btn btn-default md-close">取消</a>
+					<a href="javascript:void(0)" id="deleteBtn" class="btn btn-danger btn-lifecycle md-close">确认删除</a>
 				</p>
 			</div>   
 		</div>

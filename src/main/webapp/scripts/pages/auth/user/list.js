@@ -36,6 +36,15 @@ wms.addReadyFunc(function(){
 		 search();
 	 });
 	
+	//删除相关
+	 $(".state").on("click",function() {
+	 	var id = $(this).attr("data-id");
+	 	$("#user-id").val(id);
+	 });
+	 
+	 $("#deleteBtn").on("click",function() {
+		 $("#deleteForm").submit();
+	 });
 });
 
 /*****************************************************/

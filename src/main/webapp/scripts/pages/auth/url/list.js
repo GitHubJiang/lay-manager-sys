@@ -11,21 +11,9 @@ $(function(){
 	 	var id = $(this).attr("data-id");
 	 	$("#url-id").val(id);
 	 });
-
-	 $("#delete-modal").on("click",function() {
-	 	var data = $("#deleteForm").serializeArray();
-	 	wms.asyncPost(pagebase+"/auth/url/remove", data,{successHandler:function(data, textStatus){
-	 		if(data){
-	 			if('1'==data.code) {
-	 				wms.frame.notifySuccess("提示信息", data["msg"]);
-	 				setTimeout('eval($("#queryForm").submit())',10);
-	 			} else {
-	 				wms.frame.notifyError("提示信息",data["msg"]);
-	 			}
-	 		} else {
-	 			wms.frame.notifyError("提示信息",data["msg"]);
-	 		}
-	 	}});
+	 
+	 $("#deleteBtn").on("click",function() {
+		 	$("#deleteForm").submit();
 	 });
 	 
 	//关闭弹窗

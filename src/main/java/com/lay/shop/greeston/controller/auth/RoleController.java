@@ -20,7 +20,6 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -85,8 +84,8 @@ public class RoleController extends BaseController {
         return this.roleManager.findRoleAndPriById(id);
     }
     
-    @RequestMapping(value = {"/del/{id}"})
-    public String delete(@PathVariable("id")Long id) {
+    @RequestMapping(value = {"/del"})
+    public String delete(Long id) {
         this.roleManager.deleteRoleById(id);
         return "redirect:/auth/role/list";
     }
