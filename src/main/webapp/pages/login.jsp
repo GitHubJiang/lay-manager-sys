@@ -21,11 +21,11 @@
 					<form role="form" method="post" action="<%=request.getContextPath()%>/j_spring_security_check">
 						<div class="form-group login-input">
 						<i class="fa fa-user overlay"></i>
-						<input type="text" name="loginName" class="form-control text-input" value="jialei.jiang" placeholder="jialei.jiang">
+						<input type="text" name="loginName" class="form-control text-input"  placeholder="用户名">
 						</div>
 						<div class="form-group login-input">
 						<i class="fa fa-key overlay"></i>
-						<input type="password" name="password" class="form-control text-input" value="123456" placeholder="123456">
+						<input type="password" name="password" class="form-control text-input" placeholder="密码">
 						</div>
 						
 						<div class="row">

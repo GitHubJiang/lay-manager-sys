@@ -20,7 +20,6 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -84,8 +83,8 @@ public class PrivilegeController extends BaseController {
         return this.privilegeManager.findAclAndUrlById(id);
     }
     
-    @RequestMapping(value = {"/pri/del/{id}"})
-    public String deleteById(@PathVariable("id") Long id) {
+    @RequestMapping(value = {"/pri/del"})
+    public String deleteById(Long id) {
         privilegeManager.deletePrivilegeById(id);
         return "redirect:/auth/pri/list";
     }

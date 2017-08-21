@@ -72,17 +72,17 @@ wms.addReadyFunc(function(){
 	/**提交表单数据*/
 	var flag = false;
 	$("#subBtn").on("click",function(){
-		//防止表单重复提交
-		if(flag){
+		//防止表单重复提交		
+		var check = $("#addForm").data("bs.validator").checkValid();
+	    if(!check){
+	    	return "";
+	    }
+	    if(flag){
 			wms.frame.notifyError("不能重复提交");
 			return ;
 		}
 		flag = true;
 		var form = $("#addForm");
-		var check = $("#addForm").data("bs.validator").checkValid();
-	    if(!check){
-	    	return "";
-	    }
 		var data = form.serializeArray();
 		wms.asyncPost(pagebase+"/auth/pri/add", data,{successHandler:function(data, textStatus){
 			if(data){
@@ -105,6 +105,14 @@ wms.addReadyFunc(function(){
 		$("#label-name").val("");		
 		$("#label-acl").val("");
 		$("#label-ouType").val("");
+	});
+	//删除相关
+	$(".state").on("click",function() {
+	 	var id = $(this).attr("data-id");
+	 	$("#acl-id").val(id);
+	 });
+	$("#delete-modal").on("click",function() {
+	 	$("#deleteForm").submit();
 	});
 	
 });

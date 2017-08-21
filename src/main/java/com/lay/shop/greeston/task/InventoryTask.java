@@ -27,13 +27,13 @@ public class InventoryTask {
     private InventoryChangeManager inventoryChangeManager;
     
     /**销售出库定时任务*/
-    @Scheduled(cron = "0 0/2 * * * *")   
+    @Scheduled(cron = "0 0/5 * * * *")   
     public void importOutInvcTask(){
         inventoryChangeManager.importOutInvcTask();
     }
     
     /**入库定时任务*/
-    @Scheduled(cron = "* 0/2 * * * *")   
+    @Scheduled(cron = "* 0/5 * * * *")   
     public void importInInvcTask(){
         inventoryChangeManager.importInInvcTask();
     }

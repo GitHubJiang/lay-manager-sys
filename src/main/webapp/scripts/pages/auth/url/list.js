@@ -16,10 +16,9 @@ $(function(){
 	 	var data = $("#deleteForm").serializeArray();
 	 	wms.asyncPost(pagebase+"/auth/url/remove", data,{successHandler:function(data, textStatus){
 	 		if(data){
-	 			data = JSON.parse(data);
 	 			if('1'==data.code) {
 	 				wms.frame.notifySuccess("提示信息", data["msg"]);
-	 				setTimeout('eval($("#queryForm").submit())',1000);
+	 				setTimeout('eval($("#queryForm").submit())',10);
 	 			} else {
 	 				wms.frame.notifyError("提示信息",data["msg"]);
 	 			}
@@ -41,6 +40,10 @@ $(function(){
 	 
 	 var flag = false;
 	 $("#submitBtn").on("click",function(){
+		 	var check = $("#addForm").data("bs.validator").checkValid();
+		    if(!check){
+		    	return "";
+		    }
 		 	//防止表单重复提交
 			if(flag){
 				wms.frame.notifyError("不能重复提交");
@@ -52,7 +55,6 @@ $(function(){
 
 			wms.asyncPost(pagebase+"/auth/url/update", data,{successHandler:function(data, textStatus){
 				if(data){
-					data = JSON.parse(data);
 		 			if('1'==data.code) {
 						wms.frame.notifySuccess("提示信息", data["msg"]);
 		 				setTimeout('eval($("#queryForm").submit())',10);
