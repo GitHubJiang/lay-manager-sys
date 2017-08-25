@@ -19,6 +19,8 @@ import java.util.List;
 import com.lay.shop.greeston.command.auth.MenuCommand;
 
 public interface MenuManager {
-    
+    /**查询左侧菜单*/
     List<MenuCommand> findLeftMenuItems(Long userId, Long ouId);
+    /**查询所有菜单*/
+    List<MenuCommand> findAllMenuItems();
 }

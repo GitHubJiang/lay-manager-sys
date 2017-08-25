@@ -61,5 +61,6 @@
 <script src="${staticbase }/libs/search-table/search-table.js?${version}"></script>
 <script src="${staticbase }/libs/table-tag-filters/table-tag-filter.js?${version}"></script>
 <script src="${staticbase }/libs/table-tag-filters/tag-filter.js?${version}"></script>
+<script src="${staticbase}/libs/jquery-treetable/jquery.treeTable.min.js?${version}"></script>
 
 

@@ -29,4 +29,5 @@
 <link href="${staticbase }/css/style-responsive.css?${version}" rel="stylesheet" />
 <link href="${staticbase }/libs/prettify/github.css?${version}" rel="stylesheet" />
 <link href="${staticbase }/libs/table-tag-filters/table-tag-filter.css?${version}" rel="stylesheet" />
-
+<link href="${staticbase}/libs/jquery-treetable/themes/default/treeTable.min.css?${version}" rel="stylesheet" />
+<link href="${staticbase}/libs/jquery-treetable/themes/vsStyle/treeTable.min.css?${version}" rel="stylesheet" />

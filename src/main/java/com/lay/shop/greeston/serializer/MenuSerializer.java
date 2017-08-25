@@ -23,6 +23,7 @@ public class MenuSerializer extends JsonSerializer<MenuCommand> {
 		if (value.getIsGroup()) {
 			jgen.writeStringField("icon", "icon-feather");
 			jgen.writeObjectField("submenus", value.getChildList());
+			jgen.writeStringField("url", "");
 		} else {
 			jgen.writeStringField("url", getContextPath() + value.getUrl());
 		}
@@ -41,13 +42,19 @@ public class MenuSerializer extends JsonSerializer<MenuCommand> {
 		}
 		if(value.getAcl() != null) {
 			jgen.writeStringField("acl", value.getAcl());
+		}else{
+		    jgen.writeStringField("acl", "");
 		}
 		if(value.getParentId() != null) {
 			jgen.writeNumberField("parentId", value.getParentId());
+		}else{
+		    jgen.writeNumberField("parentId", null);
 		}
 		if(value.getChildList() != null) {
 			jgen.writeObjectField("nodes", value.getChildList());
 			jgen.writeStringField("icon", "icon-feather");
+		}else{
+		    jgen.writeObjectField("nodes", "");
 		}
 		if(Validator.isNotNullOrEmpty(value.getSortNo())) {
 			jgen.writeNumberField("sortNo", value.getSortNo());

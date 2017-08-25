@@ -31,6 +31,7 @@ public class MenuManagerImpl implements MenuManager {
 
     @Autowired
     private MenuDao menuDao;
+    
     @Override
     public List<MenuCommand> findLeftMenuItems(Long userId, Long ouId) {
         Set<MenuCommand> root = new LinkedHashSet<MenuCommand>();
@@ -123,5 +124,26 @@ public class MenuManagerImpl implements MenuManager {
             }
         }
         return null;
+    }
+
+    
+    /**
+     * 查询所有的菜单
+     * @author Lay
+     * @date 2017年8月25日 下午4:54:19
+     * @return
+     * @see com.lay.shop.greeston.manager.auth.MenuManager#findAllMenuItems()
+     * @since
+     */
+    @Override
+    public List<MenuCommand> findAllMenuItems() {
+
+        Set<MenuCommand> root = new LinkedHashSet<MenuCommand>();
+        List<MenuCommand> allMenu = menuDao.findAllMenuCommandList(); 
+        //组合菜单
+        getMenusJoin(allMenu , root,allMenu);        
+        List<MenuCommand> rootMenu =new ArrayList<MenuCommand>();
+        rootMenu.addAll(root);
+        return rootMenu;
     }
 }
