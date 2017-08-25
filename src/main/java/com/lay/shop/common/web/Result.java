@@ -19,9 +19,9 @@ import com.lay.shop.common.exception.ErrorCodes;
 public class Result<T> {
 
     /**返回状态信息*/
-    private String msg = ErrorCodes.RESULT_OK.getMsg();
+    private String msg = ErrorCodes.SUCCESS.getMsg();
     /**返回状态code*/
-    private String code = ErrorCodes.RESULT_OK.getValue();
+    private String code = ErrorCodes.SUCCESS.getValue();
     /**主体内容*/
     private T data;
     

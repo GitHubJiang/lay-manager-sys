@@ -167,8 +167,11 @@
 	<div class="col-md-8">
 		<div class="toolbar-btn-action">
 			<pri:add acl="ACL_INV_FULL"><a href="#" data-toggle="modal" data-target="#myModalIn" class="btn btn-success btn-import"><i class="fa fa-plus-circle"></i>入库</a></pri:add>	 
+			&nbsp;&nbsp;&nbsp;&nbsp;
 	   		<pri:add acl="ACL_INV_FULL"><a href="#" data-toggle="modal" data-target="#myModalSale" class="btn btn-success btn-import"><i class="fa fa-plus-circle"></i>销售出库</a></pri:add>
+			&nbsp;&nbsp;&nbsp;&nbsp;
 			<pri:add acl="ACL_INV_FULL"><a href="#" data-toggle="modal" data-target=".modal-import" class="btn btn-success btn-import"><i class="fa fa-plus-circle"></i>商品全量库存导入</a></pri:add>
+	   		&nbsp;&nbsp;&nbsp;&nbsp;
 	   		<pri:view acl="ACL_INV_FULL"><a class="btn btn-success" id="exportStoreButton btn-export" onclick="exportInventory()">导出库存</a></pri:view>
 	   	</div>
 	</div>

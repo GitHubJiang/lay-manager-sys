@@ -16,9 +16,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.lay.shop.common.constants.AuthConstants;
 import com.lay.shop.common.exception.ErrorCodes;
 import com.lay.shop.common.web.Result;
+import com.lay.shop.common.web.controller.BaseController;
 import com.lay.shop.greeston.command.auth.MenuCommand;
 import com.lay.shop.greeston.command.auth.UserDetailsCommand;
-import com.lay.shop.greeston.controller.BaseController;
 import com.lay.shop.greeston.manager.auth.MenuManager;
 import com.lay.shop.greeston.manager.auth.OperationUnitManager;
 import com.lay.shop.greeston.model.auth.OperationUnit;
@@ -70,8 +70,8 @@ public class OperationUnitController extends BaseController {
             result.setData(list);
         } catch (Exception e) {
             logger.error(e.getMessage());
-            result.setCode(ErrorCodes.RESULT_NO.getValue());
-            result.setMsg(ErrorCodes.RESULT_NO.getMsg());
+            result.setCode(ErrorCodes.FAILED.getValue());
+            result.setMsg(ErrorCodes.FAILED.getMsg());
         }
         return result;
     }

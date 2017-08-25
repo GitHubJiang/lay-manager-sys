@@ -123,13 +123,14 @@
 												</td>
 												<td id="user_${item.id }">
 													<c:if test="${item.lifecycle == 1 }">
-														正常
-														<a type="button" name="select" class="label label-success"  onclick="changeUserStatus('${item.id}','2')">禁用</a>
+														已启用
+														<a type="button" name="select" class="label label-warning"  onclick="changeUserStatus('${item.id}','2')">禁用</a>
 													</c:if>
 													<c:if test="${item.lifecycle == 2 }">
 														已禁用
 														<a type="button" name="select" class="label label-success"  onclick="changeUserStatus('${item.id}','1')">启用</a>
 													</c:if>
+												</td>
 												</td>
 												<td>
 													

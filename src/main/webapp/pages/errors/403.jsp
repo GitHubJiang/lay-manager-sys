@@ -25,7 +25,7 @@
   <!-- Start right content -->
   <div class="content-page">
     <ol class="breadcrumb">
-      <li class="active"><a href="#">404</a></li>
+      <li class="active"><a href="#">403</a></li>
     </ol>
     <!-- ============================================================== --> 
     <!-- Start Content here --> 
@@ -33,7 +33,7 @@
     <div class="content"> 
       <!--主要内容开始部分 START-->
       <div class="wms-wrpper">
-     	 你访问的页面不存在
+     	 对不起！你没有当前操作的权限
       </div>
 
       <!--主要内容开始部分 END--> 

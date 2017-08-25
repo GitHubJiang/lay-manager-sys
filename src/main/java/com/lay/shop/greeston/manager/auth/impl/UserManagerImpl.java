@@ -157,6 +157,6 @@ public class UserManagerImpl implements UserManager {
 
     public static void main(String[] args){
         BCryptPasswordEncoder pass = new BCryptPasswordEncoder();
-        System.out.println(pass.encode("123456") );
+        System.out.println(pass.encode("12345678") );
     }
 }

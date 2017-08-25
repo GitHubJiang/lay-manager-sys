@@ -11,6 +11,8 @@ public class BusinessException extends RuntimeException {
     private Object[] args;
 
     private String message;
+    
+    private BusinessException linkedException;
 
     public BusinessException(ErrorCodes errorCode) {
         super();
@@ -73,4 +75,13 @@ public class BusinessException extends RuntimeException {
         this.message = message;
     }
 
+    public BusinessException getLinkedException() {
+        return linkedException;
+    }
+
+    public void setLinkedException(BusinessException linkedException) {
+        this.linkedException = linkedException;
+    }
+
+    
 }

@@ -21,7 +21,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.lay.shop.greeston.controller.BaseController;
+import com.lay.shop.common.web.controller.BaseController;
 import com.lay.shop.greeston.manager.auth.OperationUnitTypeManager;
 import com.lay.shop.greeston.model.auth.OperationUnitType;
 @Controller

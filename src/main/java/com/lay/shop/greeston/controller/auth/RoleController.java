@@ -31,8 +31,8 @@ import com.lay.shop.common.persistence.db.dao.Sort;
 import com.lay.shop.common.web.Result;
 import com.lay.shop.common.web.bind.QueryBean;
 import com.lay.shop.common.web.bind.QueryBeanParam;
+import com.lay.shop.common.web.controller.BaseController;
 import com.lay.shop.greeston.command.auth.RoleCommand;
-import com.lay.shop.greeston.controller.BaseController;
 import com.lay.shop.greeston.manager.auth.PrivilegeManager;
 import com.lay.shop.greeston.manager.auth.RoleManager;
 import com.lay.shop.greeston.model.auth.Privilege;
@@ -72,8 +72,8 @@ public class RoleController extends BaseController {
             
         }catch(Exception e){
             logger.error(e.getMessage());
-            result.setCode(ErrorCodes.RESULT_NO.getValue());
-            result.setMsg(ErrorCodes.RESULT_NO.getMsg());
+            result.setCode(ErrorCodes.FAILED.getValue());
+            result.setMsg(ErrorCodes.FAILED.getMsg());
         }        
         return result;
     }
@@ -102,8 +102,8 @@ public class RoleController extends BaseController {
             result.setData(data);
         } catch (Exception e) {
             logger.error(e.getMessage());
-            result.setCode(ErrorCodes.RESULT_NO.getValue());
-            result.setMsg(ErrorCodes.RESULT_NO.getMsg());
+            result.setCode(ErrorCodes.FAILED.getValue());
+            result.setMsg(ErrorCodes.FAILED.getMsg());
         }
         return result;
     }

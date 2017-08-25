@@ -57,51 +57,48 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 		HttpSession session = request.getSession();
 		Cookie orgIdCookie = getCookieByName(request,AuthConstants.COOKIE_NAME_PREFIX + udc.getUser().getId());
 
-		String orgTree = (String) session.getAttribute(AuthConstants.ORG_LIST);
-
-		if (orgTree == null || "".equals(orgTree)) {
-
-			List<OpUnitTreeCommand> otcList = operationUnitManager.findOpUnitTreeByUserId(udc.getUser().getId());//获取组织
-			OpUnitTreeCommand unit =null;
-			if(otcList!=null){
-				unit=otcList.get(otcList.size()-1);//获取默认组织
-				otcList.remove(otcList.size()-1);
-				session.setAttribute(AuthConstants.ORG_LIST, JsonUtil.buildNormalBinder().toJson(otcList));// 初始化组织
-				
-				Long orgid = null;
-				if (orgIdCookie != null) {
-					String org = orgIdCookie.getValue();
-					orgid = Long.parseLong(org);// 获取上次退出时使用的组织ID
-				} else {
-					// 获取默认组织
-					orgid = unit.getId();
-					// 新建COOKIE
-					Cookie cookie = new Cookie(AuthConstants.COOKIE_NAME_PREFIX
-							+ udc.getUser().getId(), orgid.toString());
-					cookie.setMaxAge(7*24*60*60);
-					response.addCookie(cookie);
-				}
-				OperationUnit opunit = operationUnitManager.get(orgid);
-				//判断该组织生命周期是否正常，不正常则选择默认组织生成菜单
-				if(opunit==null || opunit.getLifecycle()!=Constants.LIFECYCLE_NORMAL) {
-					orgid = unit.getId();					
-				}
-				udc.setCurrentOuId(orgid);
-				
-				List<MenuCommand> miList = menuManager.findLeftMenuItems(udc.getUser().getId(), orgid);
-				
-				
-				session.setAttribute(AuthConstants.MENU_ITEMS, miList);// 初始化左菜单
-				
-				OperationUnit ou=new OperationUnit();
-				ou.setId(orgid);
-				List<OperationUnit> oulist=operationUnitManager.findListByParam(ou);
-                if (oulist != null && !oulist.isEmpty()) {
-                    OperationUnit currentOu = oulist.get(0);
-                    udc.setCurrentOu(currentOu);
-                }
-			}
-		}
+		//String orgTree = (String) session.getAttribute(AuthConstants.ORG_LIST);
+		
+		List<OpUnitTreeCommand> otcList = operationUnitManager.findOpUnitTreeByUserId(udc.getUser().getId());//获取组织
+        OpUnitTreeCommand unit =null;
+        if(otcList!=null){
+            unit=otcList.get(otcList.size()-1);//获取默认组织
+            otcList.remove(otcList.size()-1);
+            session.setAttribute(AuthConstants.ORG_LIST, JsonUtil.buildNormalBinder().toJson(otcList));// 初始化组织
+            
+            Long orgid = null;
+            if (orgIdCookie != null) {
+                String org = orgIdCookie.getValue();
+                orgid = Long.parseLong(org);// 获取上次退出时使用的组织ID
+            } else {
+                // 获取默认组织
+                orgid = unit.getId();
+                // 新建COOKIE
+                Cookie cookie = new Cookie(AuthConstants.COOKIE_NAME_PREFIX
+                        + udc.getUser().getId(), orgid.toString());
+                cookie.setMaxAge(7*24*60*60);
+                response.addCookie(cookie);
+            }
+            OperationUnit opunit = operationUnitManager.get(orgid);
+            //判断该组织生命周期是否正常，不正常则选择默认组织生成菜单
+            if(opunit==null || opunit.getLifecycle()!=Constants.LIFECYCLE_NORMAL) {
+                orgid = unit.getId();                   
+            }
+            udc.setCurrentOuId(orgid);
+            
+            List<MenuCommand> miList = menuManager.findLeftMenuItems(udc.getUser().getId(), orgid);
+            
+            
+            session.setAttribute(AuthConstants.MENU_ITEMS, miList);// 初始化左菜单
+            
+            OperationUnit ou=new OperationUnit();
+            ou.setId(orgid);
+            List<OperationUnit> oulist=operationUnitManager.findListByParam(ou);
+            if (oulist != null && !oulist.isEmpty()) {
+                OperationUnit currentOu = oulist.get(0);
+                udc.setCurrentOu(currentOu);
+            }
+        }
 		
 	}
 	

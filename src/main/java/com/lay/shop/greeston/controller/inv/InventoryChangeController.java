@@ -21,8 +21,8 @@ import com.lay.shop.common.utils.PoiUtil;
 import com.lay.shop.common.web.Result;
 import com.lay.shop.common.web.bind.QueryBean;
 import com.lay.shop.common.web.bind.QueryBeanParam;
+import com.lay.shop.common.web.controller.BaseController;
 import com.lay.shop.greeston.command.auth.UserDetailsCommand;
-import com.lay.shop.greeston.controller.BaseController;
 import com.lay.shop.greeston.controller.inv.view.ImportInvcInView;
 import com.lay.shop.greeston.controller.inv.view.ImportInvcOutView;
 import com.lay.shop.greeston.manager.inv.InventoryChangeManager;
@@ -77,8 +77,8 @@ public class InventoryChangeController extends BaseController {
             result.setCode(e.getValue());
             result.setMsg(e.getMessage());
         } catch (Exception e) {
-            result.setCode(ErrorCodes.RESULT_NO.getValue());
-            result.setMsg(ErrorCodes.RESULT_NO.getMsg());
+            result.setCode(ErrorCodes.FAILED.getValue());
+            result.setMsg(ErrorCodes.FAILED.getMsg());
         }
 
         return result;
@@ -101,8 +101,8 @@ public class InventoryChangeController extends BaseController {
             result.setCode(e.getValue());
             result.setMsg(e.getMessage());
         } catch (Exception e) {
-            result.setCode(ErrorCodes.RESULT_NO.getValue());
-            result.setMsg(ErrorCodes.RESULT_NO.getMsg());
+            result.setCode(ErrorCodes.FAILED.getValue());
+            result.setMsg(ErrorCodes.FAILED.getMsg());
         }
 
         return result;

@@ -16,13 +16,20 @@ package com.lay.shop.common.exception;
 
 public enum ErrorCodes {
     
-    RESULT_OK("1", "成功"),
-    RESULT_NO("0", "失败"),
+    SUCCESS("1", "成功"),
+    FAILED("0", "失败"),
     USER_NO("2","用户名或密码错误"),
     USER_DISABLE("3","用户被禁用"),
     LOGIN_NAME_NO("4","登录名不能为空"),
     LOGIN_PASSWORD_NO("5","登录密码不能为空"),
     ORG_CODE_NO("6","组织编码不能为空"),    
+    
+    /**系统异常*/
+    PARAMS_ERROR("900001","参数异常"),
+    DATA_BIND_EXCEPTION("900002", "数据绑定异常"),
+    PARAM_NULL("900003", "参数为空"),
+    EMPTY_LIST("900004", "列表为空"),
+    SYSTEM_ERROR("900005", "系统异常"),
     
     /**文件相关异常 用10打头  异常编码改为6位编码*/
     FILE_IS_EMPTY("100001","文件内容为空");
@@ -43,4 +50,7 @@ public enum ErrorCodes {
         return msg;
     }
     
+    
+    /** 业务异常前缀*/
+    public static final String BUSINESS_EXCEPTION_PREFIX = "business_exception_";
 }

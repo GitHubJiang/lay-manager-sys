@@ -14,7 +14,7 @@
  * THIS SOFTWARE OR ITS DERIVATIVES.
  *
  */
-package com.lay.shop.greeston.controller;
+package com.lay.shop.common.web.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

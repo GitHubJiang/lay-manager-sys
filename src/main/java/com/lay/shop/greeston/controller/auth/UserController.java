@@ -16,9 +16,9 @@ import com.lay.shop.common.persistence.db.dao.Sort;
 import com.lay.shop.common.web.Result;
 import com.lay.shop.common.web.bind.QueryBean;
 import com.lay.shop.common.web.bind.QueryBeanParam;
+import com.lay.shop.common.web.controller.BaseController;
 import com.lay.shop.greeston.command.auth.UserCommand;
 import com.lay.shop.greeston.command.auth.UserRoleCommand;
-import com.lay.shop.greeston.controller.BaseController;
 import com.lay.shop.greeston.manager.auth.UserManager;
 import com.lay.shop.greeston.model.auth.User;
 
@@ -68,8 +68,8 @@ public class UserController extends BaseController {
             Long id = this.userManager.saveUser(command);
             result.setData(id);
         } catch (Exception e) {
-            result.setCode(ErrorCodes.RESULT_NO.getValue());
-            result.setMsg(ErrorCodes.RESULT_NO.getMsg());
+            result.setCode(ErrorCodes.FAILED.getValue());
+            result.setMsg(ErrorCodes.FAILED.getMsg());
         }
         
         return result;
@@ -85,8 +85,8 @@ public class UserController extends BaseController {
             result.setData(command);
         } catch (Exception e) {
             logger.error(e.getMessage());
-            result.setCode(ErrorCodes.RESULT_NO.getValue());
-            result.setMsg(ErrorCodes.RESULT_NO.getMsg());
+            result.setCode(ErrorCodes.FAILED.getValue());
+            result.setMsg(ErrorCodes.FAILED.getMsg());
         }
         return result;
     }
@@ -100,8 +100,8 @@ public class UserController extends BaseController {
             result.setData(null);
         } catch (Exception e) {
             logger.error(e.getMessage());
-            result.setCode(ErrorCodes.RESULT_NO.getValue());
-            result.setMsg(ErrorCodes.RESULT_NO.getMsg());
+            result.setCode(ErrorCodes.FAILED.getValue());
+            result.setMsg(ErrorCodes.FAILED.getMsg());
         }
         return result;
     }
@@ -115,8 +115,8 @@ public class UserController extends BaseController {
             result.setData(null);
         } catch (Exception e) {
             logger.error(e.getMessage());
-            result.setCode(ErrorCodes.RESULT_NO.getValue());
-            result.setMsg(ErrorCodes.RESULT_NO.getMsg());
+            result.setCode(ErrorCodes.FAILED.getValue());
+            result.setMsg(ErrorCodes.FAILED.getMsg());
         }
         return result;
     }
