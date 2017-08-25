@@ -14,4 +14,6 @@ public interface OperationUnitManager {
     List<OperationUnit> findListByParam(OperationUnit ou);
     /**根据组织ID查询组织*/
     OperationUnit get(Long id); 
+    /**查询所有的组织*/
+    List<OpUnitTreeCommand> findAllOpUnitTree();
 }

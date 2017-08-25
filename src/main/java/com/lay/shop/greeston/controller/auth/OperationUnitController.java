@@ -1,5 +1,6 @@
 package com.lay.shop.greeston.controller.auth;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.Cookie;
@@ -9,6 +10,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -16,8 +18,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.lay.shop.common.constants.AuthConstants;
 import com.lay.shop.common.exception.ErrorCodes;
 import com.lay.shop.common.web.Result;
+import com.lay.shop.common.web.bind.QueryBean;
+import com.lay.shop.common.web.bind.QueryBeanParam;
 import com.lay.shop.common.web.controller.BaseController;
 import com.lay.shop.greeston.command.auth.MenuCommand;
+import com.lay.shop.greeston.command.auth.OpUnitTreeCommand;
 import com.lay.shop.greeston.command.auth.UserDetailsCommand;
 import com.lay.shop.greeston.manager.auth.MenuManager;
 import com.lay.shop.greeston.manager.auth.OperationUnitManager;
@@ -74,5 +79,29 @@ public class OperationUnitController extends BaseController {
             result.setMsg(ErrorCodes.FAILED.getMsg());
         }
         return result;
+    }
+    
+    @RequestMapping(value = {"/org/list"})
+    public String list(@QueryBeanParam QueryBean queryBean, Model model) {
+        List<OpUnitTreeCommand> sourceList = this.operationUnitManager.findAllOpUnitTree();
+        List<OpUnitTreeCommand> rootList = new ArrayList<>();
+        this.buildOpUnits(rootList, sourceList);
+        model.addAttribute("list", rootList);
+        return "modules/auth/org/list";
+    }
+    
+    /**因为用JS动态渲染页面没办法控制按钮  所有这里重新构建列表*/
+    private void buildOpUnits(List<OpUnitTreeCommand> rootList, List<OpUnitTreeCommand> sourceList) {
+        for (int i = 0, l = sourceList.size(); i < l; i++) {
+            OpUnitTreeCommand opUnit = sourceList.get(i);
+            if (opUnit.getParentUnitId() == null || (opUnit.getNodes() != null && !opUnit.getNodes().isEmpty())) {
+                rootList.add(opUnit);
+                if (opUnit.getNodes()!=null&&!opUnit.getNodes().isEmpty()) {
+                    buildOpUnits(rootList, opUnit.getNodes());
+                }
+            } else {
+                rootList.add(opUnit);
+            }
+        }
     }
 }

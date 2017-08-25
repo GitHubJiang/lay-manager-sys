@@ -23,6 +23,11 @@ public class OpUnitTreeCommand implements Serializable {
     
     /** 组织类型 */
     private Long ouTypeId;
+    
+    /** 组织类型名称 */
+    private String ouTypeName;
+    /**1.可用;2.已禁用(无效);3.已删除*/
+    private Integer lifecycle;
 
     /** 父组织 */
     private Long parentUnitId;
@@ -84,11 +89,23 @@ public class OpUnitTreeCommand implements Serializable {
 	public void setParentUnitId(Long parentUnitId) {
 		this.parentUnitId = parentUnitId;
 	}
+	
+	
 
-	@Override
-	public String toString() {
-		return "OpUnitTreeCommand [id=" + id + ", code=" + code + ", name="
-				+ name + ", selectable=" + selectable + ", ouTypeId="
-				+ ouTypeId + ", parentUnitId=" + parentUnitId + "]";
-	}
+	public String getOuTypeName() {
+        return ouTypeName;
+    }
+
+    public void setOuTypeName(String ouTypeName) {
+        this.ouTypeName = ouTypeName;
+    }
+
+    public Integer getLifecycle() {
+        return lifecycle;
+    }
+
+    public void setLifecycle(Integer lifecycle) {
+        this.lifecycle = lifecycle;
+    }
+    
 }

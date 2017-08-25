@@ -66,8 +66,8 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
 	</sql>
 	
 	<select id="findAllOpUnitTreeCommand" resultType="com.lay.shop.greeston.command.auth.OpUnitTreeCommand"> 
-		select ou.id as id,ou.code as code,ou.name as name,ou.ou_type_id as ouTypeId,ou.parent_id as parentUnitId
-		from au_operation_unit ou 
+		select ou.id as id,ou.code as code,ou.name as name,ou.ou_type_id as ouTypeId,ou.parent_id as parentUnitId,ot.name as ouTypeName,ou.lifecycle as lifecycle
+		from au_operation_unit ou join au_operation_unit_type ot on ou.ou_type_id = ot.id
 	</select>
 	
 	<select id="findOpUnitTreeByUserId"  resultType="com.lay.shop.greeston.command.auth.OpUnitTreeCommand">

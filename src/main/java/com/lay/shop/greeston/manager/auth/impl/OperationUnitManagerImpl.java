@@ -110,4 +110,20 @@ public class OperationUnitManagerImpl implements OperationUnitManager {
     public OperationUnit get(Long id) {        
         return this.operationUnitDao.findById(id);
     }
+
+    @Override
+    public List<OpUnitTreeCommand> findAllOpUnitTree() {
+        List<OpUnitTreeCommand> orgAllList = this.operationUnitDao.findAllOpUnitTreeCommand();
+        List<OpUnitTreeCommand> rootList = null;
+        if (orgAllList != null) {
+            // 获取根结点
+            rootList = this.findListByParentId(null, orgAllList);
+            if (rootList != null) {
+                for (OpUnitTreeCommand root : rootList) {
+                    assemble(root, orgAllList, orgAllList);// 添加子节点
+                }
+            }
+        }
+        return rootList;
+    }
 }
