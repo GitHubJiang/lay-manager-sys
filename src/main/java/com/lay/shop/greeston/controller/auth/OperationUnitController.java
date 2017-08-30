@@ -2,6 +2,7 @@ package com.lay.shop.greeston.controller.auth;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -103,5 +104,18 @@ public class OperationUnitController extends BaseController {
                 rootList.add(opUnit);
             }
         }
+    }
+    
+    @RequestMapping(value = {"/org/treeData"})
+    @ResponseBody
+    public List<OpUnitTreeCommand> treeData(@QueryBeanParam QueryBean queryBean, Model model) {
+        List<OpUnitTreeCommand> sourceList = this.operationUnitManager.findAllOpUnitTree();
+        return sourceList;
+    }
+    
+    /**跳转到新增页面*/
+    @RequestMapping(value = {"/org/toAdd"})
+    public String toAdd() {  
+        return "modules/auth/org/add";
     }
 }

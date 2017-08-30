@@ -34,7 +34,7 @@
 	<%@include file="/pages/commons/common-top.jsp" %>
   
 	<jsp:include page="/pages/commons/common-left.jsp">
-		<jsp:param name="pagecode" value="ACL_AUTH_MENU" />
+		<jsp:param name="pagecode" value="ACL_AUTH_OPERATION_UNIT" />
 	</jsp:include>
   
 	<!-- Start right content -->
@@ -55,9 +55,9 @@
         	<h3 class="marign-none">组织管理</h3>
         </div>
         <div class="col-md-8">
-            <pri:add acl="ACL_AUTH_PRIVILEGE">
+            <pri:add acl="ACL_AUTH_OPERATION_UNIT">
             	<div class="toolbar-btn-action">	 
-            		<a class="btn btn-success btn-add" data-toggle="modal" data-target="#menuAdd"><i class="fa fa-plus-circle"></i>新增</a>
+            		<a href="${staticbase}/auth/org/toAdd" class="btn btn-success" ><i class="fa fa-plus-circle"></i>新增</a>
             	</div>
             </pri:add>
         </div>
